@@ -9,5 +9,8 @@
   "devDependencies": {
     "ts-node": "^8.10.2",
     "typescript": "^3.9.6"
+  },
+  "dependencies": {
+    "nodejs-shared": "^1.0.0"
   }
 }
