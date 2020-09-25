@@ -1,12 +1,11 @@
 import fs from 'fs';
-const fse = require('fs-extra');
-// import * as fse from 'fs-extra';
 import path from 'path';
 import os from 'os';
 import uniqid from 'uniqid';
 import moment from "moment";
 import glob from 'glob';
 import mimeTypes from 'mime-types';
+const fse = require('fs-extra');
 
 export default class File {
 
@@ -62,6 +61,13 @@ export default class File {
   public static deleteFile(filePath: string): void {
     if (!this.existsFile(filePath)) return;
     fs.unlinkSync(filePath);
+  }
+
+  /**
+   * Delete directory
+   */
+  public static deleteDirectory(dirPath: string): void {
+    fse.removeSync(dirPath);
   }
 
   /**

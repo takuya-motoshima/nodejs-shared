@@ -24,6 +24,10 @@ export default class File {
      */
     static deleteFile(filePath: string): void;
     /**
+     * Delete directory
+     */
+    static deleteDirectory(dirPath: string): void;
+    /**
      * Write a file
      */
     static write(filePath: string, content?: string, options?: {} | undefined, permission?: number): File;

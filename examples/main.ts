@@ -28,7 +28,6 @@ File.write('sample.txt', 'Hello, World!');
 // Read a file as a string
 File.readAsString('sample.txt');// 'Hello, World!'
 
-
 // Read file as JSON object
 File.readAsJson('sample.json');// { name: 'John Smith', age: 30 }
 

@@ -10,6 +10,19 @@ Install.
 npm install nodejs-shared;
 ```
 
+## Changelog
+
+### [1.0.1] - 2020-09-25
+
+- Added delete directory method to file module.
+
+    ```js
+    import { File } from 'nodejs-shared';
+
+    // Delete directory
+    File.deleteDirectory('/sample');
+    ````
+
 ## Usage
 
 ### File
@@ -27,6 +40,9 @@ File.chmod('sample.txt', 0o755);
 
 // Create tmp directory
 File.makeTmpDirectory();// '/tmp/5tbwc2dukck66vyk/'
+
+// Delete directory
+File.deleteDirectory('/sample');
 
 // Make a directory
 File.makeDirectory('test');
