@@ -12,6 +12,12 @@ npm install nodejs-shared;
 
 ## Changelog
 
+### [1.0.2] - 2021-10-12
+
+- Updated dependent package'sharp'from 0.25.4 to 0.29.1.  
+  This update statically links sharp's pre-built libvips binaries, eliminating the need to install Phton.  
+  Click [here](https://sharp.pixelplumbing.com/changelog) for sharp change log.
+
 ### [1.0.1] - 2020-09-25
 
 - Added delete directory method to file module.
