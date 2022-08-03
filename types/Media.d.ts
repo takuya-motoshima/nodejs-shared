@@ -1,32 +1,32 @@
 export default class Media {
     /**
-     * Write base64 to image
+     * Write DataURL to a file.
      */
-    static writeBase64Image(filePath: string, base64: string, permission?: number): Media;
+    static writeDataUrlToFile(filePath: string, dataUrl: string, permission?: number): Media;
     /**
-     * Convert base64 format to blob format
+     * Convert DataURL to blob data in base64 format.
      */
-    static convertBase64ToBlob(base64: string): string;
+    static dataUrlToBase64(dataUrl: string): string;
     /**
-     * Return whether base64 format
+     * Check if the string is in DataURL format.
      */
-    static isBase64(str: string): boolean;
+    static isDataUrl(dataUrl: string): boolean;
     /**
-     * Returns base64 file information
+     * Obtain the MIME type and base64 from the DataURL string.
      */
-    static statBase64(base64: string): {
+    static statDataUrl(dataUrl: string): {
         blob: string;
         type: string;
     } | undefined;
     /**
-     * Returns the dimensions of the image
+     * Obtain the dimensions (pixels) of the image.
      */
     static getDimensions(filePath: string): {
         width: number;
         height: number;
     } | null;
     /**
-     * Crop image
+     * Crop from image.
      */
     static crop(input: string, output: string, { left, top, width, height }: {
         left: number;
@@ -35,25 +35,7 @@ export default class Media {
         height: number;
     }): Promise<void>;
     /**
-     * Resize image
-     *
-     * @example
-     * import { Media } from 'nodejs-shared';
-     *
-     * // Resize to 100px width while keeping the aspect ratio.
-     * Media.resize('sample.jpg', { width: 100 });
-     *
-     * // Resize to 100px height while keeping the aspect ratio.
-     * Media.resize('sample.jpg', { height: 100 });
-     *
-     * // Resize width and height to 100px while maintaining aspect ratio. (Cover)
-     * Media.resize('sample.jpg', { width: 100, height: 100 });
-     *
-     * // Resize width and height to 100px while maintaining aspect ratio. (Contain)
-     * Media.resize('sample.jpg', { width: 100, height: 100, contain: true });
-     *
-     * // If you do not want to change the original image file, set output output destination
-     * Media.resize('sample.jpg', { output: 'resized.jpg', width: 100 });
+     * Resize the image.
      */
     static resize(input: string, { width, height, output, contain }: {
         width?: number;
@@ -61,4 +43,24 @@ export default class Media {
         output?: string;
         contain?: boolean;
     }): Promise<void>;
+    /**
+     * Get the byte size of DataURL.
+     *
+     * x = (n * (3/4)) - y
+     * Where:
+     * 1. x is the size of a file in bytes
+     * 2. n is the length of the Base64 String
+     * 3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.
+     */
+    static dataUrlByteSize(dataUrl: string): number;
+    /**
+     * Get base64 byte size.
+     *
+     * x = (n * (3/4)) - y
+     * Where:
+     * 1. x is the size of a file in bytes
+     * 2. n is the length of the Base64 String
+     * 3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.
+     */
+    static base64ByteSize(base64: string): number;
 }

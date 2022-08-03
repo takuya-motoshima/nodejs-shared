@@ -1,88 +1,97 @@
+/// <reference types="node" />
+import fs from 'fs';
+import glob from 'glob';
 export default class File {
     /**
-     * Returns the file base name
+     * Get file name.
      */
-    static basename(filePath: string): string;
+    static basename(filePath: string, withExtension?: boolean): string;
     /**
-     * Change permissions
+     * Change permissions.
      */
     static chmod(filePath: string, permission?: number): File;
     /**
-     * Make tmp directory
+     * Create a temporary directory.
+     * Returns the path to the temporary directory created.
      */
     static makeTmpDirectory(): string;
     /**
-     * Make a directory
+     * Make a directory.
      */
     static makeDirectory(dirPath: string, permission?: number): File;
     /**
-     * Returns whether the file exists
+     * Check if the file exists.
      */
     static existsFile(filePath: string): boolean;
     /**
-     * Delete file
+     * Delete the file.
      */
     static deleteFile(filePath: string): void;
     /**
-     * Delete directory
+     * Delete the directory.
      */
     static deleteDirectory(dirPath: string): void;
     /**
      * Write a file
      */
-    static write(filePath: string, content?: string, options?: {} | undefined, permission?: number): File;
+    static write(filePath: string, content?: string, options?: fs.BaseEncodingOptions | string | undefined, permission?: number): File;
     /**
-     * Read a file as a string
+     * Get the contents of a file as a string.
      */
     static readAsString(filePath: string): string;
     /**
-     * Read file as JSON object
+     * Obtain the contents of a JSON file as an object.
      */
     static readAsJson(filePath: string): {};
     /**
-     * Read files in base64 format
+     * Obtain the contents of the media file as a DataURL string.
+     */
+    static readAsDataUrl(filePath: string): string;
+    /**
+     * Obtain the contents of a media file as a base64 string.
      */
     static readAsBase64(filePath: string): string;
     /**
-     * Returns file information
+     * Obtain file information.
      */
     static getStat(filePath: string): any;
     /**
-     * Returns the file modification date and time
+     * Get file modification time in unix time.
      */
     static getFilemtime(filePath: string): number;
     /**
-     * Returns the file extension
+     * Get the file extension.
      */
     static getExtension(filePath: string): string | undefined;
     /**
-     * Find file
+     * Find files that match the file name or path pattern.
      *
      * @example
-     * import { File } from 'nodejs-shared';
+     * import {File} from 'nodejs-shared';
      *
      * File.find('**\/*.js');
      * File.find('**\/glo?.js');
      * File.find('**\/*[0-9]*.js');
      *
      * @param  {string} pattern
+     * @param  {glob.IOptions} options
      * @return {string[]}
      */
-    static find(pattern: string, option?: {}): string[];
+    static find(pattern: string, options?: glob.IOptions): string[];
     /**
-     * Returns the tmp directory. However, the tmp directory is not created.
+     * Returns the path to the new temporary directory. The directory is not created.
      */
     static getTmpDirectory(): string;
     /**
-     * Returns the tmp file path. However, tmp file is not created.
+     * Returns the path to the new temporary file. No file is created.
      */
     static getTmpPath(ext?: string): string;
     /**
-     * Return whether file
+     * Check if it is a file.
      */
     static isFile(filePath: string): boolean;
     /**
-     * Rename file or directory name
+     * Rename a file or directory.
      */
-    static rename(fromFilePath: string, toFilePath: string): void;
+    static rename(from: string, to: string): void;
 }

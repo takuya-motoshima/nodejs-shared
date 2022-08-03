@@ -8,16 +8,15 @@ import mimeTypes from 'mime-types';
 const fse = require('fs-extra');
 
 export default class File {
-
   /**
-   * Returns the file base name
+   * Get file name.
    */
-  public static basename(filePath: string): string {
-    return path.basename(filePath, path.extname(filePath));
+  public static basename(filePath: string, withExtension: boolean = false): string {
+    return path.basename(filePath, withExtension ? undefined : path.extname(filePath));
   }
 
   /**
-   * Change permissions
+   * Change permissions.
    */
   public static chmod(filePath: string, permission: number = 0o755): File {
     fs.chmodSync(filePath, permission);
@@ -25,7 +24,8 @@ export default class File {
   }
 
   /**
-   * Make tmp directory
+   * Create a temporary directory.
+   * Returns the path to the temporary directory created.
    */
   public static makeTmpDirectory(): string {
     const tmp = `${this.getTmpDirectory()}/${uniqid()}/`;
@@ -34,17 +34,18 @@ export default class File {
   }
 
   /**
-   * Make a directory
+   * Make a directory.
    */
   public static makeDirectory(dirPath: string, permission: number = 0o755): File {
-    if (this.existsFile(dirPath)) return this;
+    if (this.existsFile(dirPath))
+      return this;
     fse.mkdirsSync(dirPath);
     this.chmod(dirPath, permission);
     return this;
   }
 
   /**
-   * Returns whether the file exists
+   * Check if the file exists.
    */
   public static existsFile(filePath: string): boolean {
     try {
@@ -56,15 +57,16 @@ export default class File {
   }
 
   /**
-   * Delete file
+   * Delete the file.
    */
   public static deleteFile(filePath: string): void {
-    if (!this.existsFile(filePath)) return;
+    if (!this.existsFile(filePath))
+      return;
     fs.unlinkSync(filePath);
   }
 
   /**
-   * Delete directory
+   * Delete the directory.
    */
   public static deleteDirectory(dirPath: string): void {
     fse.removeSync(dirPath);
@@ -73,54 +75,67 @@ export default class File {
   /**
    * Write a file
    */
-  public static write(filePath: string, content: string = '', options: {}|undefined = undefined, permission: number = 0o755): File {
+  public static write(filePath: string, content: string = '', options: fs.BaseEncodingOptions|string|undefined = undefined, permission: number = 0o755): File {
+    // Delete files in the same path.
     this.deleteFile(filePath);
-    const dirName = path.dirname(filePath);
-    this.makeDirectory(dirName);
+
+    // If the directory does not exist, create it.
+    this.makeDirectory(path.dirname(filePath));
+
+    // Write file.
     fs.writeFileSync(filePath, content, options);
+
+    // Change permissions.
     this.chmod(filePath, permission);
     return this;
   }
 
   /**
-   * Read a file as a string
+   * Get the contents of a file as a string.
    */
   public static readAsString(filePath: string): string {
     return fs.readFileSync(filePath).toString();
   }
 
   /**
-   * Read file as JSON object
+   * Obtain the contents of a JSON file as an object.
    */
   public static readAsJson(filePath: string): {} {
     return JSON.parse(this.readAsString(filePath));
   }
 
   /**
-   * Read files in base64 format
+   * Obtain the contents of the media file as a DataURL string.
    */
-  public static readAsBase64(filePath: string): string {
-    const content =  fs.readFileSync(filePath, { encoding: 'base64' });
+  public static readAsDataUrl(filePath: string): string {
+    const content =  fs.readFileSync(filePath, {encoding: 'base64'});
     const mime = mimeTypes.lookup(filePath);
     return `data:${mime};base64,${content}`;
   }
 
   /**
-   * Returns file information
+   * Obtain the contents of a media file as a base64 string.
+   */
+  public static readAsBase64(filePath: string): string {
+    return fs.readFileSync(filePath, {encoding: 'base64'});
+  }
+
+  /**
+   * Obtain file information.
    */
   public static getStat(filePath: string): any {
     return fs.statSync(filePath);
   }
 
   /**
-   * Returns the file modification date and time
+   * Get file modification time in unix time.
    */
   public static getFilemtime(filePath: string): number {
     return moment(this.getStat(filePath).mtime).unix();
   }
 
   /**
-   * Returns the file extension
+   * Get the file extension.
    */
   public static getExtension(filePath: string): string|undefined {
     const ext = path.extname(filePath);
@@ -128,40 +143,42 @@ export default class File {
   }
 
   /**
-   * Find file
+   * Find files that match the file name or path pattern.
    *
    * @example
-   * import { File } from 'nodejs-shared';
+   * import {File} from 'nodejs-shared';
    * 
    * File.find('**\/*.js');
    * File.find('**\/glo?.js');
    * File.find('**\/*[0-9]*.js');
    *
    * @param  {string} pattern
+   * @param  {glob.IOptions} options
    * @return {string[]}
    */
-  public static find(pattern: string, option: {} = {}) {
-    return glob.sync(pattern, { nodir: false, ...option });
+  public static find(pattern: string, options: glob.IOptions = {}) {
+    return glob.sync(pattern, {nodir: false, ...options});
   }
 
   /**
-   * Returns the tmp directory. However, the tmp directory is not created.
+   * Returns the path to the new temporary directory. The directory is not created.
    */
   public static getTmpDirectory(): string {
     return os.tmpdir();
   }
 
   /**
-   * Returns the tmp file path. However, tmp file is not created.
+   * Returns the path to the new temporary file. No file is created.
    */
   public static getTmpPath(ext?: string): string {
     let filePath = `${this.getTmpDirectory()}/${uniqid()}`;
-    if (ext) filePath += `.${ext}`;
+    if (ext)
+      filePath += `.${ext}`;
     return filePath;
   }
 
   /**
-   * Return whether file
+   * Check if it is a file.
    */
   public static isFile(filePath: string): boolean {
     try {
@@ -173,9 +190,9 @@ export default class File {
   }
 
   /**
-   * Rename file or directory name
+   * Rename a file or directory.
    */
-  public static rename(fromFilePath: string, toFilePath: string): void {
-    fs.renameSync(fromFilePath, toFilePath);
+  public static rename(from: string, to: string): void {
+    fs.renameSync(from, to);
   }
 }

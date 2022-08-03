@@ -1,6 +1,9 @@
+/**
+ * Interface for obtaining browser-related information.
+ */
 export default class {
     /**
-     * Returns browser information
+     * Analyze browser information from UA.
      */
     static parse(ua: string): {
         platform: string;

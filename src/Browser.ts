@@ -1,11 +1,13 @@
 import Bowser from 'bowser';
 
+/**
+ * Interface for obtaining browser-related information.
+ */
 export default class {
-
   /**
-   * Returns browser information
+   * Analyze browser information from UA.
    */
-  public static parse(ua: string): { platform: string,　osName: string,　osVersion: number|null,　browserName: string} {
+  public static parse(ua: string): {platform: string, osName: string, osVersion: number|null, browserName: string} {
     const parser = Bowser.getParser(ua);
     const platform = parser.getPlatformType();
     const browserName = parser.getBrowserName();
@@ -17,7 +19,8 @@ export default class {
       osVersion = matched[2];
     }
     osVersion = <number>parseFloat(osVersion);
-    if(isNaN(osVersion)) osVersion = null;
+    if(isNaN(osVersion))
+      osVersion = null;
     return {
       platform,
       osName,
