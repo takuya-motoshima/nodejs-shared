@@ -24,7 +24,9 @@
   "files": [
     "dist/*.js",
     "types/*.d.ts",
-    "package.json"
+    "package.json",
+    "CHANGELOG.md",
+    "README.md"
   ],
   "keywords": [
     "node",
