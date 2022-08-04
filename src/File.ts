@@ -154,7 +154,7 @@ export default class File {
    *
    * @param  {string} pattern
    * @param  {glob.IOptions} options
-   * @return {string[]}
+   * @returns {string[]}
    */
   public static find(pattern: string, options: glob.IOptions = {}) {
     return glob.sync(pattern, {nodir: false, ...options});

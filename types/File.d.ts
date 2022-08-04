@@ -75,7 +75,7 @@ export default class File {
      *
      * @param  {string} pattern
      * @param  {glob.IOptions} options
-     * @return {string[]}
+     * @returns {string[]}
      */
     static find(pattern: string, options?: glob.IOptions): string[];
     /**
