@@ -26,7 +26,7 @@ All notable changes to this project will be documented in this file.
     * Media.isBase64 => Media.isDataUrl
     * Media.convertBase64ToBlob => Media.dataUrlToBase64
     * Media.statBase64 => Media.statDataUrl
-    * Media.readAsBase64 => Media.readAsDataUrl
+    * File.readAsBase64 => File.readAsDataUrl
 
 ## [1.0.2] - 2021-10-12
 ### Fixed
