@@ -44,7 +44,7 @@ export default class File {
      */
     static readAsJson(filePath: string): {};
     /**
-     * Obtain the contents of the media file as a DataURL string.
+     * Obtain the contents of the media file as a data URL string.
      */
     static readAsDataUrl(filePath: string): string;
     /**
@@ -85,7 +85,7 @@ export default class File {
     /**
      * Returns the path to the new temporary file. No file is created.
      */
-    static getTmpPath(ext?: string): string;
+    static getTmpPath(extension?: string): string;
     /**
      * Check if it is a file.
      */

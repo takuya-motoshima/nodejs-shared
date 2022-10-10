@@ -15,14 +15,20 @@
   <!--begin::Global Stylesheets Bundle(used by all pages)-->
   <link href="theme/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
   <link href="theme/css/style.bundle.css" rel="stylesheet" type="text/css" />
-  <!--end::Global Stylesheets Bundle-->
+  <!--end::Global Style
+  
+  sheets Bundle-->
   <!--begin::Custom CSS(used by this page)-->
-  <!-- <style>
-    :root {
-      --kt-code-color: #fff;
-      --kt-scrolltop-opacity-on: 1;
+  <style>
+    code:not([class*=language-]) {
+      color: #fff;
+      margin: 0;
+      background-color: transparent;
+      box-shadow: none;
+      padding: 0;
+      border-radius: 0;
     }
-  </style> -->
+  </style>
   <!--end::Custom CSS-->
 </head>
 <!--end::Head-->
@@ -75,7 +81,7 @@
               <!--begin::Title-->
               <h1 class="page-heading d-flex text-dark fw-bold fs-3 justify-content-center align-items-baseline my-0">
               <!-- <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"> -->
-                DevDocs<a href="#changelog" class="badge fw-semibold fs-7 px-2 ms-2 bg-body text-dark text-hover-primary shadow-sm">v1.0.3</a>
+                DevDocs<a href="#changelog" class="badge fw-semibold fs-7 px-2 ms-2 bg-body text-dark text-hover-primary shadow-sm">v1.0.4</a>
               </h1>
               <!--end::Title-->
             </div>
@@ -705,8 +711,8 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.basename('/tmp/sample.txt');// =>sample
-    File.basename('/tmp/sample.txt', true);// =>sample.txt</code>
+File.basename('/tmp/sample.txt');// =>sample
+File.basename('/tmp/sample.txt', true);// =>sample.txt</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -728,7 +734,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.chmod(&#039;sample.txt&#039;, 0o755);</code>
+File.chmod(&#039;sample.txt&#039;, 0o755);</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -751,7 +757,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.makeTmpDirectory();// =&gt;/tmp/3msbsb19l6c0a8pi/</code>
+File.makeTmpDirectory();// =&gt;/tmp/3msbsb19l6c0a8pi/</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -773,7 +779,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.makeDirectory(&#039;test&#039;);</code>
+File.makeDirectory(&#039;test&#039;);</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -795,7 +801,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.existsFile(&#039;sample.txt&#039;);// =&gt;true</code>
+File.existsFile(&#039;sample.txt&#039;);// =&gt;true</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -817,7 +823,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.deleteFile(&#039;sample.txt&#039;);</code>
+File.deleteFile(&#039;sample.txt&#039;);</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -839,7 +845,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.deleteDirectory(&#039;sample&#039;);</code>
+File.deleteDirectory(&#039;sample&#039;);</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -861,7 +867,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.write(&#039;sample.txt&#039;, &#039;Write Test&#039;);</code>
+File.write(&#039;sample.txt&#039;, &#039;Write Test&#039;);</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -883,7 +889,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.readAsString(&#039;sample.txt&#039;);</code>
+File.readAsString(&#039;sample.txt&#039;);</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -905,7 +911,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.readAsJson(&#039;sample.json&#039;);</code>
+File.readAsJson(&#039;sample.json&#039;);</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -918,7 +924,7 @@
                                   <code>readAsDataUrl(filePath: string): string</code>
                                 </td>
                                 <td>
-                                  Obtain the contents of the media file as a DataURL string.
+                                  Obtain the contents of the media file as a data URL string.
                                   <div class="pt-3">
                                     <!--begin::Highlight-->
                                     <div class="highlight">
@@ -927,8 +933,8 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.readAsDataUrl(&#039;sample.jpg&#039;);
-    // =&gt;data:image/jpeg;base64,/9j/4AA</code>
+File.readAsDataUrl(&#039;sample.jpg&#039;);
+// =&gt;data:image/jpeg;base64,/9j/4AA</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -954,8 +960,8 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.readAsBase64(&#039;sample.jpg&#039;);
-    // =&gt;/9j/4AAQSkZJRgABAQEBLAEsAAD/4Q</code>
+File.readAsBase64(&#039;sample.jpg&#039;);
+// =&gt;/9j/4AAQSkZJRgABAQEBLAEsAAD/4Q</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -987,27 +993,27 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.getStat(&#039;sample.txt&#039;);
-    // =&gt; {
-    //   dev: 66305,
-    //   mode: 33261,
-    //   nlink: 1,
-    //   uid: 1000,
-    //   gid: 1000,
-    //   rdev: 0,
-    //   blksize: 4096,
-    //   ino: 71552737,
-    //   size: 19,
-    //   blocks: 8,
-    //   atimeMs: 1659435841498.44,
-    //   mtimeMs: 1659435841502.4402,
-    //   ctimeMs: 1659435841502.4402,
-    //   birthtimeMs: 1659435841498.44,
-    //   atime: 2022-08-02T10:24:01.498Z,
-    //   mtime: 2022-08-02T10:24:01.502Z,
-    //   ctime: 2022-08-02T10:24:01.502Z,
-    //   birthtime: 2022-08-02T10:24:01.498Z
-    // }</code>
+File.getStat(&#039;sample.txt&#039;);
+// =&gt; {
+//   dev: 66305,
+//   mode: 33261,
+//   nlink: 1,
+//   uid: 1000,
+//   gid: 1000,
+//   rdev: 0,
+//   blksize: 4096,
+//   ino: 71552737,
+//   size: 19,
+//   blocks: 8,
+//   atimeMs: 1659435841498.44,
+//   mtimeMs: 1659435841502.4402,
+//   ctimeMs: 1659435841502.4402,
+//   birthtimeMs: 1659435841498.44,
+//   atime: 2022-08-02T10:24:01.498Z,
+//   mtime: 2022-08-02T10:24:01.502Z,
+//   ctime: 2022-08-02T10:24:01.502Z,
+//   birthtime: 2022-08-02T10:24:01.498Z
+// }</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1029,7 +1035,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.getFilemtime(&#039;sample.txt&#039;);// =&gt;1659435841</code>
+File.getFilemtime(&#039;sample.txt&#039;);// =&gt;1659435841</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1051,7 +1057,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.getExtension(&#039;sample.txt&#039;);// =&gt;txt</code>
+File.getExtension(&#039;sample.txt&#039;);// =&gt;txt</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1073,13 +1079,13 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.find(&#039;sample/**/*.txt&#039;);
-    // -&gt; [
-    //   &#039;sample/Administrator/Database/Vivian.txt&#039;,
-    //   &#039;sample/Architect/Harley.txt&#039;,
-    //   &#039;sample/Architect/Taylor.txt&#039;,
-    //   &#039;sample/Engineer/Robin.txt&#039;
-    // ]</code>
+File.find(&#039;sample/**/*.txt&#039;);
+// -&gt; [
+//   &#039;sample/Administrator/Database/Vivian.txt&#039;,
+//   &#039;sample/Architect/Harley.txt&#039;,
+//   &#039;sample/Architect/Taylor.txt&#039;,
+//   &#039;sample/Engineer/Robin.txt&#039;
+// ]</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1101,7 +1107,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.getTmpDirectory();// =&gt;/tmp</code>
+File.getTmpDirectory();// =&gt;/tmp</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1111,7 +1117,7 @@
                               </tr>
                               <tr>
                                 <td class="mw-250px">
-                                  <code>getTmpPath(ext?: string): string</code>
+                                  <code>getTmpPath(extension?: string): string</code>
                                 </td>
                                 <td>
                                   Returns the path to the new temporary file. No file is created.
@@ -1123,10 +1129,10 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.getTmpPath();// =&gt;/tmp/5tbwc2gskck789pt
+File.getTmpPath();// =&gt;/tmp/5tbwc2gskck789pt
 
-    // If you want to specify an extension.
-    File.getTmpPath(&#039;txt&#039;);// =&gt;/tmp/5tbwc2gskck78srx.txt</code>
+// If you want to specify an extension.
+File.getTmpPath(&#039;txt&#039;);// =&gt;/tmp/5tbwc2gskck78srx.txt</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1148,7 +1154,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.isFile(&#039;sample.txt&#039;);// =&gt;true</code>
+File.isFile(&#039;sample.txt&#039;);// =&gt;true</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1170,7 +1176,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-    File.rename(&#039;old.txt&#039;, &#039;new.txt&#039;);</code>
+File.rename(&#039;old.txt&#039;, &#039;new.txt&#039;);</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1235,10 +1241,12 @@
                             <tbody>
                               <tr>
                                 <td class="mw-250px">
-                                  <code>writeDataUrlToFile(filePath: string, base64: string, permission: number = 0o755): Media</code>
+                                  <code>writeDataUrlToFile(filePath: string, base64: string, permission: number = 0o755): string</code>
                                 </td>
                                 <td>
-                                  Write DataURL to a file.
+                                  Write data URL to a file.<br>
+                                  If the file path does not have an extension, the extension determined from DataURL is automatically assigned to the file path.<br>
+                                  This method returns the path to the written file.
                                   <div class="pt-3">
                                     <!--begin::Highlight-->
                                     <div class="highlight">
@@ -1247,7 +1255,13 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require('nodejs-shared');
 
-    writeDataUrlToFile(filePath: string, dataUrl: string, permission: number = 0o755): Media</code>
+// Writes DataURL to a file with the specified extension.
+Media.writeDataUrlToFile(&#039;test1.png&#039;, &#039;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2NgYGD4DwABBAEAcCBlCwAAAABJRU5ErkJggg==&#039;);
+
+// Writes DataURL to files with extensions detected automatically.
+const writtenFilePath = Media.writeDataUrlToFile(&#039;test2&#039;, &#039;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2NgYGD4DwABBAEAcCBlCwAAAABJRU5ErkJggg==&#039;);
+console.log(writtenFilePath);
+// =&gt;test2.png</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1260,7 +1274,7 @@
                                   <code>dataUrlToBase64(dataUrl: string): string</code>
                                 </td>
                                 <td>
-                                  Convert DataURL to blob data in base64 format.
+                                  Convert data URL to blob data in base64 format.
                                   <div class="pt-3">
                                     <!--begin::Highlight-->
                                     <div class="highlight">
@@ -1269,7 +1283,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require('nodejs-shared');
 
-    Media.dataUrlToBase64(&#039;data:image/jpeg;base64,/9j/4AAQSk...&#039;);// /9j/4AAQSk...</code>
+Media.dataUrlToBase64(&#039;data:image/jpeg;base64,abc...&#039;);// /9j/4AAQSk...</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1282,7 +1296,7 @@
                                   <code>isDataUrl(dataUrl: string): boolean</code>
                                 </td>
                                 <td>
-                                  Check if the string is in DataURL format.
+                                  Check if the string is in data URL format.
                                   <div class="pt-3">
                                     <!--begin::Highlight-->
                                     <div class="highlight">
@@ -1291,7 +1305,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require('nodejs-shared');
 
-    Media.isDataUrl(&#039;data:image/jpeg;base64,/9j/4AAQSk...&#039;);// =&gt;true</code>
+Media.isDataUrl(&#039;data:image/jpeg;base64,abc...&#039;);// =&gt;true</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1304,7 +1318,7 @@
                                   <code>statDataUrl(dataUrl: string): {blob: string, type: string} | undefined</code>
                                 </td>
                                 <td>
-                                  Obtain the MIME type and base64 from the DataURL string.
+                                  Obtain the MIME type and base64 from the data URL string.
                                   <div class="pt-3">
                                     <!--begin::Highlight-->
                                     <div class="highlight">
@@ -1313,11 +1327,11 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require('nodejs-shared');
 
-    Media.statDataUrl(&#039;data:image/jpeg;base64,/9j/4AAQSk...&#039;);
-    // =&gt;{
-    //   blob: &#039;/9j/4AAQSk...&#039;,
-    //   type: &#039;jpeg&#039;
-    // }</code>
+Media.statDataUrl(&#039;data:image/jpeg;base64,abc...&#039;);
+// =&gt;{
+//   blob: &#039;/9j/4AAQSk...&#039;,
+//   type: &#039;jpeg&#039;
+// }</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1339,7 +1353,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require('nodejs-shared');
 
-    Media.getDimensions(&#039;sample.jpg&#039;);// =&gt;{width: 960, height: 640}</code>
+Media.getDimensions(&#039;sample.jpg&#039;);// =&gt;{width: 960, height: 640}</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1361,7 +1375,7 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require('nodejs-shared');
 
-    Media.crop(&#039;in.jpg&#039;, &#039;out.jpg&#039;, {left: 480, top: 220, width: 200, height: 200});</code>
+Media.crop(&#039;in.jpg&#039;, &#039;out.jpg&#039;, {left: 480, top: 220, width: 200, height: 200});</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1383,20 +1397,20 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require('nodejs-shared');
 
-    // Resize to 100px wide without changing the aspect ratio.
-    Media.resize(&#039;in.jpg&#039;, {width: 100});
+// Resize to 100px wide without changing the aspect ratio.
+Media.resize(&#039;in.jpg&#039;, {width: 100});
 
-    // Resize to 100px in height without changing the aspect ratio.
-    Media.resize(&#039;in.jpg&#039;, {height: 100});
+// Resize to 100px in height without changing the aspect ratio.
+Media.resize(&#039;in.jpg&#039;, {height: 100});
 
-    // Resize the width and height to 100px without changing the aspect ratio.
-    Media.resize(&#039;in.jpg&#039;, {width: 100, height: 100});
+// Resize the width and height to 100px without changing the aspect ratio.
+Media.resize(&#039;in.jpg&#039;, {width: 100, height: 100});
 
-    // Resizes the width and height to 100px without changing the aspect ratio. (Container)
-    Media.resize(&#039;in.jpg&#039;, {width: 100, height: 100, contain: true});
+// Resizes the width and height to 100px without changing the aspect ratio. (Container)
+Media.resize(&#039;in.jpg&#039;, {width: 100, height: 100, contain: true});
 
-    // Use the output option to write the results to a separate file.
-    Media.resize(&#039;in.jpg&#039;, {output: &#039;out.jpg&#039;, width: 100});</code>
+// Use the output option to write the results to a separate file.
+Media.resize(&#039;in.jpg&#039;, {output: &#039;out.jpg&#039;, width: 100});</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1409,7 +1423,7 @@
                                   <code>dataUrlByteSize(dataUrl: string): number</code>
                                 </td>
                                 <td>
-                                  Get the byte size of DataURL.
+                                  Get the byte size of data URL.
                                   <div class="pt-3">
                                     <!--begin::Highlight-->
                                     <div class="highlight">
@@ -1418,13 +1432,13 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File, Media} = require('nodejs-shared');
 
-    const dataUrl = File.readAsDataUrl(&#039;sample.jpg&#039;);
-    Media.dataUrlByteSize(dataUrl);
-    // =&gt;30141
+const dataUrl = File.readAsDataUrl(&#039;sample.jpg&#039;);
+Media.dataUrlByteSize(dataUrl);
+// =&gt;30141
 
-    // Check the actual file size.
-    // $ du -b sample.jpg
-    // 30141   sample.jpg</code>
+// Check the actual file size.
+// $ du -b sample.jpg
+// 30141   sample.jpg</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1445,13 +1459,62 @@
                                       <div class="highlight-code">
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File, Media} = require('nodejs-shared');
-    const base64 = File.readAsBase64(&#039;sample.jpg&#039;);
-    Media.base64ByteSize(base64);
-    // =&gt;30141
+const base64 = File.readAsBase64(&#039;sample.jpg&#039;);
+Media.base64ByteSize(base64);
+// =&gt;30141
 
-    // Check the actual file size.
-    // $ du -b sample.jpg
-    // 30141   sample.jpg</code>
+// Check the actual file size.
+// $ du -b sample.jpg
+// 30141   sample.jpg</code>
+                                        </pre>
+                                      </div>
+                                    </div>
+                                    <!--end::Highlight-->
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="mw-250px">
+                                  <code>getMimeTypeFromDataUrl(dataUrl: string): string|null</code>
+                                </td>
+                                <td>
+                                  Get Mime type from data URL.
+                                  <div class="pt-3">
+                                    <!--begin::Highlight-->
+                                    <div class="highlight">
+                                      <button class="highlight-copy btn" data-bs-toggle="tooltip" title="Copy code">copy</button>
+                                      <div class="highlight-code">
+                                        <pre class="language-javascript">
+                                          <code class="language-javascript">const {Media} = require(&#039;nodejs-shared&#039;);
+
+Media.getMimeTypeFromDataUrl(&#039;data:image/png;base64,abc...&#039;);
+// =&gt;image/png</code>
+                                        </pre>
+                                      </div>
+                                    </div>
+                                    <!--end::Highlight-->
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="mw-250px">
+                                  <code>getExtensionFromDataUrl(dataUrl: string): string|null</code>
+                                </td>
+                                <td>
+                                  Get extension from data URL.
+                                  <div class="pt-3">
+                                    <!--begin::Highlight-->
+                                    <div class="highlight">
+                                      <button class="highlight-copy btn" data-bs-toggle="tooltip" title="Copy code">copy</button>
+                                      <div class="highlight-code">
+                                        <pre class="language-javascript">
+                                          <code class="language-javascript">const {Media} = require(&#039;nodejs-shared&#039;);
+
+Media.getExtensionFromDataUrl(&#039;data:image/png;base64,abc...&#039;);
+// =&gt;png
+
+Media.getExtensionFromDataUrl(&#039;data:image/jpeg;base64,abc...&#039;);
+// =&gt;jpg</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1528,13 +1591,13 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Reflect} = require('nodejs-shared');
 
-    class Sample {
-      static func1 () {}
-      static func2 () {}
-      func3 () {}
-    }
-    Reflect.getStaticMethods(Sample);
-    // =&gt;Set(2) { &#039;func1&#039;, &#039;func2&#039; }</code>
+class Sample {
+  static func1 () {}
+  static func2 () {}
+  func3 () {}
+}
+Reflect.getStaticMethods(Sample);
+// =&gt;Set(2) { &#039;func1&#039;, &#039;func2&#039; }</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1556,13 +1619,13 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Reflect} = require('nodejs-shared');
 
-    class Sample {
-      static func1 () {}
-      static func2 () {}
-      func3 () {}
-    }
-    Reflect.getMethods(new Sample);
-    // =&gt;Set(2) { &#039;constructor&#039;, &#039;func3&#039; }</code>
+class Sample {
+  static func1 () {}
+  static func2 () {}
+  func3 () {}
+}
+Reflect.getMethods(new Sample);
+// =&gt;Set(2) { &#039;constructor&#039;, &#039;func3&#039; }</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1639,15 +1702,15 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Regex} = require('nodejs-shared');
 
-    // Escape special characters in RegExp.
-    Regex.escape(&#039;//sample.com/?tag=typescript&#039;);// =&gt;//example\\.jp/\\?tag=typescript
+// Escape special characters in RegExp.
+Regex.escape(&#039;//sample.com/?tag=typescript&#039;);// =&gt;//example\\.jp/\\?tag=typescript
 
-    // When using your own wildcard, you can follow the metacharacters with the regular expression wildcard.
-    const strRegex = Regex.escape(&#039;//sample.com?tag=*&#039;, { &#039;*&#039;: &#039;.*?&#039; });
-    const regex = new RegExp(strRegex);
-    regex.test(&#039;//sample.com?tag=typescript&#039;);// =&gt;true
-    regex.test(&#039;//sample.com?tag=javascript&#039;);// =&gt;true
-    regex.test(&#039;//sample.com?name=javascript&#039;);// =&gt;false</code>
+// When using your own wildcard, you can follow the metacharacters with the regular expression wildcard.
+const strRegex = Regex.escape(&#039;//sample.com?tag=*&#039;, { &#039;*&#039;: &#039;.*?&#039; });
+const regex = new RegExp(strRegex);
+regex.test(&#039;//sample.com?tag=typescript&#039;);// =&gt;true
+regex.test(&#039;//sample.com?tag=javascript&#039;);// =&gt;true
+regex.test(&#039;//sample.com?name=javascript&#039;);// =&gt;false</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1724,29 +1787,29 @@
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Browser} = require('nodejs-shared');
 
-    Browser.parse(&#039;Mozilla/5.0 (Linux; Android 9; Lenovo TB-8505F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.101 Mobile Safari/537.36&#039;);
-    // =&gt;{
-    //   platform: &#039;mobile&#039;,
-    //   osName: &#039;Android&#039;,
-    //   osVersion: 9,
-    //   browserName: &#039;Chrome&#039;
-    // }
+Browser.parse(&#039;Mozilla/5.0 (Linux; Android 9; Lenovo TB-8505F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.101 Mobile Safari/537.36&#039;);
+// =&gt;{
+//   platform: &#039;mobile&#039;,
+//   osName: &#039;Android&#039;,
+//   osVersion: 9,
+//   browserName: &#039;Chrome&#039;
+// }
 
-    Browser.parse(&#039;Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148&#039;);
-    // =&gt;{
-    //   platform: &#039;tablet&#039;,
-    //   osName: &#039;iOS&#039;,
-    //   osVersion: 12.2,
-    //   browserName: &#039;Safari&#039;
-    // }
+Browser.parse(&#039;Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148&#039;);
+// =&gt;{
+//   platform: &#039;tablet&#039;,
+//   osName: &#039;iOS&#039;,
+//   osVersion: 12.2,
+//   browserName: &#039;Safari&#039;
+// }
 
-    Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; GTB7.3; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30618; .NET4.0C)&#039;);
-    // =&gt;{
-    //   platform: &#039;desktop&#039;,
-    //   osName: &#039;Windows NT&#039;,
-    //   osVersion: 6,
-    //   browserName: &#039;Internet Explorer&#039;
-    // }</code>
+Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; GTB7.3; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.30729; .NET CLR 3.0.30618; .NET4.0C)&#039;);
+// =&gt;{
+//   platform: &#039;desktop&#039;,
+//   osName: &#039;Windows NT&#039;,
+//   osVersion: 6,
+//   browserName: &#039;Internet Explorer&#039;
+// }</code>
                                         </pre>
                                       </div>
                                     </div>

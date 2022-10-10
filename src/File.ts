@@ -105,7 +105,7 @@ export default class File {
   }
 
   /**
-   * Obtain the contents of the media file as a DataURL string.
+   * Obtain the contents of the media file as a data URL string.
    */
   public static readAsDataUrl(filePath: string): string {
     const content =  fs.readFileSync(filePath, {encoding: 'base64'});
@@ -138,8 +138,8 @@ export default class File {
    * Get the file extension.
    */
   public static getExtension(filePath: string): string|undefined {
-    const ext = path.extname(filePath);
-    return ext ? ext.split('.').pop() : undefined;
+    const extension = path.extname(filePath);
+    return extension ? extension.split('.').pop() : undefined;
   }
 
   /**
@@ -170,10 +170,10 @@ export default class File {
   /**
    * Returns the path to the new temporary file. No file is created.
    */
-  public static getTmpPath(ext?: string): string {
+  public static getTmpPath(extension?: string): string {
     let filePath = `${this.getTmpDirectory()}/${uniqid()}`;
-    if (ext)
-      filePath += `.${ext}`;
+    if (extension)
+      filePath += `.${extension}`;
     return filePath;
   }
 

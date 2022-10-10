@@ -1,18 +1,18 @@
 export default class Media {
     /**
-     * Write DataURL to a file.
+     * Write data URL to a file.
      */
     static writeDataUrlToFile(filePath: string, dataUrl: string, permission?: number): Media;
     /**
-     * Convert DataURL to blob data in base64 format.
+     * Convert data URL to blob data in base64 format.
      */
     static dataUrlToBase64(dataUrl: string): string;
     /**
-     * Check if the string is in DataURL format.
+     * Check if the string is in data URL format.
      */
     static isDataUrl(dataUrl: string): boolean;
     /**
-     * Obtain the MIME type and base64 from the DataURL string.
+     * Obtain the MIME type and base64 from the data URL string.
      */
     static statDataUrl(dataUrl: string): {
         blob: string;
@@ -44,7 +44,7 @@ export default class Media {
         contain?: boolean;
     }): Promise<void>;
     /**
-     * Get the byte size of DataURL.
+     * Get the byte size of data URL.
      *
      * x = (n * (3/4)) - y
      * Where:
@@ -63,4 +63,12 @@ export default class Media {
      * 3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.
      */
     static base64ByteSize(base64: string): number;
+    /**
+     * Get Mime type from data URL.
+     */
+    static getMimeTypeFromDataUrl(dataUrl: string): string | null;
+    /**
+     * Get extension from data URL.
+     */
+    static getExtensionFromDataUrl(dataUrl: string): string | null;
 }

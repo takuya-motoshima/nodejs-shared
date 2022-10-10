@@ -4,33 +4,40 @@ const sharp = require('sharp');
 
 export default class Media {
   /**
-   * Write DataURL to a file.
+   * Write data URL to a file.
+   * If the file path does not have an extension, the extension determined from DataURL is automatically assigned to the file path.
+   * This method returns the path to the written file.
    */
   public static writeDataUrlToFile(filePath: string, dataUrl: string, permission: number = 0o755): Media {
     if (!this.isDataUrl(dataUrl))
-      throw new TypeError('Content is not in DataURL format');
+      throw new TypeError('Content is not in data URL format');
+    const hasExtension = filePath.lastIndexOf('.') !== -1;
+    if (!hasExtension) {
+      const extension = this.getExtensionFromDataUrl(dataUrl);
+      filePath += `.${extension}`;
+    }
     File.write(filePath, this.dataUrlToBase64(dataUrl), 'base64', permission);
-    return this;
+    return filePath;
   }
 
   /**
-   * Convert DataURL to blob data in base64 format.
+   * Convert data URL to blob data in base64 format.
    */
   public static dataUrlToBase64(dataUrl: string): string {
     return dataUrl.replace(/^data:image\/[A-Za-z]+;base64,/, '');
   }
 
   /**
-   * Check if the string is in DataURL format.
+   * Check if the string is in data URL format.
    */
   public static isDataUrl(dataUrl: string): boolean {
     return /^data:image\/[A-Za-z]+;base64,/.test(dataUrl);
   }
 
   /**
-   * Obtain the MIME type and base64 from the DataURL string.
+   * Obtain the MIME type and base64 from the data URL string.
    */
-  public static statDataUrl(dataUrl: string): {blob: string, type: string} | undefined {
+  public static statDataUrl(dataUrl: string): {blob: string, type: string}|undefined {
     const matches = dataUrl.match(/^data:image\/([A-Za-z]+);base64,(.+)$/);
     if (!matches || matches.length !== 3)
       return undefined;
@@ -79,7 +86,7 @@ export default class Media {
   }
 
   /**
-   * Get the byte size of DataURL.
+   * Get the byte size of data URL.
    *
    * x = (n * (3/4)) - y
    * Where:
@@ -89,7 +96,7 @@ export default class Media {
    */
   public static dataUrlByteSize(dataUrl: string): number {
     if (!this.isDataUrl(dataUrl))
-      throw new TypeError('Content is not in DataURL format');
+      throw new TypeError('Content is not in data URL format');
     return this.base64ByteSize(this.dataUrlToBase64(dataUrl));
   }
 
@@ -110,5 +117,28 @@ export default class Media {
     else if (base64.charAt(base64.length - 1) === '=')
       noOfPaddingCharacter = 1;
     return (base64.length * (3/4)) - noOfPaddingCharacter;
+  }
+
+  /**
+   * Get Mime type from data URL.
+   */
+  public static getMimeTypeFromDataUrl(dataUrl: string): string|null {
+    const matches = dataUrl.match(/data:(\w+\/[\w-+\d.]+)(?=;|,)/);
+    if (!matches)
+      return null;
+    return matches[1];
+  }
+
+  /**
+   * Get extension from data URL.
+   */
+  public static getExtensionFromDataUrl(dataUrl: string): string|null {
+    const matches = dataUrl.match(/data:\w+\/([\w-+\d.]+)(?=;|,)/);
+    if (!matches)
+      return null;
+    let extension = matches[1].toLowerCase();
+    if (extension === 'jpeg')
+      extension = 'jpg';
+    return extension;
   }
 }

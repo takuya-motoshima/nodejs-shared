@@ -1,10 +1,44 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.3] - 2022-08-03
+## [1.0.4] - 202210/11
 ### Fixed
-- Added a method to the Media class to obtain byte size from DataURL or base64.
-    Get the byte size of DataURL:
+- The writeDataUrlToFile method of the Media class now automatically adds an extension when the output filename does not have one.  
+    Also, the return value now returns the file path instead of the Media class.  
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Writes DataURL to a file with the specified extension.
+    Media.writeDataUrlToFile('test1.png', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2NgYGD4DwABBAEAcCBlCwAAAABJRU5ErkJggg==');
+
+    // Writes DataURL to files with extensions detected automatically.
+    const writtenFilePath = Media.writeDataUrlToFile('test2', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2NgYGD4DwABBAEAcCBlCwAAAABJRU5ErkJggg==');
+    console.log(writtenFilePath);
+    // =>test2.png
+    ```
+
+- Added method to get Mime type from DataURL.
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    Media.getMimeTypeFromDataUrl('data:image/png;base64,abc...');
+    // =>image/png
+    ```
+- Added method to get extension from DataURL.
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    Media.getExtensionFromDataUrl('data:image/png;base64,abc...');
+    // =>png
+
+    Media.getExtensionFromDataUrl('data:image/jpeg;base64,abc...');
+    // =>jpg
+    ```
+
+## [1.0.3] - 2022/8/3
+### Fixed
+- Added a method to the Media class to obtain byte size from data URL or base64.
+    Get the byte size of data URL:
     ```js
     const {File, Media} = require('nodejs-shared');
 
@@ -28,13 +62,13 @@ All notable changes to this project will be documented in this file.
     * Media.statBase64 => Media.statDataUrl
     * File.readAsBase64 => File.readAsDataUrl
 
-## [1.0.2] - 2021-10-12
+## [1.0.2] - 2021/10/12
 ### Fixed
 - Updated dependent package'sharp'from 0.25.4 to 0.29.1.  
     This update statically links sharp's pre-built libvips binaries, eliminating the need to install Phton.  
     Click [here](https://sharp.pixelplumbing.com/changelog) for sharp change log.
 
-## [1.0.1] - 2020-09-25
+## [1.0.1] - 2020/9/25
 ### Fixed
 - Added delete directory method to file module.
     ```js
@@ -42,7 +76,7 @@ All notable changes to this project will be documented in this file.
     File.deleteDirectory('/sample');
     ````
 
-## [1.0.0] - 2020-07-13
+## [1.0.0] - 2020/7/13
 ### Fixed
 - First release.
 
