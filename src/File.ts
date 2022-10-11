@@ -75,7 +75,12 @@ export default class File {
   /**
    * Write a file
    */
-  public static write(filePath: string, content: string = '', options: fs.BaseEncodingOptions|string|undefined = undefined, permission: number = 0o755): File {
+  public static write(
+    filePath: string,
+    content: string = '',
+    options: fs.BaseEncodingOptions|string|undefined = undefined,
+    permission: number = 0o755
+  ): File {
     // Delete files in the same path.
     this.deleteFile(filePath);
 

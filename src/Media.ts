@@ -16,7 +16,14 @@ export default class Media {
       const extension = this.getExtensionFromDataUrl(dataUrl);
       filePath += `.${extension}`;
     }
-    File.write(filePath, this.dataUrlToBase64(dataUrl), 'base64', permission);
+    const isSVG = this.getMimeTypeFromDataUrl(dataUrl) === 'image/svg+xml';
+    if (!isSVG)
+      File.write(filePath, this.dataUrlToBase64(dataUrl), 'base64', permission);
+    else {
+      const base64 = this.dataUrlToBase64(dataUrl);
+      const content = decodeURIComponent(base64);
+      File.write(filePath, content, undefined, permission);
+    }
     return filePath;
   }
 
@@ -24,21 +31,24 @@ export default class Media {
    * Convert data URL to blob data in base64 format.
    */
   public static dataUrlToBase64(dataUrl: string): string {
-    return dataUrl.replace(/^data:image\/[A-Za-z]+;base64,/, '');
+    return dataUrl.replace(/^data:image\/[\w-+\d.]+;\w+,/, '');
+    // return dataUrl.replace(/^data:image\/[A-Za-z]+;base64,/, '');
   }
 
   /**
    * Check if the string is in data URL format.
    */
   public static isDataUrl(dataUrl: string): boolean {
-    return /^data:image\/[A-Za-z]+;base64,/.test(dataUrl);
+    return /^data:image\/[\w-+\d.]+;\w+,/.test(dataUrl);
+    // return /^data:image\/[A-Za-z]+;base64,/.test(dataUrl);
   }
 
   /**
    * Obtain the MIME type and base64 from the data URL string.
    */
   public static statDataUrl(dataUrl: string): {blob: string, type: string}|undefined {
-    const matches = dataUrl.match(/^data:image\/([A-Za-z]+);base64,(.+)$/);
+    const matches = dataUrl.match(/^data:image\/([\w-+\d.]+);\w+,(.+)$/);
+    // const matches = dataUrl.match(/^data:image\/([A-Za-z]+);base64,(.+)$/);
     if (!matches || matches.length !== 3)
       return undefined;
     const blob = matches[2];
@@ -139,6 +149,8 @@ export default class Media {
     let extension = matches[1].toLowerCase();
     if (extension === 'jpeg')
       extension = 'jpg';
+    else if (extension === 'svg+xml')
+      extension = 'svg';
     return extension;
   }
 }

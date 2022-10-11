@@ -1,6 +1,8 @@
 export default class Media {
     /**
      * Write data URL to a file.
+     * If the file path does not have an extension, the extension determined from DataURL is automatically assigned to the file path.
+     * This method returns the path to the written file.
      */
     static writeDataUrlToFile(filePath: string, dataUrl: string, permission?: number): Media;
     /**

@@ -1256,12 +1256,19 @@ File.rename(&#039;old.txt&#039;, &#039;new.txt&#039;);</code>
                                           <code class="language-javascript">const {Media} = require('nodejs-shared');
 
 // Writes DataURL to a file with the specified extension.
-Media.writeDataUrlToFile(&#039;test1.png&#039;, &#039;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2NgYGD4DwABBAEAcCBlCwAAAABJRU5ErkJggg==&#039;);
+let writtenFilePath = Media.writeDataUrlToFile(&#039;test1.png&#039;, &#039;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=&#039;);
+console.log(`Write ${writtenFilePath}`);
+// =&gt;Write test1.png
 
 // Writes DataURL to files with extensions detected automatically.
-const writtenFilePath = Media.writeDataUrlToFile(&#039;test2&#039;, &#039;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2NgYGD4DwABBAEAcCBlCwAAAABJRU5ErkJggg==&#039;);
-console.log(writtenFilePath);
-// =&gt;test2.png</code>
+writtenFilePath = Media.writeDataUrlToFile(&#039;test2&#039;, &#039;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=&#039;);
+console.log(`Write ${writtenFilePath}`);
+// =&gt;Write test2.png
+
+// Writes DataURL to files with extensions detected automatically.
+writtenFilePath = Media.writeDataUrlToFile(&#039;test3&#039;, &#039;data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221%22%20height%3D%221%22%20style%3D%22background%3A%20rgb(0%2C%200%2C%200)%3B%22%3E%3C%2Fsvg%3E&#039;);
+console.log(`Write ${writtenFilePath}`);
+// =&gt;Write test3.svg</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1487,8 +1494,16 @@ Media.base64ByteSize(base64);
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require(&#039;nodejs-shared&#039;);
 
-Media.getMimeTypeFromDataUrl(&#039;data:image/png;base64,abc...&#039;);
-// =&gt;image/png</code>
+// Get the Mime type of the PNG image data URL.
+let mimeType = Media.getMimeTypeFromDataUrl(&#039;data:image/png;base64,abc...&#039;);
+console.log(`Mime type of PNG image data URL: ${mimeType}`);
+// =&gt;Mime type of PNG image data URL: image/png
+
+// Get the Mime type of SVG image data URL.
+mimeType = Media.getMimeTypeFromDataUrl(&#039;data:image/svg+xml;utf8,abc...&#039;);
+console.log(`Mime type of SVG image data URL: ${mimeType}`);
+// =&gt;Mime type of SVG image data URL: image/svg+xml
+</code>
                                         </pre>
                                       </div>
                                     </div>
@@ -1510,11 +1525,20 @@ Media.getMimeTypeFromDataUrl(&#039;data:image/png;base64,abc...&#039;);
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {Media} = require(&#039;nodejs-shared&#039;);
 
-Media.getExtensionFromDataUrl(&#039;data:image/png;base64,abc...&#039;);
-// =&gt;png
+// Get PNG image extension.
+let extension = Media.getExtensionFromDataUrl(&#039;data:image/png;base64,abc...&#039;);
+console.log(`PNG image extension: ${extension}`);
+// =&gt;PNG image extension: png
 
-Media.getExtensionFromDataUrl(&#039;data:image/jpeg;base64,abc...&#039;);
-// =&gt;jpg</code>
+// Get JPG image extension.
+extension = Media.getExtensionFromDataUrl(&#039;data:image/jpeg;base64,abc...&#039;);
+console.log(`JPG image extension: ${extension}`);
+// =&gt;JPG image extension: jpg
+
+// Get SVG image extension.
+extension = Media.getExtensionFromDataUrl(&#039;data:image/svg+xml;utf8,abc...&#039;);
+console.log(`SVG image extension: ${extension}`);
+// =&gt;SVG image extension: svg</code>
                                         </pre>
                                       </div>
                                     </div>

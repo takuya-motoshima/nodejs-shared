@@ -1,7 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.4] - 202210/11
+## [1.0.5] - 2022/10/11
+### Fixed
+- Fixed a bug that prevented the writeDataUrlToFile method of the Media class from writing DataURL format SVG to a file.
+
+## [1.0.4] - 2022/10/11
 ### Fixed
 - The writeDataUrlToFile method of the Media class now automatically adds an extension when the output filename does not have one.  
     Also, the return value now returns the file path instead of the Media class.  
@@ -9,10 +13,10 @@ All notable changes to this project will be documented in this file.
     const {Media} = require('nodejs-shared');
 
     // Writes DataURL to a file with the specified extension.
-    Media.writeDataUrlToFile('test1.png', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2NgYGD4DwABBAEAcCBlCwAAAABJRU5ErkJggg==');
+    Media.writeDataUrlToFile('test1.png', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=');
 
     // Writes DataURL to files with extensions detected automatically.
-    const writtenFilePath = Media.writeDataUrlToFile('test2', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQYV2NgYGD4DwABBAEAcCBlCwAAAABJRU5ErkJggg==');
+    const writtenFilePath = Media.writeDataUrlToFile('test2', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=');
     console.log(writtenFilePath);
     // =>test2.png
     ```
