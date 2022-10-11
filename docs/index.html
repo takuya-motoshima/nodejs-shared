@@ -81,7 +81,7 @@
               <!--begin::Title-->
               <h1 class="page-heading d-flex text-dark fw-bold fs-3 justify-content-center align-items-baseline my-0">
               <!-- <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0"> -->
-                DevDocs<a href="#changelog" class="badge fw-semibold fs-7 px-2 ms-2 bg-body text-dark text-hover-primary shadow-sm">v1.0.4</a>
+                DevDocs<a href="#changelog" class="badge fw-semibold fs-7 px-2 ms-2 bg-body text-dark text-hover-primary shadow-sm">v1.0.6</a>
               </h1>
               <!--end::Title-->
             </div>
@@ -1079,12 +1079,46 @@ File.getExtension(&#039;sample.txt&#039;);// =&gt;txt</code>
                                         <pre class="language-javascript">
                                           <code class="language-javascript">const {File} = require('nodejs-shared');
 
-File.find(&#039;sample/**/*.txt&#039;);
-// -&gt; [
-//   &#039;sample/Administrator/Database/Vivian.txt&#039;,
-//   &#039;sample/Architect/Harley.txt&#039;,
-//   &#039;sample/Architect/Taylor.txt&#039;,
-//   &#039;sample/Engineer/Robin.txt&#039;
+const uploadDir = `upload`;
+
+// Find all files.
+let list = File.find(`${uploadDir}/*.*`);
+console.log(&#039;All files:&#039;, list);
+// All files: [
+//   &#039;upload/test1.png&#039;,
+//   &#039;upload/test2.png&#039;,
+//   &#039;upload/test3.svg&#039;,
+//   &#039;upload/test4.jpg&#039;
+// ]
+
+// Find all files, including subdirectories.
+list = File.find(`${uploadDir}/**/*.*`);
+console.log(&#039;All files, including subdirectories:&#039;, list);
+// All files, including subdirectories: [
+//   &#039;upload/subdirectory/test5.png&#039;,
+//   &#039;upload/test1.png&#039;,
+//   &#039;upload/test2.png&#039;,
+//   &#039;upload/test3.svg&#039;,
+//   &#039;upload/test4.jpg&#039;
+// ]
+
+// Find only files with specific extensions.
+list = File.find(`${uploadDir}/**/*.png`);
+console.log(&#039;Only files with specific extensions:&#039;, list)
+// Only files with specific extensions: [
+//   &#039;upload/subdirectory/test5.png&#039;,
+//   &#039;upload/test1.png&#039;,
+//   &#039;upload/test2.png&#039;
+// ]
+
+// Find only JPG and PNG.
+list = File.find(`${uploadDir}/**/*.+(png|jpg)`);
+console.log(&#039;JPG and PNG only:&#039;, list);
+// JPG and PNG only: [
+//   &#039;upload/subdirectory/test5.png&#039;,
+//   &#039;upload/test1.png&#039;,
+//   &#039;upload/test2.png&#039;,
+//   &#039;upload/test4.jpg&#039;
 // ]</code>
                                         </pre>
                                       </div>

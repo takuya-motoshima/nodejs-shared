@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.6] - 2022/10/11
+### Fixed
+- Fix documentation.
+
 ## [1.0.5] - 2022/10/11
 ### Fixed
 - Fixed a bug that prevented the writeDataUrlToFile method of the Media class from writing DataURL format SVG to a file.

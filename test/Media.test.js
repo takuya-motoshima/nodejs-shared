@@ -26,16 +26,16 @@ console.log(`SVG image extension: ${extension}`);
 // =>SVG image extension: svg
 
 // Writes DataURL to a file with the specified extension.
-let writtenFilePath = Media.writeDataUrlToFile('test1.png', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=');
+let writtenFilePath = Media.writeDataUrlToFile('upload/test1.png', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=');
 console.log(`Write ${writtenFilePath}`);
 // =>Write test1.png
 
 // Writes DataURL to files with extensions detected automatically.
-writtenFilePath = Media.writeDataUrlToFile('test2', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=');
+writtenFilePath = Media.writeDataUrlToFile('upload/test2', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=');
 console.log(`Write ${writtenFilePath}`);
 // =>Write test2.png
 
 // Writes DataURL to files with extensions detected automatically.
-writtenFilePath = Media.writeDataUrlToFile('test3', 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221%22%20height%3D%221%22%20style%3D%22background%3A%20rgb(0%2C%200%2C%200)%3B%22%3E%3C%2Fsvg%3E');
+writtenFilePath = Media.writeDataUrlToFile('upload/test3', 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%221%22%20height%3D%221%22%20style%3D%22background%3A%20rgb(0%2C%200%2C%200)%3B%22%3E%3C%2Fsvg%3E');
 console.log(`Write ${writtenFilePath}`);
 // =>Write test3.svg
