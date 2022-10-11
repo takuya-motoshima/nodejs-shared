@@ -94,4 +94,8 @@ export default class File {
      * Rename a file or directory.
      */
     static rename(from: string, to: string): void;
+    /**
+     * Check if it is a base64 string.
+     */
+    static isBase64(str: string): boolean;
 }

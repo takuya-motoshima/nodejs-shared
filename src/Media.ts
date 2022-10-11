@@ -21,7 +21,11 @@ export default class Media {
       File.write(filePath, this.dataUrlToBase64(dataUrl), 'base64', permission);
     else {
       const base64 = this.dataUrlToBase64(dataUrl);
-      const content = decodeURIComponent(base64);
+      let content;
+      if (File.isBase64(base64)) 
+        content = Buffer.from(base64, 'base64').toString();
+      else
+        content = decodeURIComponent(base64);
       File.write(filePath, content, undefined, permission);
     }
     return filePath;

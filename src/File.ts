@@ -200,4 +200,11 @@ export default class File {
   public static rename(from: string, to: string): void {
     fs.renameSync(from, to);
   }
+
+  /**
+   * Check if it is a base64 string.
+   */
+  public static isBase64(str: string): boolean {
+    return Buffer.from(str, 'base64').toString('base64') === str;
+  }
 }
