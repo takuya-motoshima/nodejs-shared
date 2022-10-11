@@ -1,6 +1,6 @@
 {
   "name": "nodejs-shared",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "This is a shared module of node.js.",
   "_moduleAliases": {
     "~": "."
