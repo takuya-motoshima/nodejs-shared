@@ -113,9 +113,15 @@ export default class File {
    * Obtain the contents of the media file as a data URL string.
    */
   public static readAsDataUrl(filePath: string): string {
-    const content =  fs.readFileSync(filePath, {encoding: 'base64'});
-    const mime = mimeTypes.lookup(filePath);
-    return `data:${mime};base64,${content}`;
+    const content =  fs.readFileSync(filePath);
+    // const content =  fs.readFileSync(filePath, {encoding: 'base64'});
+    const base64 = Buffer.from(content).toString('base64');
+    const mimeType = mimeTypes.lookup(filePath);
+    if (mimeType === 'image/svg+xml') {
+      const encoded = encodeURIComponent(content.toString());
+      return `data:${mimeType};;utf8,${encoded}`;
+    } else
+      return `data:${mimeType};base64,${base64}`;
   }
 
   /**
