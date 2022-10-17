@@ -119,7 +119,7 @@ export default class File {
     const mimeType = mimeTypes.lookup(filePath);
     if (mimeType === 'image/svg+xml') {
       const encoded = encodeURIComponent(content.toString());
-      return `data:${mimeType};;utf8,${encoded}`;
+      return `data:${mimeType};utf8,${encoded}`;
     } else
       return `data:${mimeType};base64,${base64}`;
   }
