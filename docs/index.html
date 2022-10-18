@@ -2080,7 +2080,9 @@ Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; G
         const items = sidebar.querySelectorAll('.menu-link[href]');
         for (let item of items)
           item.addEventListener('click', evnt => {
-            evnt.preventDefault();
+            // CHANGED: Do not preventDefault to enable links in the page.
+            // evnt.preventDefault();
+
             // Deactivate the currently selected menu.
             const activeItem = sidebar.querySelector('.menu-link.active');
             if (activeItem)
