@@ -20,14 +20,17 @@
   sheets Bundle-->
   <!--begin::Custom CSS(used by this page)-->
   <style>
-    code:not([class*=language-]) {
+     code:not([class*=language-]) {
+      color: #fff;
+     }
+    /* code:not([class*=language-]) {
       color: #fff;
       margin: 0;
       background-color: transparent;
       box-shadow: none;
       padding: 0;
       border-radius: 0;
-    }
+    } */
   </style>
   <!--end::Custom CSS-->
 </head>
@@ -88,7 +91,6 @@
             <!--end::Page title-->
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
-
               <!--begin::Search-->
               <div id="kt_docs_search" class="d-flex align-items-center w-lg-200px me-2 me-lg-3" data-kt-search-keypress="true" data-kt-search-min-length="2" data-kt-search-enter="enter" data-kt-search-layout="menu" data-kt-search-responsive="lg" data-kt-menu-trigger="auto" data-kt-menu-permanent="true" data-kt-menu-placement="bottom-end">
                 <!--begin::Tablet and mobile search toggle-->
@@ -199,7 +201,6 @@
                 <!--end::Menu-->
               </div>
               <!--end::Search-->
-
               <!--begin::Github-->
               <div class="app-navbar-item ms-1 ms-lg-3">
                 <a href="https://github.com/takuya-motoshima" target="_blank" class="btn btn-icon btn-custom btn-icon-muted btn-active-light w-35px h-35px w-md-40px h-md-40px">
@@ -207,7 +208,6 @@
                 </a>
               </div>
               <!--end::Github-->
-
               <!--begin::Twitter-->
               <div class="app-navbar-item ms-1 ms-lg-3">
                 <a href="https://twitter.com/TakuyaMotoshima" target="_blank" class="btn btn-icon btn-custom btn-icon-muted btn-active-light w-35px h-35px w-md-40px h-md-40px">
@@ -215,7 +215,6 @@
                 </a>
               </div>
               <!--end::Twitter-->
-
               <!--begin::Facebook-->
               <div class="app-navbar-item ms-1 ms-lg-3">
                 <a href="https://www.facebook.com/takuya.motoshima.7" target="_blank" class="btn btn-icon btn-custom btn-icon-muted btn-active-light w-35px h-35px w-md-40px h-md-40px">
@@ -261,7 +260,6 @@
                   <!--end:Menu content-->
                 </div>
                 <!--end:Menu item-->
-
                 <!--begin:Menu item-->
                 <div class="menu-item">
                   <!--begin:Menu link-->
@@ -271,7 +269,6 @@
                   <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
-
                 <!--begin:Menu item-->
                 <div class="menu-item">
                   <!--begin:Menu link-->
@@ -281,7 +278,6 @@
                   <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
-
                 <!--begin:Menu item-->
                 <div class="menu-item pt-5">
                   <!--begin:Menu content-->
@@ -291,7 +287,6 @@
                   <!--end:Menu content-->
                 </div>
                 <!--end:Menu item-->
-
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion hover show">
                   <!--begin:Menu link-->
@@ -378,7 +373,6 @@
                   <!--end:Menu sub-->
                 </div>
                 <!--end:Menu item-->
-
                 <!--begin:Menu item-->
                 <div class="menu-item">
                   <!--begin:Menu link-->
@@ -495,7 +489,6 @@
                   <!--end::Card Body-->
                 </div>
                 <!--end::Card-->
-
                 <!--begin::Card-->
                 <div id="install" data-search-item="true" data-search-title="Install" data-search-description="How to Install" class="card card-docs flex-row-fluid mb-12">
                   <!--begin::Card Body-->
@@ -505,11 +498,9 @@
                       <!--begin::Heading-->
                       <h1 class="fs-2tx fw-bold mb-5">Install</h1>
                       <!--end::Heading-->
-
                       <!--begin::Block-->
                       <div class="py-5">Install with <a href="https://www.npmjs.com/package/nodejs-shared">NPM</a></div>
                       <!--end::Block-->
-
                       <!--begin::Code-->
                       <div class="py-5 mb-5">
                         <!--begin::Highlight-->
@@ -528,7 +519,6 @@
                   <!--end::Card Body-->
                 </div>
                 <!--end::Card-->
-
                 <!--begin::Card-->
                 <div id="summary" data-search-item="true" data-search-title="Class Summary" data-search-description="List of available classes" class="card card-docs flex-row-fluid mb-12">
                   <!--begin::Card Body-->
@@ -654,7 +644,6 @@
                   <!--end::Card Body-->
                 </div>
                 <!--end::Card-->
-
                 <!--begin::Card-->
                 <div id="fileClass" data-search-item="true" data-search-title="File class" data-search-description="File utility class" class="card card-docs flex-row-fluid mb-12">
                   <!--begin::Card Body-->
@@ -942,10 +931,6 @@ File.readAsDataUrl(&#039;sample.jpg&#039;);
                                   </div>
                                 </td>
                               </tr>
-
-
-
-
                               <tr>
                                 <td class="mw-250px">
                                   <code>readAsBase64(filePath: string): string</code>
@@ -969,16 +954,6 @@ File.readAsBase64(&#039;sample.jpg&#039;);
                                   </div>
                                 </td>
                               </tr>
-
-
-
-
-
-
-
-
-
-
                               <tr>
                                 <td class="mw-250px">
                                   <code>getStat(filePath: string): any</code>
@@ -1230,7 +1205,6 @@ File.rename(&#039;old.txt&#039;, &#039;new.txt&#039;);</code>
                   <!--end::Card Body-->
                 </div>
                 <!--end::Card-->
-
                 <!--begin::Card-->
                 <div id="mediaClass" data-search-item="true" data-search-title="Media class" data-search-description="Media (image and video) utility class" class="card card-docs flex-row-fluid mb-12">
                   <!--begin::Card Body-->
@@ -1592,7 +1566,6 @@ console.log(`SVG image extension: ${extension}`);
                   <!--end::Card Body-->
                 </div>
                 <!--end::Card-->
-
                 <!--begin::Card-->
                 <div id="reflectClass" data-search-item="true" data-search-title="Reflect class" data-search-description="Interface for retrieving reflective information about classes and objects" class="card card-docs flex-row-fluid mb-12">
                   <!--begin::Card Body-->
@@ -1703,7 +1676,6 @@ Reflect.getMethods(new Sample);
                   <!--end::Card Body-->
                 </div>
                 <!--end::Card-->
-
                 <!--begin::Card-->
                 <div id="regexClass" data-search-item="true" data-search-title="Regex class" data-search-description="Utility class for handling regular expressions" class="card card-docs flex-row-fluid mb-12">
                   <!--begin::Card Body-->
@@ -1788,7 +1760,6 @@ regex.test(&#039;//sample.com?name=javascript&#039;);// =&gt;false</code>
                   <!--end::Card Body-->
                 </div>
                 <!--end::Card-->
-
                 <!--begin::Card-->
                 <div id="browserClass" data-search-item="true" data-search-title="Browser class" data-search-description="Interface for obtaining browser-related information" class="card card-docs flex-row-fluid mb-12">
                   <!--begin::Card Body-->
@@ -1887,7 +1858,6 @@ Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; G
                   <!--end::Card Body-->
                 </div>
                 <!--end::Card-->
-
                 <!--begin::Card-->
                 <div id="changelog" data-search-item="true" data-search-title="Changelog" data-search-description="Version Change History" class="card card-docs flex-row-fluid mb-12">
                   <!--begin::Card Body-->
