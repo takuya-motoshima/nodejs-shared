@@ -15,22 +15,12 @@
   <!--begin::Global Stylesheets Bundle(used by all pages)-->
   <link href="theme/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
   <link href="theme/css/style.bundle.css" rel="stylesheet" type="text/css" />
-  <!--end::Global Style
-  
-  sheets Bundle-->
+  <!--end::Global Stylesheets Bundle-->
   <!--begin::Custom CSS(used by this page)-->
   <style>
      code:not([class*=language-]) {
       color: #fff;
      }
-    /* code:not([class*=language-]) {
-      color: #fff;
-      margin: 0;
-      background-color: transparent;
-      box-shadow: none;
-      padding: 0;
-      border-radius: 0;
-    } */
   </style>
   <!--end::Custom CSS-->
 </head>
@@ -1936,7 +1926,6 @@ Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; G
     <!--end::Page-->
   </div>
   <!--end::App-->
-
   <!--begin::Scrolltop-->
   <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
     <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
@@ -1949,7 +1938,6 @@ Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; G
     <!--end::Svg Icon-->
   </div>
   <!--end::Scrolltop-->
-
   <!--begin::Javascript-->
   <!--begin::Global Javascript Bundle(used by all pages)-->
   <script src="theme/plugins/global/plugins.bundle.js"></script>
@@ -1961,9 +1949,6 @@ Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; G
   <!--begin::Custom Javascript(used by this page)-->
   <script>
     (() => {
-      /**
-       * Highlight code.
-       */
       function highlightCode() {
         for (let highlight of document.querySelectorAll('.highlight')) {
           const copy = highlight.querySelector('.highlight-copy');
@@ -1989,9 +1974,6 @@ Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; G
         }
       }
 
-      /**
-       * Initialize search dropdown.
-       */
       function intiSearchDropdown() {
         const results = document.querySelector('#searchResults');
         const recently = document.querySelector('#searchRecently');
@@ -2071,9 +2053,6 @@ Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; G
         }, {passive: false});
       }
 
-      /**
-       * Initialize menu.
-       */
       function initMenu() {
         const header = document.querySelector('#kt_app_header');
         const sidebar = document.querySelector('#kt_app_sidebar');
@@ -2099,14 +2078,26 @@ Browser.parse(&#039;Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; G
           }, {passive: false})
       }
 
-      // Highlight code.
+      function activateAnchorMenu() {
+        if (!location.hash)
+          return;
+        const anchorMenu = document.querySelector(`#kt_app_sidebar_menu_wrapper .menu-link[href="${location.hash}"]`);
+        if (!anchorMenu)
+          return;
+        anchorMenu.classList.add('active');
+        const subMenuAccordion = anchorMenu.closest('.menu-sub');
+        if (subMenuAccordion) {
+          subMenuAccordion.classList.add('show');
+          const subMenuItem = subMenuAccordion.closest('.menu-item.menu-accordion');
+          if (subMenuItem)
+            subMenuItem.classList.add('hover', 'show');
+        }
+      }
+
       highlightCode();
-
-      // Initialize search dropdown.
       intiSearchDropdown();
-
-      // Initialize menu.
       initMenu();
+      activateAnchorMenu();
     })();
   </script>
   <!--end::Custom Javascript-->
