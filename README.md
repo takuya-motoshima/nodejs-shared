@@ -1,5 +1,6 @@
 # nodejs-shared
-This is a shared module of node.js.
+This is a shared module of node.js.  
+Click [here](CHANGELOG.md) to see the change log.
 
 - [nodejs-shared](#nodejs-shared)
     - [Installation](#installation)
@@ -8,6 +9,7 @@ This is a shared module of node.js.
     - [Reflect class](#reflect-class)
     - [Regex class](#regex-class)
     - [Browser class](#browser-class)
+    - [Unit testing](#unit-testing)
     - [Author](#author)
     - [License](#license)
 
@@ -801,6 +803,41 @@ Interface for retrieving reflective information about classes and objects.
 
     #### Return value
     {{platform: string, osName: string, osVersion: number|null, browserName: string}} Analysis Results.
+
+## Unit testing
+```sh
+npm run test
+#  PASS  tests/file.test.js
+#   File.find()
+#     PASS All files should be found. (14 ms)
+#     PASS All files should be found, including subdirectories. (3 ms)
+#     PASS Should find only png files. (1 ms)
+#     PASS Only png or jpg files should be found. (2 ms)
+
+# (node:21592) [DEP0147] DeprecationWarning: In future versions of Node.js, fs.rmdir(path, { recursive: true }) will be removed. Use fs.rm(path, { recursive: true }) instead
+# (Use `node --trace-deprecation ...` to show where the warning was created)
+#  PASS  tests/media.test.js
+#   Media.writeDataUrlToFile()
+#     PASS png data URL should be written to file. (2 ms)
+#     PASS jpg data URL should be written to file.
+#     PASS svg data URL should be written to file. (1 ms)
+#     PASS png data URL should be written in a file with the extension automatically assigned. (4 ms)
+#     PASS jpg data URL should be written in a file with the extension automatically assigned. (1 ms)
+#     PASS svg data URL should be written in a file with the extension automatically assigned. (1 ms)
+#   Media.crop()
+#     PASS image should be crop. (73 ms)
+#   Media.mergeImages()
+#     PASS Images should be merged vertically. (50 ms)
+#     PASS Images should be merged horizontally. (47 ms)
+#     PASS Images should be merged vertically with a 30px margin between each image. (48 ms)
+#     PASS Images should be merged horizontally with a 30px margin between each image. (51 ms)
+
+# Test Suites: 2 passed, 2 total
+# Tests:       15 passed, 15 total
+# Snapshots:   0 total
+# Time:        1.552 s, estimated 2 s
+# Ran all test suites.
+```
 
 ## Author
 **Takuya Motoshima**

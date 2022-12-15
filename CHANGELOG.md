@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.12] - 2022/12/15
+### Changed
+- Added changelog and unit test information to README.md.
+
 ## [1.0.11] - 2022/12/15
 ### Added
 - Added image merge method.
@@ -167,3 +171,4 @@ All notable changes to this project will be documented in this file.
 [1.0.8]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.7...v1.0.8
 [1.0.9]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.8...v1.0.9
 [1.0.10]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.9...v1.0.10
+[1.0.11]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.10...v1.0.11
