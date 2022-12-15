@@ -2,32 +2,31 @@
   "name": "nodejs-shared",
   "version": "1.0.10",
   "description": "This is a shared module of node.js.",
-  "_moduleAliases": {
-    "~": "."
-  },
   "main": "dist/build.common.js",
   "module": "dist/build.esm.js",
   "types": "types/index.d.ts",
+  "files": [
+    "dist/*.js",
+    "types",
+    "CHANGELOG.md",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
-    "watch": "rollup -c --watch",
-    "prewatch": "rm -rf dist types",
-    "build": "rollup -c",
-    "prebuild": "rm -rf dist types",
-    "test": "jest",
-    "start": "ts-node -r tsconfig-paths/register -P tsconfig.json -O '{\"module\":\"commonjs\"}' -e \"import * as index from '~/index';console.log(index);\"",
-    "prestart": "json2module package.json > src/package.ts"
+    "watch": "rollup -c --watch --bundleConfigAsCjs",
+    "prewatch": "rimraf dist types",
+    "build": "rollup -c --bundleConfigAsCjs",
+    "prebuild": "rimraf dist types",
+    "test": "jest"
+  },
+  "_moduleAliases": {
+    "~": "."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/takuya-motoshima/nodejs-shared.git"
   },
-  "files": [
-    "dist/*.js",
-    "types/*.d.ts",
-    "package.json",
-    "CHANGELOG.md",
-    "README.md"
-  ],
   "keywords": [
     "node",
     "nodejs",
@@ -55,32 +54,33 @@
     "glob": "^7.1.6",
     "image-size": "^0.8.3",
     "mime-types": "^2.1.27",
-    "module-alias": "^2.2.2",
     "moment": "^2.26.0",
     "reflect-metadata": "^0.1.13",
-    "sharp": "^0.29.1",
+    "sharp": "^0.31.2",
     "uniqid": "^5.2.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^23.0.4",
+    "@rollup/plugin-json": "^5.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.2.0",
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^7.1.2",
-    "@types/jest": "^26.0.3",
+    "@types/jest": "^29.2.4",
     "@types/mime-types": "^2.1.0",
     "@types/node": "^14.0.22",
-    "@types/sharp": "^0.29.2",
+    "@types/sharp": "^0.31.0",
     "@types/uniqid": "^5.2.0",
     "builtin-modules": "^3.1.0",
-    "jest": "^26.1.0",
-    "rollup": "^2.21.0",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-terser": "^6.1.0",
-    "rollup-plugin-typescript2": "^0.27.1",
-    "ts-loader": "^7.0.5",
-    "ts-node": "^8.10.2",
-    "tsconfig-paths": "^3.9.0",
-    "tslint": "^6.1.2",
-    "typescript": "^3.9.5"
+    "jest": "^29.3.1",
+    "module-alias": "^2.2.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^3.7.4",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "ts-loader": "^9.4.2",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.2",
+    "tsconfig-paths": "^4.1.1",
+    "typescript": "^4.9.4"
   }
 }

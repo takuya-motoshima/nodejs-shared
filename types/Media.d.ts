@@ -1,10 +1,11 @@
+import MergeImagesOptions from '~/interfaces/MergeImagesOptions';
 export default class Media {
     /**
      * Write data URL to a file.
      * If the file path does not have an extension, the extension determined from DataURL is automatically assigned to the file path.
      * This method returns the path to the written file.
      */
-    static writeDataUrlToFile(filePath: string, dataUrl: string, permission?: number): Media;
+    static writeDataUrlToFile(inputPath: string, dataUrl: string, permission?: number): Media;
     /**
      * Convert data URL to blob data in base64 format.
      */
@@ -30,7 +31,7 @@ export default class Media {
     /**
      * Crop from image.
      */
-    static crop(input: string, output: string, { left, top, width, height }: {
+    static crop(inputPath: string, outputPath: string, { left, top, width, height }: {
         left: number;
         top: number;
         width: number;
@@ -39,7 +40,7 @@ export default class Media {
     /**
      * Resize the image.
      */
-    static resize(input: string, { width, height, output, contain }: {
+    static resize(inputPath: string, { width, height, output, contain }: {
         width?: number;
         height?: number;
         output?: string;
@@ -73,4 +74,8 @@ export default class Media {
      * Get extension from data URL.
      */
     static getExtensionFromDataUrl(dataUrl: string): string | null;
+    /**
+     * Merge images.
+     */
+    static mergeImages(inputPaths: string[], outputPath: string, options?: Partial<MergeImagesOptions>): Promise<void>;
 }
