@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.15] - Next Release
+### Changed
+- Added unit tests here for a method to convert GIF DataURL to base64 (Media.dataUrlToBase64) and a method to write GID DataURL as an image file (Media.writeDataUrlToFile).
+
 ## [1.0.14] - 2023/3/1
 ### Changed
 - Fix API reference in README.md.
