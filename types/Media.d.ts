@@ -167,4 +167,21 @@ export default class Media {
      * @memberof Media
      */
     static mergeImages(inputPaths: string[], outputPath: string, options?: Partial<MergeImagesOptions>): Promise<void>;
+    /**
+     * Extract and save the first frame of the animated GIF.
+     *
+     * @static
+     * @param {string} inputPath Input image path.
+     * @param {string?} outputPath Output image path. If not specified, the first frame image is overwritten in the original file.
+     */
+    static extractFirstFrameOfGif(inputPath: string, outputPath?: string): Promise<void>;
+    /**
+     * Get the number of GIF frames.
+     *
+     * @static
+     * @param {string} inputPath Input image path.
+     * @return {Promise<number|null>} Number of frames in the image.
+     * @memberof Media
+     */
+    static getNumberOfGifFrames(inputPath: string): Promise<number | null>;
 }

@@ -1,6 +1,41 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.13] - 2023/3/1
+### Added
+- Added a method to the Media class to extract and save the first frame of a GIF.
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Write the first frame of sample.gif to first-frame.gif.
+    await Media.extractFirstFrameOfGif('sample.gif', 'first-frame.gif');
+
+    // Overwrite sample.gif with the first frame.
+    await Media.extractFirstFrameOfGif('sample.gif');
+    ```
+- Added a method to the Media class to get the number of GIF frames.
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    const numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
+    ```
+- Add a method to the File class to recursively copy directories.
+    ```js
+    const {File} = require('nodejs-shared');
+
+    File.copyDirectory('/tmp/mydir', '/tmp/newdir');
+    ```
+- Add a method to the File class to check if it is a directory.
+    ```js
+    const {File} = require('nodejs-shared');
+
+    if (File.isDirectory('/tmp/mydir'))
+        console.log('This is a directory');
+    ```
+
+### Changed
+- Added unit tests for the newly fixed classes [here](tests/media.test.js).
+
 ## [1.0.12] - 2022/12/15
 ### Changed
 - Added changelog and unit test information to README.md.
@@ -172,3 +207,5 @@ All notable changes to this project will be documented in this file.
 [1.0.9]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.8...v1.0.9
 [1.0.10]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.9...v1.0.10
 [1.0.11]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.10...v1.0.11
+[1.0.12]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.11...v1.0.12
+[1.0.13]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.12...v1.0.13

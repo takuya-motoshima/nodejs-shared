@@ -4,6 +4,7 @@ Click [here](CHANGELOG.md) to see the change log.
 
 - [nodejs-shared](#nodejs-shared)
     - [Installation](#installation)
+    - [Requirements](#requirements)
     - [File class](#file-class)
     - [Media class](#media-class)
     - [Reflect class](#reflect-class)
@@ -17,6 +18,13 @@ Click [here](CHANGELOG.md) to see the change log.
 ```sh
 npm install --save nodejs-shared
 ```
+
+## Requirements
+- [ImageMagick](https://imagemagick.org/index.php) is required to use the methods to retrieve the first frame of a GIF in the Media class and to get the number of frames in a GIF.  
+    In Mac OS X, you can simply use [Homebrew](https://brew.sh/) and do:
+    ```sh
+    brew install imagemagick
+    ```
 
 ## File class
 File utility class.
@@ -377,8 +385,8 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} fromPath Original file path.
-    - {string} toPath The destination file path.
+    - {string} srcPath Original file path.
+    - {string} dstPath The destination file path.
 - ### File.isBase64()
     Check if it is a base64 string.
 

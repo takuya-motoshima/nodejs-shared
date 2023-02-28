@@ -186,11 +186,11 @@ export default class File {
      * Rename a file or directory.
      *
      * @static
-     * @param {string} fromPath Original file path.
-     * @param {string} toPath The destination file path.
+     * @param {string} srcPath Original file path.
+     * @param {string} dstPath The destination file path.
      * @memberof File
      */
-    static rename(fromPath: string, toPath: string): void;
+    static rename(srcPath: string, dstPath: string): void;
     /**
      * Check if it is a base64 string.
      *
@@ -200,4 +200,22 @@ export default class File {
      * @memberof File
      */
     static isBase64(str: string): boolean;
+    /**
+     * Check if the path is a directory.
+     *
+     * @static
+     * @param {string} inputPath The path of a file or directory.
+     * @return {boolean} True if the input path is a directory, false otherwise.
+     * @memberof File
+     */
+    static isDirectory(inputPath: string): boolean;
+    /**
+     * Copy a file or directory. The directory can have contents.
+     *
+     * @static
+     * @param {string} srcDir The directory from which the copy was made.
+     * @param {string} dstDir The destination directory.
+     * @memberof File
+     */
+    static copyDirectory(srcDir: string, dstDir: string): void;
 }

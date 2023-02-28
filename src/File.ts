@@ -296,12 +296,12 @@ export default class File {
    * Rename a file or directory.
    *
    * @static
-   * @param {string} fromPath Original file path.
-   * @param {string} toPath The destination file path.
+   * @param {string} srcPath Original file path.
+   * @param {string} dstPath The destination file path.
    * @memberof File
    */
-  public static rename(fromPath: string, toPath: string): void {
-    fs.renameSync(fromPath, toPath);
+  public static rename(srcPath: string, dstPath: string): void {
+    fs.renameSync(srcPath, dstPath);
   }
 
   /**
@@ -314,5 +314,33 @@ export default class File {
    */
   public static isBase64(str: string): boolean {
     return Buffer.from(str, 'base64').toString('base64') === str;
+  }
+
+  /**
+   * Check if the path is a directory.
+   *
+   * @static
+   * @param {string} inputPath The path of a file or directory.
+   * @return {boolean} True if the input path is a directory, false otherwise.
+   * @memberof File
+   */
+  public static isDirectory(inputPath: string): boolean {
+    if (!this.existsFile(inputPath))
+      throw new Error(`Input path ${inputPath} not found`);
+    return this.getStat(inputPath).isDirectory();
+  }
+
+  /**
+   * Copy a file or directory. The directory can have contents.
+   *
+   * @static
+   * @param {string} srcDir The directory from which the copy was made.
+   * @param {string} dstDir The destination directory.
+   * @memberof File
+   */
+  public static copyDirectory(srcDir: string, dstDir: string): void {
+    if (!this.isDirectory(srcDir))
+      throw new Error(`The ${srcDir} of the source path is not a directory`);
+    fse.copySync(srcDir, dstDir);
   }
 }

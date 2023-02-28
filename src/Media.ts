@@ -1,10 +1,13 @@
 import fs from 'fs';
 const imageSize = require('image-size');
 const sharp = require('sharp');
-import File from './File';
+import gm from 'gm';
+// const gm = require('gm').subClass({imageMagick: true});
+import File from '~/File';
 import MergeImagesOptions from '~/interfaces/MergeImagesOptions';
 import ImageData from '~/interfaces/ImageData';
 import Dim from '~/interfaces/Dim';
+import ImageInfo from '~/interfaces/ImageInfo';
 
 export default class Media {
   /**
@@ -340,5 +343,51 @@ export default class Media {
     imageBase.composite(compositeData);
     await imageBase.toFile(outputPath);
     // return imageBase;
+  }
+
+  /**
+   * Extract and save the first frame of the animated GIF.
+   *
+   * @static
+   * @param {string} inputPath Input image path.
+   * @param {string?} outputPath Output image path. If not specified, the first frame image is overwritten in the original file.
+   */
+  public static async extractFirstFrameOfGif(inputPath: string, outputPath?: string): Promise<void> {
+    if (!File.existsFile(inputPath))
+      throw new Error(`Input file ${inputPath} not found`);
+    return new Promise<void>((resolve, reject) => {
+      if (!outputPath)
+        outputPath = inputPath;
+      const im = gm.subClass({imageMagick: true});
+      im(`${inputPath}[0]`).write(outputPath, (err: Error|null) => {
+        if (err)
+          return void reject(err);
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * Get the number of GIF frames.
+   *
+   * @static
+   * @param {string} inputPath Input image path.
+   * @return {Promise<number|null>} Number of frames in the image.
+   * @memberof Media
+   */
+  public static async getNumberOfGifFrames(inputPath: string): Promise<number|null> {
+    if (!File.existsFile(inputPath))
+      throw new Error(`Input file ${inputPath} not found`);
+    return new Promise<number|null>((resolve, reject) => {
+      const im = gm.subClass({imageMagick: true});
+      im(inputPath).identify((err: Error|null, data: ImageInfo) => {
+        if (err)
+          return void reject(err);
+        if (data.format.toLocaleLowerCase() === 'gif' && Array.isArray(data?.Scene))
+          resolve(data.Scene.length);
+        else
+          resolve(1);
+      });
+    });
   }
 }
