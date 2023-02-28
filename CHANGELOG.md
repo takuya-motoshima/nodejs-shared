@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.14] - 2023/3/1
+### Changed
+- Fix API reference in README.md.
+
 ## [1.0.13] - 2023/3/1
 ### Added
 - Added a method to the Media class to extract and save the first frame of a GIF.
@@ -209,3 +213,4 @@ All notable changes to this project will be documented in this file.
 [1.0.11]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.10...v1.0.11
 [1.0.12]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.11...v1.0.12
 [1.0.13]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.12...v1.0.13
+[1.0.14]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.13...v1.0.14

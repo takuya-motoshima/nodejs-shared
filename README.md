@@ -403,6 +403,38 @@ File utility class.
 
     #### Return value
     {boolean} True if base64.
+- ### File.isDirectory()
+    Check if the path is a directory.
+
+    #### Usage
+    ```js
+    const {File} = require('nodejs-shared');
+
+    if (File.isDirectory('/tmp/mydir'))
+        console.log('This is a directory');
+    ```
+
+    #### Parameters
+    - {string} inputPath The path of a file or directory.
+
+    #### Return value
+    {boolean} True if the input path is a directory, false otherwise.
+- ### File.copyDirectory()
+    Copy a file or directory. The directory can have contents.
+
+    #### Usage
+    ```js
+    const {File} = require('nodejs-shared');
+
+    File.copyDirectory('/tmp/mydir', '/tmp/newdir');
+    ```
+
+    #### Parameters
+    - {string} srcDir The directory from which the copy was made.
+    - {string} dstDir The destination directory.
+
+    #### Return value
+    Promise&lt;void&gt;
 
 ## Media class
 Media (image and video) utility class.
@@ -700,6 +732,42 @@ Media (image and video) utility class.
 
     #### Return value
     Promise&lt;void&gt;
+- ### Media.extractFirstFrameOfGif()
+    Extract and save the first frame of the animated GIF.
+
+    #### Usage
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Write the first frame of sample.gif to first-frame.gif.
+    await Media.extractFirstFrameOfGif('sample.gif', 'first-frame.gif');
+
+    // Overwrite sample.gif with the first frame.
+    await Media.extractFirstFrameOfGif('sample.gif');
+    ```
+
+    #### Parameters
+    - {string} inputPath Input image path.
+    - {string} Output Output image path.  
+        If not specified, the first frame image is overwritten in the original file.
+
+    #### Return value
+    Promise&lt;void&gt;
+- ### Media.getNumberOfGifFrames()
+    Get the number of GIF frames.
+
+    #### Usage
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    const numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
+    ```
+
+    #### Parameters
+    - {string} inputPath Input image path.
+
+    #### Return value
+    {Promise&lt;number|null&gt;} Number of frames in the image.
 
 ## Reflect class
 Interface for retrieving reflective information about classes and objects.
