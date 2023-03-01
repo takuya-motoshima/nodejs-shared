@@ -435,6 +435,31 @@ File utility class.
 
     #### Return value
     Promise&lt;void&gt;
+- ### File.isPath()
+    Check if it is valid as a file system path.
+
+    #### Usage
+    ```js
+    const {File} = require('nodejs-shared');
+
+    File.isPath('.');               // true
+    File.isPath('aa');              // true
+    File.isPath('abc.js');          // true
+    File.isPath('/abc/def/ghi.js'); // true
+    File.isPath('abc/def/ghi.js');  // true
+    File.isPath('*.js');            // false
+    File.isPath('!*.js');           // false
+    File.isPath('!foo');            // false
+    File.isPath('!foo.js');         // false
+    File.isPath('**/abc.js');       // false
+    File.isPath('abc/*.js');        // false
+    ```
+
+    #### Parameters
+    - {string} str String.
+
+    #### Return value
+    boolean
 
 ## Media class
 Media (image and video) utility class.
@@ -502,14 +527,14 @@ Media (image and video) utility class.
     ```js
     const {Media} = require('nodejs-shared');
 
-    Media.statDataUrl('data:image/jpeg;base64,abc...'); // =>{blob: '/9j/4AAQSk...', type: 'jpeg'}
+    Media.statDataUrl('data:image/jpeg;base64,abc...'); // =>{blob: '/9j/4AAQSk...', type: 'jpeg', extension: 'jpg'}
     ```
 
     #### Parameters
     - {string} dataUrl Data URL.
 
     #### Return value
-    {{blob: string, type: string}|undefined} Data URL Analysis Results.
+    {{blob: string, type: string, extension: string|null}|undefined} Data URL Analysis Results.
 - ### Media.getDimensions()
     Get the dimensions (pixels) of the image.
 
@@ -744,10 +769,13 @@ Media (image and video) utility class.
 
     // Overwrite sample.gif with the first frame.
     await Media.extractFirstFrameOfGif('sample.gif');
+
+    // Extract the first frame from the GIF Data URL and save it to an image file.
+    await Media.extractFirstFrameOfGif('data:image/gif;base64,R0lGODl...', 'first-frame.gif');
     ```
 
     #### Parameters
-    - {string} inputPath Input image path.
+    - {string} inputPathOrDataUrl Path or Data URL of the input image.
     - {string} Output Output image path.  
         If not specified, the first frame image is overwritten in the original file.
 
@@ -760,11 +788,15 @@ Media (image and video) utility class.
     ```js
     const {Media} = require('nodejs-shared');
 
-    const numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
+    // Get the number of frames from a GIF image file.
+    let numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
+
+    // Get the number of frames from the GIF Data URL.
+    numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,R0lGODl...');
     ```
 
     #### Parameters
-    - {string} inputPath Input image path.
+    - {string} inputPathOrDataUrl Path or Data URL of the input image.
 
     #### Return value
     {Promise&lt;number|null&gt;} Number of frames in the image.

@@ -218,4 +218,13 @@ export default class File {
      * @memberof File
      */
     static copyDirectory(srcDir: string, dstDir: string): void;
+    /**
+     * Check if it is valid as a file system path.
+     *
+     * @static
+     * @param {string} str String.
+     * @return {boolean} True if valid as a file system path, false otherwise.
+     * @memberof File
+     */
+    static isPath(str: string): boolean;
 }

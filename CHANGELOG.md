@@ -1,8 +1,40 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.15] - Next Release
+## [1.0.15] - 2023/3/1
+### Added
+- Added a method to the File class to check if a string is valid as a file system path.
+    ```js
+    const {File} = require('nodejs-shared');
+
+    File.isPath('.');               // true
+    File.isPath('aa');              // true
+    File.isPath('abc.js');          // true
+    File.isPath('/abc/def/ghi.js'); // true
+    File.isPath('abc/def/ghi.js');  // true
+    File.isPath('*.js');            // false
+    File.isPath('!*.js');           // false
+    File.isPath('!foo');            // false
+    File.isPath('!foo.js');         // false
+    File.isPath('**/abc.js');       // false
+    File.isPath('abc/*.js');        // false
+    ```
+
 ### Changed
+- The method for retrieving the first frame of a GIF in the Media class can now also process the Data URL of the image.
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Extract the first frame from the GIF Data URL and save it to an image file.
+    await Media.extractFirstFrameOfGif('data:image/gif;base64,R0lGODl...', 'first-frame.gif');
+    ```
+- The method to get the number of frames of a GIF in the Media class can now also process the Data URL of the image.
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Get the number of frames from the GIF Data URL.
+    const numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,R0lGODl...');
+    ```
 - Added unit tests [here](tests/media.test.js) for a method to convert GIF DataURL to base64 (Media.dataUrlToBase64) and a method to write GID DataURL as an image file (Media.writeDataUrlToFile).
 - A unit test for a method to get the type of DataURL (Media.statDataUrl) has been added [here](tests/media.test.js).
 
@@ -26,6 +58,7 @@ All notable changes to this project will be documented in this file.
     ```js
     const {Media} = require('nodejs-shared');
 
+    // Get the number of frames from a GIF image file.
     const numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
     ```
 - Add a method to the File class to recursively copy directories.
@@ -219,3 +252,4 @@ All notable changes to this project will be documented in this file.
 [1.0.12]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.11...v1.0.12
 [1.0.13]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.12...v1.0.13
 [1.0.14]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.13...v1.0.14
+[1.0.15]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.14...v1.0.15

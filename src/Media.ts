@@ -79,14 +79,24 @@ export default class Media {
    * @return {{blob: string, type: string}|undefined} Data URL Analysis Results.
    * @memberof Media
    */
-  public static statDataUrl(dataUrl: string): {blob: string, type: string}|undefined {
+  public static statDataUrl(dataUrl: string): {blob: string, type: string, extension: string|null}|undefined {
     const matches = dataUrl.match(/^data:image\/([\w-+\d.]+);\w+,(.+)$/);
     // const matches = dataUrl.match(/^data:image\/([A-Za-z]+);base64,(.+)$/);
     if (!matches || matches.length !== 3)
       return undefined;
     const blob = matches[2];
     const type = matches[1];
-    return {blob, type};
+    const extension = {
+      bmp: 'bmp',
+      gif: 'gif',
+      'vnd.microsoft.icon': 'ico',
+      jpeg: 'jpg',
+      png: 'png',
+      'svg+xml': 'svg',
+      tiff: 'tiff',
+      webp: 'webp',
+    }[type] ?? null;
+    return {blob, type, extension};
   }
 
   /**
@@ -349,15 +359,24 @@ export default class Media {
    * Extract and save the first frame of the animated GIF.
    *
    * @static
-   * @param {string} inputPath Input image path.
+   * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
    * @param {string?} outputPath Output image path. If not specified, the first frame image is overwritten in the original file.
    */
-  public static async extractFirstFrameOfGif(inputPath: string, outputPath?: string): Promise<void> {
-    if (!File.existsFile(inputPath))
-      throw new Error(`Input file ${inputPath} not found`);
+  public static async extractFirstFrameOfGif(inputPathOrDataUrl: string, outputPath?: string): Promise<void> {
+    const isPath = File.isPath(inputPathOrDataUrl);
+    if (isPath && !File.existsFile(inputPathOrDataUrl))
+      throw new Error(`Input file ${inputPathOrDataUrl} not found`);
+    else if (!isPath && !outputPath)
+      throw new Error('If the input is a data URL, the output path is required');
     return new Promise<void>((resolve, reject) => {
       if (!outputPath)
-        outputPath = inputPath;
+        outputPath = inputPathOrDataUrl;
+      let inputPath = inputPathOrDataUrl;
+      if (!isPath) {
+        inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || '.tmp');
+        // inputPath = File.getTmpPath(File.getExtension(outputPath));
+        this.writeDataUrlToFile(inputPath, inputPathOrDataUrl);
+      }
       const im = gm.subClass({imageMagick: true});
       im(`${inputPath}[0]`).write(outputPath, (err: Error|null) => {
         if (err)
@@ -371,14 +390,21 @@ export default class Media {
    * Get the number of GIF frames.
    *
    * @static
-   * @param {string} inputPath Input image path.
+   * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
    * @return {Promise<number|null>} Number of frames in the image.
    * @memberof Media
    */
-  public static async getNumberOfGifFrames(inputPath: string): Promise<number|null> {
-    if (!File.existsFile(inputPath))
-      throw new Error(`Input file ${inputPath} not found`);
+  public static async getNumberOfGifFrames(inputPathOrDataUrl: string): Promise<number|null> {
+    const isPath = File.isPath(inputPathOrDataUrl);
+    if (isPath && !File.existsFile(inputPathOrDataUrl))
+      throw new Error(`Input file ${inputPathOrDataUrl} not found`);
     return new Promise<number|null>((resolve, reject) => {
+      let inputPath = inputPathOrDataUrl;
+      if (!isPath) {
+        inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || '.tmp');
+        // inputPath = File.getTmpPath(File.getExtension(outputPath));
+        this.writeDataUrlToFile(inputPath, inputPathOrDataUrl);
+      }
       const im = gm.subClass({imageMagick: true});
       im(inputPath).identify((err: Error|null, data: ImageInfo) => {
         if (err)
@@ -390,4 +416,24 @@ export default class Media {
       });
     });
   }
+
+  // /**
+  //  * Extract the first frame of the GIF as DataURL.
+  //  *
+  //  * @static
+  //  * @return {Promise<string>} DataURL of the first frame of the GIF.
+  //  * @param {string} inputPath Input image path.
+  //  */
+  // public static async extractFirstFrameOfGifAsDataURL(inputPath: string): Promise<string> {
+  //   if (!File.existsFile(inputPath))
+  //     throw new Error(`Input file ${inputPath} not found`);
+  //   return new Promise<string>((resolve, reject) => {
+  //     const im = gm.subClass({imageMagick: true});
+  //     im(`${inputPath}[0]`).write(outputPath, (err: Error|null) => {
+  //       if (err)
+  //         return void reject(err);
+  //       resolve();
+  //     });
+  //   });
+  // }
 }

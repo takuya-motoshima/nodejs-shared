@@ -42,6 +42,7 @@ export default class Media {
     static statDataUrl(dataUrl: string): {
         blob: string;
         type: string;
+        extension: string | null;
     } | undefined;
     /**
      * Get the dimensions (pixels) of the image.
@@ -171,17 +172,17 @@ export default class Media {
      * Extract and save the first frame of the animated GIF.
      *
      * @static
-     * @param {string} inputPath Input image path.
+     * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
      * @param {string?} outputPath Output image path. If not specified, the first frame image is overwritten in the original file.
      */
-    static extractFirstFrameOfGif(inputPath: string, outputPath?: string): Promise<void>;
+    static extractFirstFrameOfGif(inputPathOrDataUrl: string, outputPath?: string): Promise<void>;
     /**
      * Get the number of GIF frames.
      *
      * @static
-     * @param {string} inputPath Input image path.
+     * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
      * @return {Promise<number|null>} Number of frames in the image.
      * @memberof Media
      */
-    static getNumberOfGifFrames(inputPath: string): Promise<number | null>;
+    static getNumberOfGifFrames(inputPathOrDataUrl: string): Promise<number | null>;
 }

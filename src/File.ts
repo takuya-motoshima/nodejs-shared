@@ -343,4 +343,21 @@ export default class File {
       throw new Error(`The ${srcDir} of the source path is not a directory`);
     fse.copySync(srcDir, dstDir);
   }
+
+  /**
+   * Check if it is valid as a file system path.
+   *
+   * @static
+   * @param {string} str String.
+   * @return {boolean} True if valid as a file system path, false otherwise.
+   * @memberof File
+   */
+  public static isPath(str: string): boolean {
+    if (typeof str !== 'string' || str.replace(/^[\s　]+|[\s　]+$/g, '') === '')
+      return false;
+    const rootPath = path.parse(str).root;
+    if (rootPath)
+      str = str.slice(rootPath.length);
+    return !/[<>:"|?*]/.test(str);
+  }
 }
