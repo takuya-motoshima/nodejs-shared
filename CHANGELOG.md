@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [1.0.15] - Next Release
 ### Changed
 - Added unit tests [here](tests/media.test.js) for a method to convert GIF DataURL to base64 (Media.dataUrlToBase64) and a method to write GID DataURL as an image file (Media.writeDataUrlToFile).
+- A unit test for a method to get the type of DataURL (Media.statDataUrl) has been added [here](tests/media.test.js).
 
 ## [1.0.14] - 2023/3/1
 ### Changed

@@ -160,3 +160,21 @@ describe('Media.dataUrlToBase64()', () => {
     expect(Media.dataUrlToBase64(constants.GIF_DATAURL)).toBe(expected);
   });
 });
+
+describe('Media.statDataUrl()', () => {
+  test('GIF data URL type should be "gif".', () => {
+    expect(Media.statDataUrl(constants.GIF_DATAURL).type).toBe('gif');
+  });
+
+  test('PNG data URL type should be "png".', () => {
+    expect(Media.statDataUrl(constants.PNG_DATAURL).type).toBe('png');
+  });
+
+  test('JPG data URL type should be "jpeg".', () => {
+    expect(Media.statDataUrl(constants.JPG_DATAURL).type).toBe('jpeg');
+  });
+
+  test('SVG data URL type should be "svg+xml".', () => {
+    expect(Media.statDataUrl(constants.SVG_DATAURL).type).toBe('svg+xml');
+  });
+});
