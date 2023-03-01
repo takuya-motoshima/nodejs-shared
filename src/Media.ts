@@ -373,7 +373,7 @@ export default class Media {
         outputPath = inputPathOrDataUrl;
       let inputPath = inputPathOrDataUrl;
       if (!isPath) {
-        inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || '.tmp');
+        inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || 'tmp');
         // inputPath = File.getTmpPath(File.getExtension(outputPath));
         this.writeDataUrlToFile(inputPath, inputPathOrDataUrl);
       }
@@ -401,7 +401,7 @@ export default class Media {
     return new Promise<number|null>((resolve, reject) => {
       let inputPath = inputPathOrDataUrl;
       if (!isPath) {
-        inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || '.tmp');
+        inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || 'tmp');
         // inputPath = File.getTmpPath(File.getExtension(outputPath));
         this.writeDataUrlToFile(inputPath, inputPathOrDataUrl);
       }

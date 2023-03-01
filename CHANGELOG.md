@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.16] - Next Release
+### Fixed
+- Fixed a typo that caused two dots in the extension of temporary images created by GIF-related processing in the media class.
+
 ## [1.0.15] - 2023/3/1
 ### Added
 - Added a method to the File class to check if a string is valid as a file system path.
@@ -253,3 +257,4 @@ All notable changes to this project will be documented in this file.
 [1.0.13]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.12...v1.0.13
 [1.0.14]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.13...v1.0.14
 [1.0.15]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.14...v1.0.15
+[1.0.16]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.15...v1.0.16
