@@ -1,7 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.16] - Next Release
+## [1.0.16] - 2023/3/16
+### Added
+- An image format conversion method was added to the media class.
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Get the data URL of the converted image format.
+    const dataUrl1 = await Media.convertImageFormat('before.png');
+
+    // In addition to obtaining the data URL, further write the converted image format in the file.
+    const dataUrl2 = await Media.convertImageFormat('before.png', 'after.jpg');
+    ```
 ### Fixed
 - Fixed a typo that caused two dots in the extension of temporary images created by GIF-related processing in the media class.
 
@@ -101,7 +112,7 @@ All notable changes to this project will be documented in this file.
     ```js
     const {Media} = require('nodejs-shared');
 
-    const imagePaths = ['sample1.png', 'sample2.png', 'sample2.png'];
+    const imagePaths = ['sample1.png', 'sample2.png', 'sample3.png'];
 
     // Merge vertically.
     await Media.mergeImages(imagePaths, 'result1.png', {direction: 'vertical'});

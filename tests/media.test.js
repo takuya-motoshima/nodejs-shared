@@ -117,7 +117,7 @@ describe('Media.mergeImages()', () => {
 
 describe('Media.extractFirstFrameOfGif()', () => {
   test('The first frame of a GIF should be written to another image.', async () => {
-    const inputPath = `${INPUT_DIR}/sample.gif`;
+    const inputPath = `${INPUT_DIR}/sample1.gif`;
     const outputPath = `${OUTPUT_DIR}/first-frame-of-sample.gif`;
     await Media.extractFirstFrameOfGif(inputPath, outputPath);
     const numberOfFrames = await Media.getNumberOfGifFrames(outputPath);
@@ -125,7 +125,7 @@ describe('Media.extractFirstFrameOfGif()', () => {
   });
 
   test('The first frame of the GIF should be overwritten into the input image.', async () => {
-    const inputPath = `${INPUT_DIR}/sample.gif`;
+    const inputPath = `${INPUT_DIR}/sample1.gif`;
     await Media.extractFirstFrameOfGif(inputPath);
     const numberOfFrames = await Media.getNumberOfGifFrames(inputPath);
     expect(numberOfFrames).toBe(1);
@@ -188,5 +188,49 @@ describe('Media.statDataUrl()', () => {
 
   test('SVG data URL type should be "svg+xml".', () => {
     expect(Media.statDataUrl(constants.SVG_DATAURL).type).toBe('svg+xml');
+  });
+});
+
+describe('Media.convertImageFormat()', () => {
+  test('Should be converted from jpg to png.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.jpg`;
+    const outputPath = `${OUTPUT_DIR}/converted1.png`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
+    expect(Media.statDataUrl(dataUrl).extension).toBe('png');
+  });
+
+  test('Should be converted from jpg to gif.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.jpg`;
+    const outputPath = `${OUTPUT_DIR}/converted2.gif`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
+    expect(Media.statDataUrl(dataUrl).extension).toBe('gif');
+  });
+
+  test('Should be converted from png to jpg.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.png`;
+    const outputPath = `${OUTPUT_DIR}/converted3.jpg`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
+    expect(Media.statDataUrl(dataUrl).extension).toBe('jpg');
+  });
+
+  test('Should be converted from png to gif.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.png`;
+    const outputPath = `${OUTPUT_DIR}/converted4.gif`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
+    expect(Media.statDataUrl(dataUrl).extension).toBe('gif');
+  });
+
+  test('Should be converted from gif to jpg (output destination is only the first frame of the gif).', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.gif`;
+    const outputPath = `${OUTPUT_DIR}/converted5.jpg`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
+    expect(Media.statDataUrl(dataUrl).extension).toBe('jpg');
+  });
+
+  test('Should be converted from gif to png (output destination is only the first frame of the gif).', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.gif`;
+    const outputPath = `${OUTPUT_DIR}/converted6.png`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
+    expect(Media.statDataUrl(dataUrl).extension).toBe('png');
   });
 });

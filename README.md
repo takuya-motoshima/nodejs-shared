@@ -718,7 +718,7 @@ Media (image and video) utility class.
     ```js
     const {Media} = require('nodejs-shared');
 
-    const imagePaths = ['sample1.png', 'sample2.png', 'sample2.png'];
+    const imagePaths = ['sample1.png', 'sample2.png', 'sample3.png'];
 
     // Merge vertically.
     await Media.mergeImages(imagePaths, 'result1.png', {direction: 'vertical'});
@@ -800,6 +800,28 @@ Media (image and video) utility class.
 
     #### Return value
     {Promise&lt;number|null&gt;} Number of frames in the image.
+
+- ### Media.convertImageFormat()
+    Convert Between Image Formats.
+
+    #### Usage
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Get the data URL of the converted image format.
+    const dataUrl1 = await Media.convertImageFormat('before.png');
+
+    // In addition to obtaining the data URL, further write the converted image format in the file.
+    const dataUrl2 = await Media.convertImageFormat('before.png', 'after.jpg');
+    ```
+
+    #### Parameters
+    - {string} inputPathOrDataUrl Path or Data URL of the input image.
+    - {string} outputPath? Allows you to specify the output path for converted images. The default is undefined.
+
+    #### Return value
+    {Promise&lt;string&gt;} The data URL of the image whose format was converted.
+
 
 ## Reflect class
 Interface for retrieving reflective information about classes and objects.

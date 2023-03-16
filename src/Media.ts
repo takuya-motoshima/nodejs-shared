@@ -8,8 +8,16 @@ import MergeImagesOptions from '~/interfaces/MergeImagesOptions';
 import ImageData from '~/interfaces/ImageData';
 import Dim from '~/interfaces/Dim';
 import ImageInfo from '~/interfaces/ImageInfo';
+// import {fileTypeFromFile} from 'file-type';
 
 export default class Media {
+  /**
+   * ImageMagick instance.
+   *
+   * @memberof Media
+   */
+  static #im: gm.SubClass = gm.subClass({imageMagick: true});
+
   /**
    * Write data URL to a file.
    * If the file path does not have an extension, the extension determined from DataURL is automatically assigned to the file path.
@@ -371,14 +379,15 @@ export default class Media {
     return new Promise<void>((resolve, reject) => {
       if (!outputPath)
         outputPath = inputPathOrDataUrl;
+      // If the input is a data URL, the data URL is written to a file as the input path.
       let inputPath = inputPathOrDataUrl;
       if (!isPath) {
         inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || 'tmp');
-        // inputPath = File.getTmpPath(File.getExtension(outputPath));
         this.writeDataUrlToFile(inputPath, inputPathOrDataUrl);
       }
-      const im = gm.subClass({imageMagick: true});
-      im(`${inputPath}[0]`).write(outputPath, (err: Error|null) => {
+
+      // Write the first frame of the GIF.
+      this.#im(`${inputPath}[0]`).write(outputPath, (err: Error|null) => {
         if (err)
           return void reject(err);
         resolve();
@@ -399,14 +408,15 @@ export default class Media {
     if (isPath && !File.existsFile(inputPathOrDataUrl))
       throw new Error(`Input file ${inputPathOrDataUrl} not found`);
     return new Promise<number|null>((resolve, reject) => {
+      // If the input is a data URL, the data URL is written to a file as the input path.
       let inputPath = inputPathOrDataUrl;
       if (!isPath) {
         inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || 'tmp');
-        // inputPath = File.getTmpPath(File.getExtension(outputPath));
         this.writeDataUrlToFile(inputPath, inputPathOrDataUrl);
       }
-      const im = gm.subClass({imageMagick: true});
-      im(inputPath).identify((err: Error|null, data: ImageInfo) => {
+
+      // Conversion of image formats.
+      this.#im(inputPath).identify((err: Error|null, data: ImageInfo) => {
         if (err)
           return void reject(err);
         if (data.format.toLocaleLowerCase() === 'gif' && Array.isArray(data?.Scene))
@@ -428,12 +438,53 @@ export default class Media {
   //   if (!File.existsFile(inputPath))
   //     throw new Error(`Input file ${inputPath} not found`);
   //   return new Promise<string>((resolve, reject) => {
-  //     const im = gm.subClass({imageMagick: true});
-  //     im(`${inputPath}[0]`).write(outputPath, (err: Error|null) => {
+  //     // Write the first frame of the GIF.
+  //     this.#im(`${inputPath}[0]`).write(outputPath, (err: Error|null) => {
   //       if (err)
   //         return void reject(err);
   //       resolve();
   //     });
   //   });
   // }
+
+  /**
+   * Convert Between Image Formats.
+   *
+   * @static
+   * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
+   * @param {string} outputPath? Allows you to specify the output path for converted images. The default is undefined.
+   * @return {Promise<string>} The data URL of the image whose format was converted.
+   * @memberof Media
+   */
+  public static async convertImageFormat(inputPathOrDataUrl: string, outputPath?: string): Promise<string> {
+    const isPath = File.isPath(inputPathOrDataUrl);
+    if (isPath && !File.existsFile(inputPathOrDataUrl))
+      throw new Error(`Input file ${inputPathOrDataUrl} not found`);
+    return new Promise<string>((resolve, reject) => {
+      // If the input is a data URL, the data URL is written to a file as the input path.
+      let inputPath = inputPathOrDataUrl;
+      if (!isPath) {
+        inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || 'tmp');
+        this.writeDataUrlToFile(inputPath, inputPathOrDataUrl);
+      }
+      const extension = (File.getExtension(inputPath) || '').toLocaleLowerCase();
+      const isGif = extension === 'gif';
+      console.log('isGif=', isGif);
+      if (isGif)
+        inputPath += '[0]';
+
+      // Temporary path of output.
+      if (!outputPath)
+        outputPath = File.getTmpPath(extension);
+
+      // Conversion of image formats.
+      this.#im(inputPath).write(outputPath, (err: Error|null) => {
+        if (err)
+          return void reject(err);
+
+        // Return the converted image as a data URL.
+        resolve(File.readAsDataUrl(outputPath!));
+      });
+    });
+  }
 }

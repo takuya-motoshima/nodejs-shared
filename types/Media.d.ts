@@ -1,5 +1,6 @@
 import MergeImagesOptions from '~/interfaces/MergeImagesOptions';
 export default class Media {
+    #private;
     /**
      * Write data URL to a file.
      * If the file path does not have an extension, the extension determined from DataURL is automatically assigned to the file path.
@@ -185,4 +186,14 @@ export default class Media {
      * @memberof Media
      */
     static getNumberOfGifFrames(inputPathOrDataUrl: string): Promise<number | null>;
+    /**
+     * Convert Between Image Formats.
+     *
+     * @static
+     * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
+     * @param {string} outputPath? Allows you to specify the output path for converted images. The default is undefined.
+     * @return {Promise<string>} The data URL of the image whose format was converted.
+     * @memberof Media
+     */
+    static convertImageFormat(inputPathOrDataUrl: string, outputPath?: string): Promise<string>;
 }
