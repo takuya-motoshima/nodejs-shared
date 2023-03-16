@@ -27,7 +27,7 @@ export default class {
    * Find a method from an instance.
    *
    * @static
-   * @param {any} Class instance.
+   * @param {any} instance Class instance.
    * @return {Set<string>} Instance method name list.
    */
   public static getMethods(instance: any): Set<string> {

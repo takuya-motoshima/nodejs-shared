@@ -5,6 +5,7 @@ Click [here](CHANGELOG.md) to see the change log.
 - [nodejs-shared](#nodejs-shared)
     - [Installation](#installation)
     - [Requirements](#requirements)
+    - [List of classes and methods.](#list-of-classes-and-methods)
     - [File class](#file-class)
     - [Media class](#media-class)
     - [Reflect class](#reflect-class)
@@ -25,6 +26,52 @@ npm install --save nodejs-shared
     ```sh
     brew install imagemagick
     ```
+## List of classes and methods.
+|Class|Method|Description|
+|--|--|--|
+|File|[.basename()](#filebasename)|Get the file name from the path.|
+|File|[.chmod()](#filechmod)|Change permissions.|
+|File|[.makeTmpDirectory()](#filemaketmpdirectory)|Create a temporary directory.|
+|File|[.makeDirectory()](#filemakedirectory)|Make a directory.|
+|File|[.existsFile()](#fileexistsfile)|Check if the file or directory exists.|
+|File|[.deleteFile()](#filedeletefile)|Delete the file.|
+|File|[.deleteDirectory()](#filedeletedirectory)|Delete the directory.|
+|File|[.write()](#filewrite)|Write a file|
+|File|[.readAsString()](#filereadasstring)|Get the contents of a file as a string.|
+|File|[.readAsJson()](#filereadasjson)|Get the contents of a JSON file as an object.|
+|File|[.readAsDataUrl()](#filereadasdataurl)|Get the contents of the media file as a data URL string.|
+|File|[.readAsBase64()](#filereadasbase64)|Get the contents of a media file as a base64 string.|
+|File|[.getStat()](#filegetstat)|Get file information.|
+|File|[.getFilemtime()](#filegetfilemtime)|Get file modification time in unix time.|
+|File|[.getExtension()](#filegetextension)|Get the file extension.|
+|File|[.find()](#filefind)|Find files that match the file name or path pattern.|
+|File|[.getTmpDirectory()](#filegettmpdirectory)|Returns the path to the new temporary directory.|
+|File|[.getTmpPath()](#filegettmppath)|Returns the path to the new temporary file. No file is created.|
+|File|[.isFile()](#fileisfile)|Check if it is a file.|
+|File|[.rename()](#filerename)|Rename a file or directory.|
+|File|[.isBase64()](#fileisbase64)|Check if it is a base64 string.|
+|File|[.isDirectory()](#fileisdirectory)|Check if the path is a directory.|
+|File|[.copyDirectory()](#filecopydirectory)|Copy a file or directory. The directory can have contents.|
+|File|[.isPath()](#fileispath)|Check if it is valid as a file system path.|
+|Media|[.writeDataUrlToFile()](#mediawritedataurltofile)|Write data URL to a file.|
+|Media|[.dataUrlToBase64()](#mediadataurltobase64)|Convert data URL to blob data in base64 format.|
+|Media|[.isDataUrl()](#mediaisdataurl)|Check if the string is in data URL format.|
+|Media|[.statDataUrl()](#mediastatdataurl)|Get the MIME type and base64 from the data URL string.|
+|Media|[.getDimensions()](#mediagetdimensions)|Get the dimensions (pixels) of the image.|
+|Media|[.crop()](#mediacrop)|Crop from image.|
+|Media|[.resize()](#mediaresize)|Resize the image.|
+|Media|[.dataUrlByteSize()](#mediadataurlbytesize)|Get the byte size of data URL.|
+|Media|[.base64ByteSize()](#mediabase64bytesize)|Get base64 byte size.|
+|Media|[.getMimeTypeFromDataUrl()](#mediagetmimetypefromdataurl)|Get Mime type from data URL.|
+|Media|[.getExtensionFromDataUrl()](#mediagetextensionfromdataurl)|Get extension from data URL.|
+|Media|[.mergeImages()](#mediamergeimages)|Merge images.|
+|Media|[.extractFirstFrameOfGif()](#mediaextractfirstframeofgif)|Extract and save the first frame of the animated GIF.|
+|Media|[.getNumberOfGifFrames()](#mediagetnumberofgifframes)|Get the number of GIF frames.|
+|Media|[.convertImageFormat()](#mediaconvertimageformat)|Convert Between Image Formats.|
+|Reflect|[.getStaticMethods()](#reflectgetstaticmethods)|Find static methods from the class.|
+|Reflect|[.getMethods()](#reflectgetmethods)|Find a method from an instance.|
+|Regex|[Regex.escape()](#regexescape)|Escapes the `RegExp` special characters &quot;^&quot;, &quot;$&quot;, &quot;\&quot;, &quot;.&quot;, &quot;*&quot;, &quot;+&quot;, &quot;?&quot;, &quot;(&quot;, &quot;)&quot;, &quot;[&quot;, &quot;]&quot;, &quot;{&quot;, &quot;}&quot;, &quot;|&quot; in `string`.|
+|Browser|[Browser.parse()](#browserparse)|Analyze browser information from UA.|
 
 ## File class
 File utility class.
@@ -40,8 +87,8 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
-    - {boolean} withExtension True if you want to include the extension, false if you don't. Default is false.
+    - {string} <code>filePath</code> File Path.
+    - {boolean} <code>withExtension</code> True if you want to include the extension, false if you don't. Default is false.
 
     #### Return value
     {string} File Name.
@@ -56,8 +103,8 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} path File or directory path.
-    - {number} permission Permissions. Default is 0o755.
+    - {string} <code>path</code> File or directory path.
+    - {number} <code>permission</code> Permissions. Default is 0o755.
 
     #### Return value
     {File}
@@ -84,8 +131,8 @@ File utility class.
     ```
 
     #### Parameters
-    - {string] dirPath Directory path.
-    - {number} permission Directory permissions. Default is 0o755.
+    - {string} <code>dirPath</code> Directory path.
+    - {number} <code>permission</code> Directory permissions. Default is 0o755.
 
     #### Return value
     {File}
@@ -101,7 +148,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string] path File or directory path.
+    - {string} <code>path</code> File or directory path.
 
     #### Return value
     {boolean} True if the file or directory exists.
@@ -116,7 +163,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 - ### File.deleteDirectory()
     Delete the directory.
 
@@ -128,7 +175,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} dirPath Directory path.
+    - {string} <code>dirPath</code> Directory path.
 - ### File.write()
     Write a file
 
@@ -140,10 +187,10 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
-    - {string} content The contents of the file. Default is an empty string.
-    - {fs.BaseEncodingOptions|string|undefined} options Writing options. Default is undefined.
-    - {number} permission File permissions. Default is 0o755.
+    - {string} <code>filePath</code> File Path.
+    - {string} <code>content</code> The contents of the file. Default is an empty string.
+    - {fs.BaseEncodingOptions|string|undefined} <code>options</code> Writing options. Default is undefined.
+    - {number} <code>permission</code> File permissions. Default is 0o755.
 
     #### Return value
     {File}
@@ -158,7 +205,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 
     #### Return value
     {string} The contents of the file.
@@ -173,7 +220,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 
     #### Return value
     {object} An object generated from JSON.
@@ -188,7 +235,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 
     #### Return value
     {string} Data URL.
@@ -203,7 +250,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 
     #### Return value
     {string} Base 64 strings.
@@ -238,7 +285,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 
     #### Return value
     {object} File information object.
@@ -253,7 +300,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 
     #### Return value
     {number} Last modified unix time of the file.
@@ -268,7 +315,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 
     #### Return value
     {string|undefined} File extension.
@@ -321,8 +368,8 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} pattern File pattern to find.
-    - {glob.IOptions} options Options to find. Default is undefined
+    - {string} <code>pattern</code> File pattern to find.
+    - {glob.IOptions} <code>options</code> Options to find. Default is undefined
 
     #### Return value
     {string[]} Absolute path list of files found.
@@ -354,7 +401,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} extension Extension to be given to temporary files. Default is none.
+    - {string} <code>extension</code> Extension to be given to temporary files. Default is none.
 
     #### Return value
     {string} Temporary file path.
@@ -370,7 +417,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} filePath File Path.
+    - {string} <code>filePath</code> File Path.
 
     #### Return value
     {boolean} True if the file is a file.
@@ -385,8 +432,8 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} srcPath Original file path.
-    - {string} dstPath The destination file path.
+    - {string} <code>srcPath</code> Original file path.
+    - {string} <code>dstPath</code> The destination file path.
 - ### File.isBase64()
     Check if it is a base64 string.
 
@@ -399,7 +446,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} str String.
+    - {string} <code>str</code> String.
 
     #### Return value
     {boolean} True if base64.
@@ -415,7 +462,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} inputPath The path of a file or directory.
+    - {string} <code>inputPath</code> The path of a file or directory.
 
     #### Return value
     {boolean} True if the input path is a directory, false otherwise.
@@ -430,8 +477,8 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} srcDir The directory from which the copy was made.
-    - {string} dstDir The destination directory.
+    - {string} <code>srcDir</code> The directory from which the copy was made.
+    - {string} <code>dstDir</code> The destination directory.
 
     #### Return value
     Promise&lt;void&gt;
@@ -456,7 +503,7 @@ File utility class.
     ```
 
     #### Parameters
-    - {string} str String.
+    - {string} <code>str</code> String.
 
     #### Return value
     boolean
@@ -484,9 +531,9 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} outputPath Output file path.
-    - {string} dataUrl Data URL.
-    - {number} permission File permissions. Default is 0o755.
+    - {string} <code>outputPath</code> Output file path.
+    - {string} <code>dataUrl</code> Data URL.
+    - {number} <code>permission</code> File permissions. Default is 0o755.
 
     #### Return value
     {string} Path of the written file.
@@ -501,7 +548,7 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} dataUrl Data URL.
+    - {string} <code>dataUrl</code> Data URL.
 
     #### Return value
     {string} Base 64 strings.
@@ -516,7 +563,7 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} dataUrl Data URL.
+    - {string} <code>dataUrl</code> Data URL.
 
     #### Return value
     {boolean} True if it is a data URL.
@@ -531,7 +578,7 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} dataUrl Data URL.
+    - {string} <code>dataUrl</code> Data URL.
 
     #### Return value
     {{blob: string, type: string, extension: string|null}|undefined} Data URL Analysis Results.
@@ -546,11 +593,11 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} filePath Image file path.
+    - {string} <code>filePath</code> Image file path.
 
     #### Return value
     {{width: number, height: number }|null} Width and height (in pixels) of the image.
-- ### async Media.crop()
+- ### Media.crop()
     Crop from image.
 
     #### Usage
@@ -561,16 +608,16 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} inputPath Original image file path.
-    - {string} outputPath Image path after cropping.
-    - {number} options.left x-coordinate position (pixels) to crop.
-    - {number} options.top y-coordinate position to crop to (in pixels).
-    - {number} options.width Width to crop (pixels).
-    - {number} options.height The height (in pixels) to crop.
+    - {string} <code>inputPath</code> Original image file path.
+    - {string} <code>outputPath</code> Image path after cropping.
+    - {number} <code>options.left</code> x-coordinate position (pixels) to crop.
+    - {number} <code>options.top</code> y-coordinate position to crop to (in pixels).
+    - {number} <code>options.width</code> Width to crop (pixels).
+    - {number} <code>options.height</code> The height (in pixels) to crop.
 
     #### Return value
     Promise&lt;void&gt;
-- ### async Media.resize()
+- ### Media.resize()
     Resize the image.  
     If the output option is omitted, the original image is overwritten.
 
@@ -595,11 +642,11 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} inputPath The image file path from which to resize.
-    - {number} width Width after resizing.
-    - {number} height Height after resizing.
-    - {number} output Image file path after resizing. The default is none, which will overwrite the original image.
-    - {boolean} contain If true, resizes the image so that the entire original image is visible. If false, it is stretched to fit the height or width and cropped to fill the area. Default is false.
+    - {string} <code>inputPath</code> The image file path from which to resize.
+    - {number} <code>width</code> Width after resizing.
+    - {number} <code>height</code> Height after resizing.
+    - {number} <code>output</code> Image file path after resizing. The default is none, which will overwrite the original image.
+    - {boolean} <code>contain</code> If true, resizes the image so that the entire original image is visible. If false, it is stretched to fit the height or width and cropped to fill the area. Default is false.
 
     #### Return value
     Promise&lt;void&gt;
@@ -609,8 +656,8 @@ Media (image and video) utility class.
     x = (n * (3/4)) - y  
     Where:  
     1. x is the size of a file in bytes  
-    1. n is the length of the Base64 String  
-    1. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.  
+    2. n is the length of the Base64 String  
+    3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.  
 
     #### Usage
     ```js
@@ -626,7 +673,7 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} dataUrl Data URL.
+    - {string} <code>dataUrl</code> Data URL.
 
     #### Return value
     {number} Byte Size.
@@ -636,8 +683,8 @@ Media (image and video) utility class.
     x = (n * (3/4)) - y  
     Where:  
     1. x is the size of a file in bytes  
-    1. n is the length of the Base64 String  
-    1. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.  
+    2. n is the length of the Base64 String  
+    3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.  
 
     #### Usage
     ```js
@@ -652,7 +699,7 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} base64 Base 64 strings.
+    - {string} <code>base64</code> Base 64 strings.
 
     #### Return value
     {number} Byte Size.
@@ -673,7 +720,7 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} dataUrl Data URL.
+    - {string} <code>dataUrl</code> Data URL.
 
     #### Return value
     {string|null} Mime Type.
@@ -698,11 +745,11 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} dataUrl Data URL.
+    - {string} <code>dataUrl</code> Data URL.
 
     #### Return value
     {string|null} File extension.
-- ### async Media.mergeImages()
+- ### Media.mergeImages()
     Merge images.
 
     Merge vertically:  
@@ -734,26 +781,26 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string[]} inputPaths Path list of image files to merge.
-    - {string} outputPath File path of the merged image.
-    - {'vertical'|'horizontal'} options.direction Direction of the merged image.
-    - {string|{r: number, g: number, b: number, alpha: number}} options.color  
+    - {string[]} <code>inputPaths</code> Path list of image files to merge.
+    - {string} <code>outputPath</code> File path of the merged image.
+    - {'vertical'|'horizontal'} <code>options.direction</code> Direction of the merged image.
+    - {string|{r: number, g: number, b: number, alpha: number}} <code>options.color</code>  
         Default background color represented by RGBA hex value.  
         Default is {alpha: 1., b: 0, g: 0, r: 0}.
-    - {'start'|'center'|'end'|'start'} options.align  
+    - {'start'|'center'|'end'|'start'} <code>options.align</code>  
         Aligning of given images.  
         If the images are not all the same size, images will be sorted to largest image.  
         Possible values are start, center and end.  
         Default is start.
-    - {number} offset Offset in pixels between each image. Default is 0.
-    - {number|string|{top: number, right: number, bottom: number, left: number}} options.margin  
+    - {number} <code>offset</code> Offset in pixels between each image. Default is 0.
+    - {number|string|{top: number, right: number, bottom: number, left: number}} <code>options.margin</code>  
         Margin of the result image.
         If Number or String is passed, it will be considered as standard css shorthand properties (e.g. '40 40 0 10').
         An Object entry can have following options:
-        - top Number (optional) - Margin on top side of result image. Default is 0.
-        - right Number (optional) - Margin on right side of result image. Default is 0.
-        - bottom Number (optional) - Margin on bottom side of result image. Default is 0.
-        - left Number (optional) - Margin on left side of result image. Default is 0.
+        - top Number (optional): Margin on top side of result image. Default is 0.
+        - right Number (optional): Margin on right side of result image. Default is 0.
+        - bottom Number (optional): Margin on bottom side of result image. Default is 0.
+        - left Number (optional): Margin on left side of result image. Default is 0.
 
     #### Return value
     Promise&lt;void&gt;
@@ -775,8 +822,8 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} inputPathOrDataUrl Path or Data URL of the input image.
-    - {string} Output Output image path.  
+    - {string} <code>inputPathOrDataUrl</code> Path or Data URL of the input image.
+    - {string} <code>output</code> Output image path.  
         If not specified, the first frame image is overwritten in the original file.
 
     #### Return value
@@ -796,7 +843,7 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} inputPathOrDataUrl Path or Data URL of the input image.
+    - {string} <code>inputPathOrDataUrl</code> Path or Data URL of the input image.
 
     #### Return value
     {Promise&lt;number|null&gt;} Number of frames in the image.
@@ -816,8 +863,8 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} inputPathOrDataUrl Path or Data URL of the input image.
-    - {string} outputPath? Allows you to specify the output path for converted images. The default is undefined.
+    - {string} <code>inputPathOrDataUrl</code> Path or Data URL of the input image.
+    - {string} <code>outputPath?</code> Allows you to specify the output path for converted images. The default is undefined.
 
     #### Return value
     {Promise&lt;string&gt;} The data URL of the image whose format was converted.
@@ -843,7 +890,7 @@ Interface for retrieving reflective information about classes and objects.
     ```
 
     #### Parameters
-    - {any} clazz Class.
+    - {any} <code>clazz</code> Class.
 
     #### Return value
     {Set<string>} Static method name list.
@@ -864,7 +911,7 @@ Interface for retrieving reflective information about classes and objects.
     ```
 
     #### Parameters
-    - {any} Class instance.
+    - {any} <code>instance</code> Class instance.
 
     #### Return value
     {Set<string>} Instance method name list.
@@ -889,8 +936,8 @@ Interface for retrieving reflective information about classes and objects.
     ```
 
     #### Parameters
-    - {string} str String.
-    - {{[key: string]: string}} replace? Custom replacement characters. The default is none (undefined).
+    - {string} <code>str</code> String.
+    - {{[key: string]: string}} <code>replace?</code> Custom replacement characters. The default is none (undefined).
 
     #### Return value
     {string} Escaped string.
@@ -929,7 +976,7 @@ Interface for retrieving reflective information about classes and objects.
     ```
 
     #### Parameters
-    - {string} ua User agent string.
+    - {string} <code>ua</code> User agent string.
 
     #### Return value
     {{platform: string, osName: string, osVersion: number|null, browserName: string}} Analysis Results.

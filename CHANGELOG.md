@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.17] - 2023/3/16
+### Changed
+- Fix API documentation.
+
 ## [1.0.16] - 2023/3/16
 ### Added
 - An image format conversion method was added to the media class.
@@ -269,3 +273,4 @@ All notable changes to this project will be documented in this file.
 [1.0.14]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.13...v1.0.14
 [1.0.15]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.14...v1.0.15
 [1.0.16]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.15...v1.0.16
+[1.0.17]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.16...v1.0.17
