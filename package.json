@@ -1,6 +1,6 @@
 {
   "name": "nodejs-shared",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "description": "This is a shared module of node.js.",
   "main": "dist/build.common.js",
   "module": "dist/build.esm.js",
