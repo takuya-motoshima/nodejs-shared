@@ -233,4 +233,18 @@ describe('Media.convertImageFormat()', () => {
     const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
     expect(Media.statDataUrl(dataUrl).extension).toBe('png');
   });
+
+  test('Should be converted from png to bmp.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.png`;
+    const outputPath = `${OUTPUT_DIR}/converted7.bmp`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
+    expect(Media.statDataUrl(dataUrl).extension).toBe('bmp');
+  });
+
+  test('Should be converted from jpg to bmp.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.jpg`;
+    const outputPath = `${OUTPUT_DIR}/converted8.bmp`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
+    expect(Media.statDataUrl(dataUrl).extension).toBe('bmp');
+  });
 });

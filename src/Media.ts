@@ -467,15 +467,18 @@ export default class Media {
         inputPath = File.getTmpPath(this.statDataUrl(inputPathOrDataUrl)?.extension || 'tmp');
         this.writeDataUrlToFile(inputPath, inputPathOrDataUrl);
       }
-      const extension = (File.getExtension(inputPath) || '').toLocaleLowerCase();
-      const isGif = extension === 'gif';
-      console.log('isGif=', isGif);
-      if (isGif)
+      const inputExtension = (File.getExtension(inputPath) || '').toLocaleLowerCase();
+      if (inputExtension === 'gif')
         inputPath += '[0]';
 
       // Temporary path of output.
       if (!outputPath)
-        outputPath = File.getTmpPath(extension);
+        outputPath = File.getTmpPath(inputExtension);
+
+      // If output is BPM, output in BPM V3 format.
+      const outputExtension = (File.getExtension(outputPath) || '').toLocaleLowerCase();
+      if (outputExtension === 'bmp')
+        outputPath = `BMP3:${outputPath}`;
 
       // Conversion of image formats.
       this.#im(inputPath).write(outputPath, (err: Error|null) => {

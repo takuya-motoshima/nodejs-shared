@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.19] - 2023/3/24
+### Changed
+- Changed the format of bmp output by the image format conversion method (Media.convertImageFormat()) from BPM V1 to BMP V3.
+
 ## [1.0.18] - 2023/3/16
 ### Changed
 - Delete backup files that are no longer needed.
@@ -279,3 +283,4 @@ All notable changes to this project will be documented in this file.
 [1.0.16]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.15...v1.0.16
 [1.0.17]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.16...v1.0.17
 [1.0.18]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.17...v1.0.18
+[1.0.19]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.18...v1.0.19
