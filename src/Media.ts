@@ -476,12 +476,13 @@ export default class Media {
         outputPath = File.getTmpPath(inputExtension);
 
       // If output is BPM, output in BPM V3 format.
-      const outputExtension = (File.getExtension(outputPath) || '').toLocaleLowerCase();
-      if (outputExtension === 'bmp')
-        outputPath = `BMP3:${outputPath}`;
+      let formatSpecifier ='';
+      if ((File.getExtension(outputPath) || '').toLocaleLowerCase() === 'bmp')
+        formatSpecifier = 'BMP3:';
+      console.log('formatSpecifier=', formatSpecifier);
 
       // Conversion of image formats.
-      this.#im(inputPath).write(outputPath, (err: Error|null) => {
+      this.#im(inputPath).write(`${formatSpecifier}${outputPath}`, (err: Error|null) => {
         if (err)
           return void reject(err);
 

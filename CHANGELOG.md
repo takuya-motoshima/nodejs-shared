@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.20] - 2023/3/24
+### Fixed
+- Fixed a bug in the image format conversion method (Media.convertImageFormat()) that caused an error when loading the converted image dataURL.
+
 ## [1.0.19] - 2023/3/24
 ### Changed
 - Changed the format of bmp output by the image format conversion method (Media.convertImageFormat()) from BPM V1 to BMP V3.
@@ -284,3 +288,4 @@ All notable changes to this project will be documented in this file.
 [1.0.17]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.16...v1.0.17
 [1.0.18]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.17...v1.0.18
 [1.0.19]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.18...v1.0.19
+[1.0.20]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.19...v1.0.20

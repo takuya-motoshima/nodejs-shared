@@ -18,7 +18,8 @@
     "prewatch": "rimraf dist types",
     "build": "rollup -c --bundleConfigAsCjs",
     "prebuild": "rimraf dist types",
-    "test": "jest"
+    "test": "jest",
+    "test:media": "jest media"
   },
   "_moduleAliases": {
     "~": "."
