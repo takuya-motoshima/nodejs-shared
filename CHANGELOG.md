@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.21] - Next.
+### Fixed
+- Delete debug logs.
+
 ## [1.0.20] - 2023/3/24
 ### Fixed
 - Fixed a bug in the image format conversion method (Media.convertImageFormat()) that caused an error when loading the converted image dataURL.
@@ -289,3 +293,4 @@ All notable changes to this project will be documented in this file.
 [1.0.18]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.17...v1.0.18
 [1.0.19]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.18...v1.0.19
 [1.0.20]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.19...v1.0.20
+[1.0.21]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.20...v1.0.21

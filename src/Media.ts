@@ -479,7 +479,6 @@ export default class Media {
       let formatSpecifier ='';
       if ((File.getExtension(outputPath) || '').toLocaleLowerCase() === 'bmp')
         formatSpecifier = 'BMP3:';
-      console.log('formatSpecifier=', formatSpecifier);
 
       // Conversion of image formats.
       this.#im(inputPath).write(`${formatSpecifier}${outputPath}`, (err: Error|null) => {
