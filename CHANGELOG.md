@@ -1,7 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.0.21] - Next.
+## [1.0.21] - 2023/4/4
+### Changed
+- Added bmp conversion option to the image conversion method (Media.convertImageFormat).
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Use 24-bit color in the output bmp.
+    const dataUrl = await Media.convertImageFormat('input.jpg', 'output.bmp', {trueColor: true});
+    ```
+
 ### Fixed
 - Delete debug logs.
 
@@ -28,10 +37,10 @@ All notable changes to this project will be documented in this file.
     const {Media} = require('nodejs-shared');
 
     // Get the data URL of the converted image format.
-    const dataUrl1 = await Media.convertImageFormat('before.png');
+    const dataUrl1 = await Media.convertImageFormat('input.png');
 
     // In addition to obtaining the data URL, further write the converted image format in the file.
-    const dataUrl2 = await Media.convertImageFormat('before.png', 'after.jpg');
+    const dataUrl2 = await Media.convertImageFormat('input.png', 'output.jpg');
     ```
 ### Fixed
 - Fixed a typo that caused two dots in the extension of temporary images created by GIF-related processing in the media class.

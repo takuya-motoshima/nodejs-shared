@@ -453,10 +453,35 @@ export default class Media {
    * @static
    * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
    * @param {string} outputPath? Allows you to specify the output path for converted images. The default is undefined.
+   * @param {'bmp2'|'bmp3'|'bmp4'} options.bmpVersion? Version of BMP to output.
+   *                                                    If the output is not BPM, this option is ignored.
+   *                                                    Default is 'bmp3'.
+   *                                                    Header size:
+   *                                                      Windows BMP v2
+   *                                                        Info header size: 12
+   *                                                        Info header name: BITMAPCOREHEADER
+   *                                                      Windows BMP v3
+   *                                                        Info header size: 40
+   *                                                        Info header name: BITMAPINFOHEADER
+   *                                                      Windows BMP v4
+   *                                                        Info header size: 108
+   *                                                        Info header name: BITMAPV4HEADER
+   *                                                      Windows BMP v5
+   *                                                        Info header size: 124
+   *                                                        Info header name: BITMAPV5HEADER
+   * @param {boolean} options.trueColor? Set to true if 24-bit color is used for output BMP. Default is true.
    * @return {Promise<string>} The data URL of the image whose format was converted.
    * @memberof Media
    */
-  public static async convertImageFormat(inputPathOrDataUrl: string, outputPath?: string): Promise<string> {
+  public static async convertImageFormat(
+    inputPathOrDataUrl: string,
+    outputPath?: string,
+    options?: {bmpVersion: 'bmp2'|'bmp3'|'bmp4', trueColor: boolean,}
+  ): Promise<string> {
+    options = Object.assign({
+      bmpVersion: 'bmp3',
+      trueColor: true,
+    }, options);
     const isPath = File.isPath(inputPathOrDataUrl);
     if (isPath && !File.existsFile(inputPathOrDataUrl))
       throw new Error(`Input file ${inputPathOrDataUrl} not found`);
@@ -475,13 +500,21 @@ export default class Media {
       if (!outputPath)
         outputPath = File.getTmpPath(inputExtension);
 
+      // Input Format.
+      const inputFormat = (File.getExtension(outputPath) || '').toLocaleLowerCase();
+
       // If output is BPM, output in BPM V3 format.
-      let formatSpecifier ='';
-      if ((File.getExtension(outputPath) || '').toLocaleLowerCase() === 'bmp')
-        formatSpecifier = 'BMP3:';
+      let bmpVersion ='';
+      if (inputFormat === 'bmp')
+        bmpVersion = `${options?.bmpVersion || 'bmp3'}:`;
+
+      // If the input format is bmp, the truecolor option is applied.
+      const state = this.#im(inputPath);
+      if (inputFormat === 'bmp' && options?.trueColor)
+        state.type('TrueColor');
 
       // Conversion of image formats.
-      this.#im(inputPath).write(`${formatSpecifier}${outputPath}`, (err: Error|null) => {
+      state.write(`${bmpVersion}${outputPath}`, (err: Error|null) => {
         if (err)
           return void reject(err);
 

@@ -856,16 +856,20 @@ Media (image and video) utility class.
     const {Media} = require('nodejs-shared');
 
     // Get the data URL of the converted image format.
-    const dataUrl1 = await Media.convertImageFormat('before.png');
+    const dataUrl1 = await Media.convertImageFormat('input.png');
 
     // In addition to obtaining the data URL, further write the converted image format in the file.
-    const dataUrl2 = await Media.convertImageFormat('before.png', 'after.jpg');
+    const dataUrl2 = await Media.convertImageFormat('input.png', 'output.jpg');
     ```
 
     #### Parameters
     - {string} <code>inputPathOrDataUrl</code> Path or Data URL of the input image.
     - {string} <code>outputPath?</code> Allows you to specify the output path for converted images. The default is undefined.
-
+    - {&#039;bmp2&#039;|&#039;bmp3&#039;|&#039;bmp4&#039;} <code>options.bmpVersion?</code> Version of BMP to output.  
+        If the output is not BPM, this option is ignored.  
+        Default is 'bmp3'.
+    - {boolean} <code>options.trueColor?</code> Set to true if 24-bit color is used for output BMP. Default is true.
+    
     #### Return value
     {Promise&lt;string&gt;} The data URL of the image whose format was converted.
 

@@ -192,8 +192,28 @@ export default class Media {
      * @static
      * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
      * @param {string} outputPath? Allows you to specify the output path for converted images. The default is undefined.
+     * @param {'bmp2'|'bmp3'|'bmp4'} options.bmpVersion? Version of BMP to output.
+     *                                                    If the output is not BPM, this option is ignored.
+     *                                                    Default is 'bmp3'.
+     *                                                    Header size:
+     *                                                      Windows BMP v2
+     *                                                        Info header size: 12
+     *                                                        Info header name: BITMAPCOREHEADER
+     *                                                      Windows BMP v3
+     *                                                        Info header size: 40
+     *                                                        Info header name: BITMAPINFOHEADER
+     *                                                      Windows BMP v4
+     *                                                        Info header size: 108
+     *                                                        Info header name: BITMAPV4HEADER
+     *                                                      Windows BMP v5
+     *                                                        Info header size: 124
+     *                                                        Info header name: BITMAPV5HEADER
+     * @param {boolean} options.trueColor? Set to true if 24-bit color is used for output BMP. Default is true.
      * @return {Promise<string>} The data URL of the image whose format was converted.
      * @memberof Media
      */
-    static convertImageFormat(inputPathOrDataUrl: string, outputPath?: string): Promise<string>;
+    static convertImageFormat(inputPathOrDataUrl: string, outputPath?: string, options?: {
+        bmpVersion: 'bmp2' | 'bmp3' | 'bmp4';
+        trueColor: boolean;
+    }): Promise<string>;
 }

@@ -247,4 +247,11 @@ describe('Media.convertImageFormat()', () => {
     const dataUrl = await Media.convertImageFormat(inputPath, outputPath);
     expect(Media.statDataUrl(dataUrl).extension).toBe('bmp');
   });
+
+  test('The output bmp should be in 24-bit color.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.jpg`;
+    const outputPath = `${OUTPUT_DIR}/converted9.bmp`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath, {trueColor: true});
+    expect(Media.statDataUrl(dataUrl).extension).toBe('bmp');
+  });
 });
