@@ -254,4 +254,25 @@ describe('Media.convertImageFormat()', () => {
     const dataUrl = await Media.convertImageFormat(inputPath, outputPath, {trueColor: true});
     expect(Media.statDataUrl(dataUrl).extension).toBe('bmp');
   });
+
+  test('Should be converted to jpg image with margins added.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.jpg`;
+    const outputPath = `${OUTPUT_DIR}/converted10.jpg`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath, {margin: 100, background: 'gray'});
+    expect(Media.statDataUrl(dataUrl).extension).toBe('jpg');
+  });
+
+  test('Should be converted to a png image with margins added.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.png`;
+    const outputPath = `${OUTPUT_DIR}/converted11.png`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath, {margin: 100, background: 'gray'});
+    expect(Media.statDataUrl(dataUrl).extension).toBe('png');
+  });
+
+  test('Should be converted to a gif image with margins added.', async () => {
+    const inputPath = `${INPUT_DIR}/sample1.gif`;
+    const outputPath = `${OUTPUT_DIR}/converted12.gif`;
+    const dataUrl = await Media.convertImageFormat(inputPath, outputPath, {margin: 100, background: 'gray'});
+    expect(Media.statDataUrl(dataUrl).extension).toBe('gif');
+  });
 });

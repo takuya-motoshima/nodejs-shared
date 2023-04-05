@@ -209,11 +209,19 @@ export default class Media {
      *                                                        Info header size: 124
      *                                                        Info header name: BITMAPV5HEADER
      * @param {boolean} options.trueColor? Set to true if 24-bit color is used for output BMP. Default is true.
+     * @param {number} options.margin? The size of the top, bottom, left, and right margins to be added to the original image.
+                                        Unit is in pixels.
+                                        The default is none (undefined).
+     * @param {string} options.background? The background color of the margin.
+                                            This option is ignored if the margin option is absent.
+                                            Default is white.
      * @return {Promise<string>} The data URL of the image whose format was converted.
      * @memberof Media
      */
     static convertImageFormat(inputPathOrDataUrl: string, outputPath?: string, options?: {
         bmpVersion: 'bmp2' | 'bmp3' | 'bmp4';
         trueColor: boolean;
+        margin: number;
+        background: string;
     }): Promise<string>;
 }

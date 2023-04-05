@@ -470,17 +470,29 @@ export default class Media {
    *                                                        Info header size: 124
    *                                                        Info header name: BITMAPV5HEADER
    * @param {boolean} options.trueColor? Set to true if 24-bit color is used for output BMP. Default is true.
+   * @param {number} options.margin? The size of the top, bottom, left, and right margins to be added to the original image.
+                                      Unit is in pixels.
+                                      The default is none (undefined).
+   * @param {string} options.background? The background color of the margin.
+                                          This option is ignored if the margin option is absent.
+                                          Default is white.
    * @return {Promise<string>} The data URL of the image whose format was converted.
    * @memberof Media
    */
   public static async convertImageFormat(
     inputPathOrDataUrl: string,
     outputPath?: string,
-    options?: {bmpVersion: 'bmp2'|'bmp3'|'bmp4', trueColor: boolean,}
-  ): Promise<string> {
+    options?: {
+      bmpVersion: 'bmp2'|'bmp3'|'bmp4',
+      trueColor: boolean,
+      margin: number,
+      background: string,
+    }): Promise<string> {
     options = Object.assign({
       bmpVersion: 'bmp3',
       trueColor: true,
+      margin: null,
+      background: 'white',
     }, options);
     const isPath = File.isPath(inputPathOrDataUrl);
     if (isPath && !File.existsFile(inputPathOrDataUrl))
@@ -512,6 +524,12 @@ export default class Media {
       const state = this.#im(inputPath);
       if (inputFormat === 'bmp' && options?.trueColor)
         state.type('TrueColor');
+
+      // Margins and background color.
+      if (options?.margin) {
+        state.border(options?.margin, options?.margin);
+        state.borderColor(options?.background || 'white');
+      }
 
       // Conversion of image formats.
       state.write(`${bmpVersion}${outputPath}`, (err: Error|null) => {

@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.22] - 2023/4/5
+- Added margin option to image conversion method (Media.convertImageFormat).
+    ```js
+    const {Media} = require('nodejs-shared');
+
+    // Add 100px gray margins on top, bottom, left and right.
+    const dataUrl = await Media.convertImageFormat('input.jpg', 'output.jpg', {margin: 100, background: 'gray});
+    ```
+
 ## [1.0.21] - 2023/4/4
 ### Changed
 - Added bmp conversion option to the image conversion method (Media.convertImageFormat).
@@ -303,3 +312,4 @@ All notable changes to this project will be documented in this file.
 [1.0.19]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.18...v1.0.19
 [1.0.20]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.19...v1.0.20
 [1.0.21]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.20...v1.0.21
+[1.0.21]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.21...v1.0.22

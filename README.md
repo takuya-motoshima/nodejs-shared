@@ -869,7 +869,13 @@ Media (image and video) utility class.
         If the output is not BPM, this option is ignored.  
         Default is 'bmp3'.
     - {boolean} <code>options.trueColor?</code> Set to true if 24-bit color is used for output BMP. Default is true.
-    
+    - {number} <code>options.margin?</code> The size of the top, bottom, left, and right margins to be added to the original image.  
+        Unit is in pixels.  
+        The default is none (undefined).
+    - {string} <code>options.background?</code> The background color of the margin.  
+        This option is ignored if the margin option is absent.  
+        Default is white.
+
     #### Return value
     {Promise&lt;string&gt;} The data URL of the image whose format was converted.
 
