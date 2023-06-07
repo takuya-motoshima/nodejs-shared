@@ -544,14 +544,14 @@ Media (image and video) utility class.
     ```js
     const {Media} = require('nodejs-shared');
 
-    const base64 = Media.dataUrlToBase64('data:image/jpeg;base64,iVB...');
+    const b64 = Media.dataUrlToBase64('data:image/jpeg;base64,iVB...');
     ```
 
     #### Parameters
     - {string} <code>dataUrl</code> Data URL.
 
     #### Return value
-    {string} Base 64 strings.
+    {string|null} Base 64 strings.
 - ### Media.isDataUrl()
     Check if the string is in data URL format.
 
@@ -581,7 +581,7 @@ Media (image and video) utility class.
     - {string} <code>dataUrl</code> Data URL.
 
     #### Return value
-    {{blob: string, type: string, extension: string|null}|undefined} Data URL Analysis Results.
+    {{blob: string, type: string, extension: string|null}|null} Data URL Analysis Results.
 - ### Media.getDimensions()
     Get the dimensions (pixels) of the image.
 
@@ -689,8 +689,8 @@ Media (image and video) utility class.
     #### Usage
     ```js
     const {File, Media} = require('nodejs-shared');
-    const base64 = File.readAsBase64('sample.jpg');
-    Media.base64ByteSize(base64);
+    const b64 = File.readAsBase64('sample.jpg');
+    Media.base64ByteSize(b64);
     // =>30141
 
     // Check the actual file size.
@@ -699,7 +699,7 @@ Media (image and video) utility class.
     ```
 
     #### Parameters
-    - {string} <code>base64</code> Base 64 strings.
+    - {string} <code>b64</code> Base 64 strings.
 
     #### Return value
     {number} Byte Size.
@@ -994,7 +994,7 @@ Interface for retrieving reflective information about classes and objects.
 ## Unit testing
 ```sh
 npm run test
-#  PASS  tests/file.test.js
+#  PASS  __tests__/file.test.js
 #   File.find()
 #     PASS All files should be found. (14 ms)
 #     PASS All files should be found, including subdirectories. (3 ms)
@@ -1003,7 +1003,7 @@ npm run test
 
 # (node:21592) [DEP0147] DeprecationWarning: In future versions of Node.js, fs.rmdir(path, { recursive: true }) will be removed. Use fs.rm(path, { recursive: true }) instead
 # (Use `node --trace-deprecation ...` to show where the warning was created)
-#  PASS  tests/media.test.js
+#  PASS  __tests__/media.test.js
 #   Media.writeDataUrlToFile()
 #     PASS png data URL should be written to file. (2 ms)
 #     PASS jpg data URL should be written to file.

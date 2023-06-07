@@ -19,10 +19,10 @@ export default class Media {
      *
      * @static
      * @param {string} dataUrl Data URL.
-     * @return {string} Base 64 strings.
+     * @return {string|null} Base 64 strings.
      * @memberof Media
      */
-    static dataUrlToBase64(dataUrl: string): string;
+    static dataUrlToBase64(dataUrl: string): string | null;
     /**
      * Check if the string is in data URL format.
      *
@@ -37,14 +37,14 @@ export default class Media {
      *
      * @static
      * @param {string} dataUrl Data URL.
-     * @return {{blob: string, type: string}|undefined} Data URL Analysis Results.
+     * @return {{blob: string, type: string}|null} Data URL Analysis Results.
      * @memberof Media
      */
     static statDataUrl(dataUrl: string): {
         blob: string;
         type: string;
         extension: string | null;
-    } | undefined;
+    } | null;
     /**
      * Get the dimensions (pixels) of the image.
      *
@@ -120,11 +120,11 @@ export default class Media {
      * 3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.
      *
      * @static
-     * @param {string} base64 Base 64 strings.
+     * @param {string} b64 Base 64 strings.
      * @return {number} Byte Size.
      * @memberof Media
      */
-    static base64ByteSize(base64: string): number;
+    static base64ByteSize(b64: string): number;
     /**
      * Get Mime type from data URL.
      *

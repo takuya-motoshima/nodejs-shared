@@ -1,6 +1,6 @@
 /**
  * ```sh
- * node prototypes/copy-directory.js
+ * node __prototypes__/copy-directory.js
  * ```
  */
 const {File} = require('../dist/build.common');

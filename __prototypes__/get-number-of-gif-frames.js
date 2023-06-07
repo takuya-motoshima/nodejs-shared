@@ -1,6 +1,6 @@
 /**
  * ```sh
- * node prototypes/get-number-of-gif-frames.js
+ * node __prototypes__/get-number-of-gif-frames.js
  * ```
  */
 const im = require('gm').subClass({imageMagick: true});

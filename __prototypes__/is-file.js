@@ -1,6 +1,6 @@
 /**
  * ```sh
- * node prototypes/is-file.js
+ * node __prototypes__/is-file.js
  * ```
  */
 const path = require('path');

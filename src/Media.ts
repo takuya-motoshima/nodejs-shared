@@ -8,7 +8,8 @@ import MergeImagesOptions from '~/interfaces/MergeImagesOptions';
 import ImageData from '~/interfaces/ImageData';
 import Dim from '~/interfaces/Dim';
 import ImageInfo from '~/interfaces/ImageInfo';
-// import {fileTypeFromFile} from 'file-type';
+
+const validDataUrl = /^data:([a-z]+\/[a-z0-9\-\+\._]+)(?:;..*)?,(..*)/i;
 
 export default class Media {
   /**
@@ -34,22 +35,15 @@ export default class Media {
     if (!this.isDataUrl(dataUrl))
       throw new TypeError('Content is not in data URL format');
     const hasExtension = outputPath.lastIndexOf('.') !== -1;
-    if (!hasExtension) {
-      const extension = this.getExtensionFromDataUrl(dataUrl);
-      outputPath += `.${extension}`;
-    }
-    const isSVG = this.getMimeTypeFromDataUrl(dataUrl) === 'image/svg+xml';
-    if (!isSVG)
-      File.write(outputPath, this.dataUrlToBase64(dataUrl), 'base64', permission);
-    else {
-      const base64 = this.dataUrlToBase64(dataUrl);
-      let content;
-      if (File.isBase64(base64)) 
-        content = Buffer.from(base64, 'base64').toString();
-      else
-        content = decodeURIComponent(base64);
-      File.write(outputPath, content, undefined, permission);
-    }
+    if (!hasExtension)
+      outputPath += `.${this.getExtensionFromDataUrl(dataUrl)}`;
+    const b64 = this.dataUrlToBase64(dataUrl);
+    if (!b64)
+      throw new Error('Writing to file aborted due to inability to convert from DataURL to base64');
+    if (this.getMimeTypeFromDataUrl(dataUrl) === 'image/svg+xml')
+      File.write(outputPath, File.isBase64(b64) ? Buffer.from(b64, 'base64').toString() : decodeURIComponent(b64), undefined, permission);
+    else
+      File.write(outputPath, b64, 'base64', permission);
     return outputPath;
   }
 
@@ -58,12 +52,14 @@ export default class Media {
    *
    * @static
    * @param {string} dataUrl Data URL.
-   * @return {string} Base 64 strings.
+   * @return {string|null} Base 64 strings.
    * @memberof Media
    */
-  public static dataUrlToBase64(dataUrl: string): string {
-    return dataUrl.replace(/^data:image\/[\w-+\d.]+;\w+,/, '');
-    // return dataUrl.replace(/^data:image\/[A-Za-z]+;base64,/, '');
+  public static dataUrlToBase64(dataUrl: string): string|null {
+    const matches = dataUrl.match(validDataUrl);
+    if (!matches)
+      return null;
+    return matches[2];
   }
 
   /**
@@ -75,8 +71,7 @@ export default class Media {
    * @memberof Media
    */
   public static isDataUrl(dataUrl: string): boolean {
-    return /^data:image\/[\w-+\d.]+;\w+,/.test(dataUrl);
-    // return /^data:image\/[A-Za-z]+;base64,/.test(dataUrl);
+    return validDataUrl.test(dataUrl);
   }
 
   /**
@@ -84,26 +79,22 @@ export default class Media {
    *
    * @static
    * @param {string} dataUrl Data URL.
-   * @return {{blob: string, type: string}|undefined} Data URL Analysis Results.
+   * @return {{blob: string, type: string}|null} Data URL Analysis Results.
    * @memberof Media
    */
-  public static statDataUrl(dataUrl: string): {blob: string, type: string, extension: string|null}|undefined {
-    const matches = dataUrl.match(/^data:image\/([\w-+\d.]+);\w+,(.+)$/);
-    // const matches = dataUrl.match(/^data:image\/([A-Za-z]+);base64,(.+)$/);
-    if (!matches || matches.length !== 3)
-      return undefined;
+  public static statDataUrl(dataUrl: string): {blob: string, type: string, extension: string|null}|null {
+    const matches = dataUrl.match(validDataUrl);
+    if (!matches)
+      return null;
     const blob = matches[2];
-    const type = matches[1];
-    const extension = {
-      bmp: 'bmp',
-      gif: 'gif',
-      'vnd.microsoft.icon': 'ico',
-      jpeg: 'jpg',
-      png: 'png',
-      'svg+xml': 'svg',
-      tiff: 'tiff',
-      webp: 'webp',
-    }[type] ?? null;
+    const type = matches[1].split('/')[1].toLowerCase();
+    let extension = type;
+    if (extension === 'vnd.microsoft.icon')
+      extension = 'ico';
+    else if (extension === 'jpeg')
+      extension = 'jpg';
+    else if (extension === 'svg+xml')
+      extension = 'svg';
     return {blob, type, extension};
   }
 
@@ -188,7 +179,10 @@ export default class Media {
   public static dataUrlByteSize(dataUrl: string): number {
     if (!this.isDataUrl(dataUrl))
       throw new TypeError('Content is not in data URL format');
-    return this.base64ByteSize(this.dataUrlToBase64(dataUrl));
+    const b64 = this.dataUrlToBase64(dataUrl);
+    if (!b64)
+      throw new Error('Cannot get base64 from DataURL when calculating byte size from DataURL');
+    return this.base64ByteSize(b64);
   }
 
   /**
@@ -201,18 +195,18 @@ export default class Media {
    * 3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.
    *
    * @static
-   * @param {string} base64 Base 64 strings.
+   * @param {string} b64 Base 64 strings.
    * @return {number} Byte Size.
    * @memberof Media
    */
-  public static base64ByteSize(base64: string): number {
+  public static base64ByteSize(b64: string): number {
     // Check whether '=' character exists or not in data Url /9j/4AAQSk…=
     let noOfPaddingCharacter = 0;
-    if (base64.charAt(base64.length - 2) === '=')
+    if (b64.charAt(b64.length - 2) === '=')
       noOfPaddingCharacter = 2;
-    else if (base64.charAt(base64.length - 1) === '=')
+    else if (b64.charAt(b64.length - 1) === '=')
       noOfPaddingCharacter = 1;
-    return (base64.length * (3/4)) - noOfPaddingCharacter;
+    return (b64.length * (3/4)) - noOfPaddingCharacter;
   }
 
   /**
@@ -224,7 +218,7 @@ export default class Media {
    * @memberof Media
    */
   public static getMimeTypeFromDataUrl(dataUrl: string): string|null {
-    const matches = dataUrl.match(/data:(\w+\/[\w-+\d.]+)(?=;|,)/);
+    const matches = dataUrl.match(validDataUrl);
     if (!matches)
       return null;
     return matches[1];
@@ -239,14 +233,16 @@ export default class Media {
    * @memberof Media
    */
   public static getExtensionFromDataUrl(dataUrl: string): string|null {
-    const matches = dataUrl.match(/data:\w+\/([\w-+\d.]+)(?=;|,)/);
+    const matches = dataUrl.match(validDataUrl);
     if (!matches)
       return null;
-    let extension = matches[1].toLowerCase();
+    let extension = matches[1].split('/')[1].toLowerCase();
     if (extension === 'jpeg')
       extension = 'jpg';
     else if (extension === 'svg+xml')
       extension = 'svg';
+    else if (extension === 'vnd.microsoft.icon')
+      extension = 'ico';
     return extension;
   }
 

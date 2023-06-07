@@ -1,6 +1,6 @@
 /**
  * ```sh
- * node prototypes/extract-first-frame-of-gif.js
+ * node __prototypes__/extract-first-frame-of-gif.js
  * ```
  */
 const im = require('gm').subClass({imageMagick: true});

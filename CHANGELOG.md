@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.23] - 2023/6/8
+### Changed
+- Media class now supports PDF.
+
 ## [1.0.22] - 2023/4/5
+### Changed
 - Added margin option to image conversion method (Media.convertImageFormat).
     ```js
     const {Media} = require('nodejs-shared');
@@ -88,8 +93,8 @@ All notable changes to this project will be documented in this file.
     // Get the number of frames from the GIF Data URL.
     const numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,R0lGODl...');
     ```
-- Added unit tests [here](tests/media.test.js) for a method to convert GIF DataURL to base64 (Media.dataUrlToBase64) and a method to write GID DataURL as an image file (Media.writeDataUrlToFile).
-- A unit test for a method to get the type of DataURL (Media.statDataUrl) has been added [here](tests/media.test.js).
+- Added unit tests [here](__tests__/media.test.js) for a method to convert GIF DataURL to base64 (Media.dataUrlToBase64) and a method to write GID DataURL as an image file (Media.writeDataUrlToFile).
+- A unit test for a method to get the type of DataURL (Media.statDataUrl) has been added [here](__tests__/media.test.js).
 
 ## [1.0.14] - 2023/3/1
 ### Changed
@@ -129,7 +134,7 @@ All notable changes to this project will be documented in this file.
     ```
 
 ### Changed
-- Added unit tests for the newly fixed classes [here](tests/media.test.js).
+- Added unit tests for the newly fixed classes [here](__tests__/media.test.js).
 
 ## [1.0.12] - 2022/12/15
 ### Changed
@@ -260,8 +265,8 @@ All notable changes to this project will be documented in this file.
     ```js
     const {File, Media} = require('nodejs-shared');
 
-    const base64 = File.readAsBase64('sample.jpg');
-    Media.base64ByteSize(base64);
+    const b64 = File.readAsBase64('sample.jpg');
+    Media.base64ByteSize(b64);
     // =>30141
     ```
 
@@ -312,4 +317,5 @@ All notable changes to this project will be documented in this file.
 [1.0.19]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.18...v1.0.19
 [1.0.20]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.19...v1.0.20
 [1.0.21]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.20...v1.0.21
-[1.0.21]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.21...v1.0.22
+[1.0.22]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.21...v1.0.22
+[1.0.23]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.22...v1.0.23
