@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.24] - 2023/9/1
+### Changed
+- Update TypeScript version from 4.9.4 to 5.2.2.
+- Updated rollup plugins (rollup-plugin-typescript2, @rollup/plugin-commonjs, @rollup/plugin-node-resolve, @rollup/plugin-terser).
+
 ## [1.0.23] - 2023/6/8
 ### Changed
 - Media class now supports PDF.
@@ -84,17 +89,17 @@ All notable changes to this project will be documented in this file.
     const {Media} = require('nodejs-shared');
 
     // Extract the first frame from the GIF Data URL and save it to an image file.
-    await Media.extractFirstFrameOfGif('data:image/gif;base64,R0lGODl...', 'first-frame.gif');
+    await Media.extractFirstFrameOfGif('data:image/gif;base64,...', 'first-frame.gif');
     ```
 - The method to get the number of frames of a GIF in the Media class can now also process the Data URL of the image.
     ```js
     const {Media} = require('nodejs-shared');
 
     // Get the number of frames from the GIF Data URL.
-    const numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,R0lGODl...');
+    const numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,...');
     ```
-- Added unit tests [here](__tests__/media.test.js) for a method to convert GIF DataURL to base64 (Media.dataUrlToBase64) and a method to write GID DataURL as an image file (Media.writeDataUrlToFile).
-- A unit test for a method to get the type of DataURL (Media.statDataUrl) has been added [here](__tests__/media.test.js).
+- Added unit tests [here](__tests__/Media.test.js) for a method to convert GIF DataURL to base64 (Media.dataUrlToBase64) and a method to write GID DataURL as an image file (Media.writeDataUrlToFile).
+- A unit test for a method to get the type of DataURL (Media.statDataUrl) has been added [here](__tests__/Media.test.js).
 
 ## [1.0.14] - 2023/3/1
 ### Changed
@@ -106,18 +111,18 @@ All notable changes to this project will be documented in this file.
     ```js
     const {Media} = require('nodejs-shared');
 
-    // Write the first frame of sample.gif to first-frame.gif.
-    await Media.extractFirstFrameOfGif('sample.gif', 'first-frame.gif');
+    // Write the first frame of animated.gif to first-frame.gif.
+    await Media.extractFirstFrameOfGif('animated.gif', 'first-frame.gif');
 
-    // Overwrite sample.gif with the first frame.
-    await Media.extractFirstFrameOfGif('sample.gif');
+    // Overwrite animated.gif with the first frame.
+    await Media.extractFirstFrameOfGif('animated.gif');
     ```
 - Added a method to the Media class to get the number of GIF frames.
     ```js
     const {Media} = require('nodejs-shared');
 
     // Get the number of frames from a GIF image file.
-    const numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
+    const numberOfFrames = await Media.getNumberOfGifFrames('animated.gif');
     ```
 - Add a method to the File class to recursively copy directories.
     ```js
@@ -134,7 +139,7 @@ All notable changes to this project will be documented in this file.
     ```
 
 ### Changed
-- Added unit tests for the newly fixed classes [here](__tests__/media.test.js).
+- Added unit tests for the newly fixed classes [here](__tests__/Media.test.js).
 
 ## [1.0.12] - 2022/12/15
 ### Changed
@@ -155,19 +160,19 @@ All notable changes to this project will be documented in this file.
     ```js
     const {Media} = require('nodejs-shared');
 
-    const imagePaths = ['sample1.png', 'sample2.png', 'sample3.png'];
+    const imgs = ['1.png', '2.png', '3.png'];
 
     // Merge vertically.
-    await Media.mergeImages(imagePaths, 'result1.png', {direction: 'vertical'});
+    await Media.mergeImages(imgs, 'merged.png', {direction: 'vertical'});
 
     // Merge horizontally.
-    await Media.mergeImages(imagePaths, 'result2.png', {direction: 'horizontal'});
+    await Media.mergeImages(imgs, 'merged.png', {direction: 'horizontal'});
 
     // Set 30px margins between images to merge vertically.
-    await Media.mergeImages(imagePaths, 'result3.png', {direction: 'vertical', offset: 30});
+    await Media.mergeImages(imgs, 'merged.png', {direction: 'vertical', offset: 30});
 
     // Set 30px margins between images to merge horizontally.
-    await Media.mergeImages(imagePaths, 'result4.png', {direction: 'horizontal', offset: 30});
+    await Media.mergeImages(imgs, 'merged.png', {direction: 'horizontal', offset: 30});
     ```
 
 ### Changed
@@ -187,9 +192,7 @@ All notable changes to this project will be documented in this file.
     ```js
     const {File} = require('nodejs-shared');
 
-    // sample.svg: <svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="900" height="900" fill="#151521"/><path d="M450.5 195C376.206 195 315.764 255.443 315.764 329.736C315.764 404.03 376.206 464.473 450.5 464.473C524.794 464.473 585.236 404.03 585.236 329.736C585.236 255.443 524.794 195 450.5 195Z" fill="#3E3E51"/><path d="M618.138 552.495C581.25 515.041 532.349 494.414 480.441 494.414H420.559C368.652 494.414 319.75 515.041 282.862 552.495C246.155 589.766 225.939 638.964 225.939 691.029C225.939 699.297 232.642 706 240.91 706H660.09C668.358 706 675.061 699.297 675.061 691.029C675.061 638.964 654.845 589.766 618.138 552.495Z" fill="#3E3E51"/></svg>
     File.readAsDataUrl(`sample.svg`);
-    // =>data:image/svg+xml;utf8,%3Csvg%20width%3D%22900%22%20height%3D%22900%22%20viewBox%3D%220%200%20900%20900%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%22900%22%20height%3D%22900%22%20fill%3D%22%23151521%22%2F%3E%0A%3Cpath%20d%3D%22M450.5%20195C376.206%20195%20315.764%20255.443%20315.764%20329.736C315.764%20404.03%20376.206%20464.473%20450.5%20464.473C524.794%20464.473%20585.236%20404.03%20585.236%20329.736C585.236%20255.443%20524.794%20195%20450.5%20195Z%22%20fill%3D%22%233E3E51%22%2F%3E%0A%3Cpath%20d%3D%22M618.138%20552.495C581.25%20515.041%20532.349%20494.414%20480.441%20494.414H420.559C368.652%20494.414%20319.75%20515.041%20282.862%20552.495C246.155%20589.766%20225.939%20638.964%20225.939%20691.029C225.939%20699.297%20232.642%20706%20240.91%20706H660.09C668.358%20706%20675.061%20699.297%20675.061%20691.029C675.061%20638.964%20654.845%20589.766%20618.138%20552.495Z%22%20fill%3D%22%233E3E51%22%2F%3E%0A%3C%2Fsvg%3E%0A
     ```
 
 ## [1.0.7] - 2022/10/11
@@ -198,11 +201,11 @@ All notable changes to this project will be documented in this file.
     ```js
     const {Media} = require('nodejs-shared');
 
-    const urlEncodedSvg = 'data:image/svg+xml;utf8,%3Csvg%20width%3D%2218%22%20height%3D%2218%22%20viewBox%3D%220%200%2018%2018%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0D%0A%3Cpath%20opacity%3D%220.3%22%20d%3D%22M16.5%209C16.5%2013.125%2013.125%2016.5%209%2016.5C4.875%2016.5%201.5%2013.125%201.5%209C1.5%204.875%204.875%201.5%209%201.5C13.125%201.5%2016.5%204.875%2016.5%209Z%22%20fill%3D%22currentColor%22%2F%3E%0D%0A%3Cpath%20d%3D%22M9%2016.5C10.95%2016.5%2012.75%2015.75%2014.025%2014.55C13.425%2012.675%2011.4%2011.25%209%2011.25C6.6%2011.25%204.57499%2012.675%203.97499%2014.55C5.24999%2015.75%207.05%2016.5%209%2016.5Z%22%20fill%3D%22currentColor%22%2F%3E%0D%0A%3Crect%20x%3D%227%22%20y%3D%226%22%20width%3D%224%22%20height%3D%224%22%20rx%3D%222%22%20fill%3D%22currentColor%22%2F%3E%0D%0A%3C%2Fsvg%3E';
+    const urlEncodedSvg = 'data:image/svg+xml;utf8,...';
     let writtenFilePath = Media.writeDataUrlToFile('upload/urlEncodedSvg', urlEncodedSvg);
     console.log(`Write ${writtenFilePath}`);
 
-    const base64Svg = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIG9wYWNpdHk9IjAuMyIgZD0iTTE2LjUgOUMxNi41IDEzLjEyNSAxMy4xMjUgMTYuNSA5IDE2LjVDNC44NzUgMTYuNSAxLjUgMTMuMTI1IDEuNSA5QzEuNSA0Ljg3NSA0Ljg3NSAxLjUgOSAxLjVDMTMuMTI1IDEuNSAxNi41IDQuODc1IDE2LjUgOVoiIGZpbGw9ImN1cnJlbnRDb2xvciIvPg0KPHBhdGggZD0iTTkgMTYuNUMxMC45NSAxNi41IDEyLjc1IDE1Ljc1IDE0LjAyNSAxNC41NUMxMy40MjUgMTIuNjc1IDExLjQgMTEuMjUgOSAxMS4yNUM2LjYgMTEuMjUgNC41NzQ5OSAxMi42NzUgMy45NzQ5OSAxNC41NUM1LjI0OTk5IDE1Ljc1IDcuMDUgMTYuNSA5IDE2LjVaIiBmaWxsPSJjdXJyZW50Q29sb3IiLz4NCjxyZWN0IHg9IjciIHk9IjYiIHdpZHRoPSI0IiBoZWlnaHQ9IjQiIHJ4PSIyIiBmaWxsPSJjdXJyZW50Q29sb3IiLz4NCjwvc3ZnPg==';
+    const base64Svg = 'data:image/svg+xml;base64,...';
     writtenFilePath = Media.writeDataUrlToFile('upload/base64Svg', base64Svg);
     console.log(`Write ${writtenFilePath}`);
     ```
@@ -223,10 +226,10 @@ All notable changes to this project will be documented in this file.
     const {Media} = require('nodejs-shared');
 
     // Writes DataURL to a file with the specified extension.
-    Media.writeDataUrlToFile('test1.png', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=');
+    Media.writeDataUrlToFile('test1.png', 'data:image/png;base64,...');
 
     // Writes DataURL to files with extensions detected automatically.
-    const writtenFilePath = Media.writeDataUrlToFile('test2', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAA1JREFUGFdjYGBg+A8AAQQBAHAgZQsAAAAASUVORK5CYII=');
+    const writtenFilePath = Media.writeDataUrlToFile('test2', 'data:image/png;base64,...');
     console.log(writtenFilePath);
     // =>test2.png
     ```
@@ -235,17 +238,17 @@ All notable changes to this project will be documented in this file.
     ```js
     const {Media} = require('nodejs-shared');
 
-    Media.getMimeTypeFromDataUrl('data:image/png;base64,abc...');
+    Media.getMimeTypeFromDataUrl('data:image/png;base64,...');
     // =>image/png
     ```
 - Added method to get extension from DataURL.
     ```js
     const {Media} = require('nodejs-shared');
 
-    Media.getExtensionFromDataUrl('data:image/png;base64,abc...');
+    Media.getExtensionFromDataUrl('data:image/png;base64,...');
     // =>png
 
-    Media.getExtensionFromDataUrl('data:image/jpeg;base64,abc...');
+    Media.getExtensionFromDataUrl('data:image/jpeg;base64,...');
     // =>jpg
     ```
 

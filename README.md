@@ -11,7 +11,7 @@ Click [here](CHANGELOG.md) to see the change log.
     - [Reflect class](#reflect-class)
     - [Regex class](#regex-class)
     - [Browser class](#browser-class)
-    - [Unit testing](#unit-testing)
+    - [Testing](#testing)
     - [Author](#author)
     - [License](#license)
 
@@ -330,10 +330,10 @@ File utility class.
     let found = File.find(`dir/*.*`);
     console.log(found);
     // [
-    //   '/var/dir/sample1.png',
-    //   '/var/dir/sample2.png',
-    //   '/var/dir/sample3.svg',
-    //   '/var/dir/sample4.jpg'
+    //   '/var/dir/1.png',
+    //   '/var/dir/2.png',
+    //   '/var/dir/3.svg',
+    //   '/var/dir/4.jpg'
     // ]
 
     // Find all files, including subdirectories.
@@ -341,10 +341,10 @@ File utility class.
     console.log(found);
     // [
     //   '/var/dir/subdirectory/sample5.png',
-    //   '/var/dir/sample1.png',
-    //   '/var/dir/sample2.png',
-    //   '/var/dir/sample3.svg',
-    //   '/var/dir/sample4.jpg'
+    //   '/var/dir/1.png',
+    //   '/var/dir/2.png',
+    //   '/var/dir/3.svg',
+    //   '/var/dir/4.jpg'
     // ]
 
     // Find only files with specific extensions.
@@ -352,8 +352,8 @@ File utility class.
     console.log(found);
     // [
     //   '/var/dir/subdirectory/sample5.png',
-    //   '/var/dir/sample1.png',
-    //   '/var/dir/sample2.png'
+    //   '/var/dir/1.png',
+    //   '/var/dir/2.png'
     // ]
 
     // Find only JPG and PNG.
@@ -361,9 +361,9 @@ File utility class.
     console.log(found);
     // [
     //   '/var/dir/subdirectory/sample5.png',
-    //   '/var/dir/sample1.png',
-    //   '/var/dir/sample2.png',
-    //   '/var/dir/sample4.jpg'
+    //   '/var/dir/1.png',
+    //   '/var/dir/2.png',
+    //   '/var/dir/4.jpg'
     // ]
     ```
 
@@ -521,13 +521,13 @@ Media (image and video) utility class.
     const {Media} = require('nodejs-shared');
 
     // Writes DataURL to a file with the specified extension.
-    Media.writeDataUrlToFile('sample1.png', 'data:image/png;base64,iVB...');
+    Media.writeDataUrlToFile('sample.png', 'data:image/png;base64,...');
 
     // Writes DataURL to files with extensions detected automatically.
-    Media.writeDataUrlToFile('sample2', 'data:image/png;base64,iVB...');
+    Media.writeDataUrlToFile('sample', 'data:image/png;base64,...');
 
     // Writes DataURL to files with extensions detected automatically.
-    Media.writeDataUrlToFile('sample3', 'data:image/svg+xml;utf8,%3Csvg...');
+    Media.writeDataUrlToFile('sample', 'data:image/svg+xml;utf8,...');
     ```
 
     #### Parameters
@@ -544,7 +544,7 @@ Media (image and video) utility class.
     ```js
     const {Media} = require('nodejs-shared');
 
-    const b64 = Media.dataUrlToBase64('data:image/jpeg;base64,iVB...');
+    const b64 = Media.dataUrlToBase64('data:image/jpeg;base64,...');
     ```
 
     #### Parameters
@@ -558,7 +558,7 @@ Media (image and video) utility class.
     #### Usage
     ```js
     const {Media} = require('nodejs-shared');
-    if (Media.isDataUrl('data:image/jpeg;base64,abc...'))
+    if (Media.isDataUrl('data:image/jpeg;base64,...'))
       console.log('This is a data URL');
     ```
 
@@ -574,7 +574,7 @@ Media (image and video) utility class.
     ```js
     const {Media} = require('nodejs-shared');
 
-    Media.statDataUrl('data:image/jpeg;base64,abc...'); // =>{blob: '/9j/4AAQSk...', type: 'jpeg', extension: 'jpg'}
+    Media.statDataUrl('data:image/jpeg;base64,...'); // =>{blob: '/9j/4AAQSk...', type: 'jpeg', extension: 'jpg'}
     ```
 
     #### Parameters
@@ -711,11 +711,11 @@ Media (image and video) utility class.
     const {Media} = require('nodejs-shared');
 
     // Get the Mime type of the PNG image data URL.
-    let mimeType = Media.getMimeTypeFromDataUrl('data:image/png;base64,abc...');
+    let mimeType = Media.getMimeTypeFromDataUrl('data:image/png;base64,...');
     console.log(mimeType);// =>Mime type of PNG image data URL: image/png
 
     // Get the Mime type of SVG image data URL.
-    mimeType = Media.getMimeTypeFromDataUrl('data:image/svg+xml;utf8,abc...');
+    mimeType = Media.getMimeTypeFromDataUrl('data:image/svg+xml;utf8,...');
     console.log(mimeType);// =>Mime type of SVG image data URL: image/svg+xml
     ```
 
@@ -732,15 +732,15 @@ Media (image and video) utility class.
     const {Media} = require('nodejs-shared');
 
     // Get PNG image extension.
-    let extension = Media.getExtensionFromDataUrl('data:image/png;base64,abc...');
+    let extension = Media.getExtensionFromDataUrl('data:image/png;base64,...');
     console.log(extension);// =>png
 
     // Get JPG image extension.
-    extension = Media.getExtensionFromDataUrl('data:image/jpeg;base64,abc...');
+    extension = Media.getExtensionFromDataUrl('data:image/jpeg;base64,...');
     console.log(extension);// =>jpg
 
     // Get SVG image extension.
-    extension = Media.getExtensionFromDataUrl('data:image/svg+xml;utf8,abc...');
+    extension = Media.getExtensionFromDataUrl('data:image/svg+xml;utf8,...');
     console.log(extension);// =>svg
     ```
 
@@ -765,19 +765,19 @@ Media (image and video) utility class.
     ```js
     const {Media} = require('nodejs-shared');
 
-    const imagePaths = ['sample1.png', 'sample2.png', 'sample3.png'];
+    const imgs = ['1.png', '2.png', '3.png'];
 
     // Merge vertically.
-    await Media.mergeImages(imagePaths, 'result1.png', {direction: 'vertical'});
+    await Media.mergeImages(imgs, 'merged.png', {direction: 'vertical'});
 
     // Merge horizontally.
-    await Media.mergeImages(imagePaths, 'result2.png', {direction: 'horizontal'});
+    await Media.mergeImages(imgs, 'merged.png', {direction: 'horizontal'});
 
     // Set 30px margins between images to merge vertically.
-    await Media.mergeImages(imagePaths, 'result3.png', {direction: 'vertical', offset: 30});
+    await Media.mergeImages(imgs, 'merged.png', {direction: 'vertical', offset: 30});
 
     // Set 30px margins between images to merge horizontally.
-    await Media.mergeImages(imagePaths, 'result4.png', {direction: 'horizontal', offset: 30});
+    await Media.mergeImages(imgs, 'merged.png', {direction: 'horizontal', offset: 30});
     ```
 
     #### Parameters
@@ -811,14 +811,14 @@ Media (image and video) utility class.
     ```js
     const {Media} = require('nodejs-shared');
 
-    // Write the first frame of sample.gif to first-frame.gif.
-    await Media.extractFirstFrameOfGif('sample.gif', 'first-frame.gif');
+    // Write the first frame of animated.gif to first-frame.gif.
+    await Media.extractFirstFrameOfGif('animated.gif', 'first-frame.gif');
 
-    // Overwrite sample.gif with the first frame.
-    await Media.extractFirstFrameOfGif('sample.gif');
+    // Overwrite animated.gif with the first frame.
+    await Media.extractFirstFrameOfGif('animated.gif');
 
     // Extract the first frame from the GIF Data URL and save it to an image file.
-    await Media.extractFirstFrameOfGif('data:image/gif;base64,R0lGODl...', 'first-frame.gif');
+    await Media.extractFirstFrameOfGif('data:image/gif;base64,...', 'first-frame.gif');
     ```
 
     #### Parameters
@@ -836,10 +836,10 @@ Media (image and video) utility class.
     const {Media} = require('nodejs-shared');
 
     // Get the number of frames from a GIF image file.
-    let numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
+    let numberOfFrames = await Media.getNumberOfGifFrames('animated.gif');
 
     // Get the number of frames from the GIF Data URL.
-    numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,R0lGODl...');
+    numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,...');
     ```
 
     #### Parameters
@@ -991,39 +991,11 @@ Interface for retrieving reflective information about classes and objects.
     #### Return value
     {{platform: string, osName: string, osVersion: number|null, browserName: string}} Analysis Results.
 
-## Unit testing
+## Testing
+With [npm](http://npmjs.org) do:
+
 ```sh
-npm run test
-#  PASS  __tests__/file.test.js
-#   File.find()
-#     PASS All files should be found. (14 ms)
-#     PASS All files should be found, including subdirectories. (3 ms)
-#     PASS Should find only png files. (1 ms)
-#     PASS Only png or jpg files should be found. (2 ms)
-
-# (node:21592) [DEP0147] DeprecationWarning: In future versions of Node.js, fs.rmdir(path, { recursive: true }) will be removed. Use fs.rm(path, { recursive: true }) instead
-# (Use `node --trace-deprecation ...` to show where the warning was created)
-#  PASS  __tests__/media.test.js
-#   Media.writeDataUrlToFile()
-#     PASS png data URL should be written to file. (2 ms)
-#     PASS jpg data URL should be written to file.
-#     PASS svg data URL should be written to file. (1 ms)
-#     PASS png data URL should be written in a file with the extension automatically assigned. (4 ms)
-#     PASS jpg data URL should be written in a file with the extension automatically assigned. (1 ms)
-#     PASS svg data URL should be written in a file with the extension automatically assigned. (1 ms)
-#   Media.crop()
-#     PASS image should be crop. (73 ms)
-#   Media.mergeImages()
-#     PASS Images should be merged vertically. (50 ms)
-#     PASS Images should be merged horizontally. (47 ms)
-#     PASS Images should be merged vertically with a 30px margin between each image. (48 ms)
-#     PASS Images should be merged horizontally with a 30px margin between each image. (51 ms)
-
-# Test Suites: 2 passed, 2 total
-# Tests:       15 passed, 15 total
-# Snapshots:   0 total
-# Time:        1.552 s, estimated 2 s
-# Ran all test suites.
+npm test
 ```
 
 ## Author

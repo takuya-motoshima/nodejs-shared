@@ -12,9 +12,9 @@ export default {
   input: './src/index.ts',
   plugins: [
     typescript({
-      tsconfigDefaults: { compilerOptions: {} },
-      tsconfig: "tsconfig.json",
-      tsconfigOverride: { compilerOptions: {} },
+      tsconfigDefaults: {compilerOptions: {}},
+      tsconfig: 'tsconfig.json',
+      tsconfigOverride: {compilerOptions: {}},
       useTsconfigDeclarationDir: true
     }),
     terser(),
