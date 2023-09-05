@@ -14,12 +14,14 @@
     "README.md"
   ],
   "scripts": {
-    "watch": "rollup -c --watch --bundleConfigAsCjs",
+    "watch": "rollup -c rollup.config.js --watc",
     "prewatch": "rimraf dist types",
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "rollup -c rollup.config.js",
     "prebuild": "rimraf dist types",
     "test": "jest",
-    "test:media": "jest media"
+    "test:clear-cache": "jest --clearCache",
+    "//watch": "rollup -c --watch --bundleConfigAsCjs",
+    "//build": "rollup -c --bundleConfigAsCjs"
   },
   "_moduleAliases": {
     "~": "."
@@ -52,6 +54,7 @@
   "dependencies": {
     "bowser": "^2.10.0",
     "csv-parse": "^5.5.0",
+    "deep-fusion": "^1.0.3",
     "fs-extra": "^9.0.1",
     "glob": "^7.1.6",
     "gm": "^1.25.0",

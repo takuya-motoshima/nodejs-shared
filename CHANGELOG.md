@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.25] - 2023/9/2
+### Added
+- Added validator functions.
+
 ## [1.0.24] - 2023/9/1
 ### Changed
 - Update TypeScript version from 4.9.4 to 5.2.2.
@@ -322,3 +326,5 @@ All notable changes to this project will be documented in this file.
 [1.0.21]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.20...v1.0.21
 [1.0.22]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.21...v1.0.22
 [1.0.23]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.22...v1.0.23
+[1.0.24]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.23...v1.0.24
+[1.0.25]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.24...v1.0.25

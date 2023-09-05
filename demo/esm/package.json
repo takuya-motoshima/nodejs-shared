@@ -1,0 +1,7 @@
+{
+  "name": "esm-demo",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "type": "module"
+}

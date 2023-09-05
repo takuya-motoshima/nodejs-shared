@@ -1,13 +1,6 @@
-import File from '~/File';
-import Media from '~/Media';
-import Reflect from '~/Reflect';
-import Regex from '~/Regex';
-import Browser from '~/Browser';
-
-export {
-  File,
-  Media,
-  Reflect,
-  Regex,
-  Browser
-}
+export {default as File} from '~/File';
+export {default as Media} from '~/Media';
+export {default as Reflect} from '~/Reflect';
+export {default as Regex} from '~/Regex';
+export {default as Browser} from '~/Browser';
+export * as validators from '~/validators';
