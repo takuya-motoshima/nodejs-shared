@@ -27,7 +27,7 @@ export default interface MergeImagesOptions {
   /**
    * Offset in pixels between each image. Default is 0.
    */
-  offset: number,
+  offset: number;
 
   /**
    * Margin of the result image.

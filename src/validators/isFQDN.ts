@@ -4,6 +4,10 @@ import IsFQDNOptions from '~/interfaces/IsFQDNOptions';
 
 /**
  * Check if the domain name is fully qualified (e.g. domain.com).
+ *
+ * @param {string} value Value to be validated.
+ * @param {IsFQDNOptions} options? Validation options.
+ * @return {boolean} True for pass, false for fail.
  */
 export default (value: string, options?: IsFQDNOptions): boolean => {
   // Initialize options.

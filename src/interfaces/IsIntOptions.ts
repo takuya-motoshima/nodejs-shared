@@ -3,6 +3,11 @@
  */
 export default interface IsIntOptions {
   /**
+   * If false, integers containing leading zeros are not permitted. Default is false.
+   */
+  allowLeadingZeroes?: boolean;
+
+  /**
    * To check the integer min boundary. The default is none (undefined).
    */
   min?: number;
@@ -11,11 +16,6 @@ export default interface IsIntOptions {
    * To check the integer max boundary. The default is none (undefined).
    */
   max?: number;
-
-  /**
-   * If false, integers containing leading zeros are not permitted. Default is false.
-   */
-  allowLeadingZeroes?: boolean;
 
   /**
    * Enforce integers being greater than the value provided. The default is none (undefined).

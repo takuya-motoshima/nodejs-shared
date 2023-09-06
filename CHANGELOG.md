@@ -3,7 +3,39 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.25] - 2023/9/2
 ### Added
-- Added validator functions.
+- Added validator functions.  
+    |Function|Description|
+    |--|--|
+    |[validators.isAfter](README.md#validatorsisafter)|Check if it is an after date.|
+    |[validators.isAlpha](README.md#validatorsisalpha)|Check if it is alphabetical (a-zA-Z).|
+    |[validators.isAlphanumeric](README.md#validatorsisalphanumeric)|Check if alphanumeric (a-zA-Z0-9).|
+    |[validators.isBefore](README.md#validatorsisbefore)|Check if it is an before date.|
+    |[validators.isBoolean](README.md#validatorsisboolean)|Check if it is a boolean value.|
+    |[validators.isDataURI](README.md#validatorsisdatauri)|Check if the data URI format.|
+    |[validators.isDate](README.md#validatorsisdate)|Check if it is a date (e.g., 2023-09-04, 2023/9/4).|
+    |[validators.isDecimal](README.md#validatorsisdecimal)|Check if it is a decimal number. For example, 0.1, 0.3, 1.1, 1.00003, 4.0.|
+    |[validators.isEmail](README.md#validatorsisemail)|Check if it is an email address.|
+    |[validators.isEmpty](README.md#validatorsisempty)|Checks if the length of the string is zero. undefined,null,[],NaN, and false are considered empty.|
+    |[validators.isFloat](README.md#validatorsisfloat)|Check if float.|
+    |[validators.isFQDN](README.md#validatorsisfqdn)|Check if the domain name is fully qualified (e.g. domain.com).|
+    |[validators.isFQDNorIP](README.md#validatorsisfqdnorip)|Check for a fully qualified domain name (e.g. domain.com) or IP (version 4 or 6).|
+    |[validators.isHash](README.md#validatorsishash)|Check if it is a hash of the specified algorithm.|
+    |[validators.isHexadecimal](README.md#validatorsishexadecimal)|Check if it is a hexadecimal number.|
+    |[validators.isHexColor](README.md#validatorsishexcolor)|Check if it is a hexadecimal color code.|
+    |[validators.isHSL](README.md#validatorsishsl)|Check if the color is an HSL color based on the CSS Colors Level 4 specification.<br>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: hsl(200grad+.1%62%/1)).|
+    |[validators.isIn](README.md#validatorsisin)|Check if the input value is in an array value, string, or object key.|
+    |[validators.isInt](README.md#validatorsisint)|Check if it is an integer.|
+    |[validators.isIP](README.md#validatorsisip)|Check for IP (version 4 or 6).|
+    |[validators.isJSON](README.md#validatorsisjson)|Check for valid JSON (using JSON.parse).|
+    |[validators.isJWT](README.md#validatorsisjwt)|Check if it is a valid JWT token.|
+    |[validators.isLength](README.md#validatorsislength)|Check if the length of the string is within the range.|
+    |[validators.isLowercase](README.md#validatorsislowercase)|Check for lowercase letters.|
+    |[validators.isNumeric](README.md#validatorsisnumeric)|Check if it contains only numbers.|
+    |[validators.isPort](README.md#validatorsisport)|Check if it is a port number.|
+    |[validators.isRGBColor](README.md#validatorsisrgbcolor)|Check if it is an RGB or RGBA color code.|
+    |[validators.isUppercase](README.md#validatorsisuppercase)|Check for uppercase letters.|
+    |[validators.isURL](README.md#validatorsisurl)|Check if it is a URL.|
+    |[validators.isUUID](README.md#validatorsisuuid)|Check if it is a UUID (version 1, 2, 3, 4, or 5).|
 
 ## [1.0.24] - 2023/9/1
 ### Changed

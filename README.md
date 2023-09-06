@@ -59,6 +59,36 @@ npm install --save nodejs-shared
 |[Reflect.getMethods](#reflectgetmethods)|Find a method from an instance.|
 |[Regex.escape](#regexescape)|Escapes the `RegExp` special characters &quot;^&quot;, &quot;$&quot;, &quot;\&quot;, &quot;.&quot;, &quot;*&quot;, &quot;+&quot;, &quot;?&quot;, &quot;(&quot;, &quot;)&quot;, &quot;[&quot;, &quot;]&quot;, &quot;{&quot;, &quot;}&quot;, &quot;|&quot; in `string`.|
 |[Browser.parse](#browserparse)|Analyze browser information from UA.|
+|[validators.isAfter](#validatorsisafter)|Check if it is an after date.|
+|[validators.isAlpha](#validatorsisalpha)|Check if it is alphabetical (a-zA-Z).|
+|[validators.isAlphanumeric](#validatorsisalphanumeric)|Check if alphanumeric (a-zA-Z0-9).|
+|[validators.isBefore](#validatorsisbefore)|Check if it is an before date.|
+|[validators.isBoolean](#validatorsisboolean)|Check if it is a boolean value.|
+|[validators.isDataURI](#validatorsisdatauri)|Check if the data URI format.|
+|[validators.isDate](#validatorsisdate)|Check if it is a date (e.g., 2023-09-04, 2023/9/4).|
+|[validators.isDecimal](#validatorsisdecimal)|Check if it is a decimal number. For example, 0.1, 0.3, 1.1, 1.00003, 4.0.|
+|[validators.isEmail](#validatorsisemail)|Check if it is an email address.|
+|[validators.isEmpty](#validatorsisempty)|Checks if the length of the string is zero. undefined,null,[],NaN, and false are considered empty.|
+|[validators.isFloat](#validatorsisfloat)|Check if float.|
+|[validators.isFQDN](#validatorsisfqdn)|Check if the domain name is fully qualified (e.g. domain.com).|
+|[validators.isFQDNorIP](#validatorsisfqdnorip)|Check for a fully qualified domain name (e.g. domain.com) or IP (version 4 or 6).|
+|[validators.isHash](#validatorsishash)|Check if it is a hash of the specified algorithm.|
+|[validators.isHexadecimal](#validatorsishexadecimal)|Check if it is a hexadecimal number.|
+|[validators.isHexColor](#validatorsishexcolor)|Check if it is a hexadecimal color code.|
+|[validators.isHSL](#validatorsishsl)|Check if the color is an HSL color based on the CSS Colors Level 4 specification.<br>Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: hsl(200grad+.1%62%/1)).|
+|[validators.isIn](#validatorsisin)|Check if the input value is in an array value, string, or object key.|
+|[validators.isInt](#validatorsisint)|Check if it is an integer.|
+|[validators.isIP](#validatorsisip)|Check for IP (version 4 or 6).|
+|[validators.isJSON](#validatorsisjson)|Check for valid JSON (using JSON.parse).|
+|[validators.isJWT](#validatorsisjwt)|Check if it is a valid JWT token.|
+|[validators.isLength](#validatorsislength)|Check if the length of the string is within the range.|
+|[validators.isLowercase](#validatorsislowercase)|Check for lowercase letters.|
+|[validators.isNumeric](#validatorsisnumeric)|Check if it contains only numbers.|
+|[validators.isPort](#validatorsisport)|Check if it is a port number.|
+|[validators.isRGBColor](#validatorsisrgbcolor)|Check if it is an RGB or RGBA color code.|
+|[validators.isUppercase](#validatorsisuppercase)|Check for uppercase letters.|
+|[validators.isURL](#validatorsisurl)|Check if it is a URL.|
+|[validators.isUUID](#validatorsisuuid)|Check if it is a UUID (version 1, 2, 3, 4, or 5).|
 
 ### `File.basename()`
 Get the file name from the path.
@@ -959,6 +989,667 @@ Browser.parse('Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; YTB730; GTB7.3
 
 #### Return value
 {{platform: string, osName: string, osVersion: number|null, browserName: string}} Analysis Results.
+
+### `validators.isFQDN()`
+Check if the domain name is fully qualified (e.g. domain.com).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isFQDN('domain.com');
+validators.isFQDN('localhost', {requireFQDNTld: false});
+validators.isFQDN('*.example.com', {allowFQDNWildcard: true});
+validators.isFQDN('*.shop.example.com', {allowFQDNWildcard: true});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.requireFQDNTld?</code> If true, the TLD is required. Default is true.
+- {boolean} <code>options.allowFQDNWildcard?</code> If true, the validator will allow domain starting with `*.` (e.g. `*.example.com` or `*.shop.example.com`). Default is false.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isFQDNorIP()`
+Check for a fully qualified domain name (e.g. domain.com) or IP (version 4 or 6).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isFQDNorIP('domain.com');
+validators.isFQDNorIP('1.2.3.4');
+validators.isFQDNorIP('2001:db8:3:4::192.0.2.33');
+validators.isFQDNorIP('1.2.3.4', {ipVersion: 4});
+validators.isFQDNorIP('fe80::a6db:30ff:fe98:e946', {ipVersion: 6});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.requireFQDNTld?</code> If true, the TLD is required. Default is true.
+- {boolean} <code>options.allowFQDNWildcard?</code> If true, the validator will allow domain starting with `*.` (e.g. `*.example.com` or `*.shop.example.com`). Default is false.
+- {'4'|'6'|4|6} <code>options.ipVersion?</code> 4 or 6. The default is undefind (allows both versions 4 and 6).
+- {boolean} <code>options.allowIPRange?</code> If true, allow IP range input (127.0.0.1/24, 2001::/128, etc.). Default is false.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isHash()`
+Check if it is a hash of the specified algorithm.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isHash('d94f3f016ae679c3008de268209132f2', 'md5');
+validators.isHash('d94f3f016ae679c3008de268209132f2', 'md4');
+validators.isHash('d94f3f016ae679c3008de268209132f2', 'ripemd128');
+validators.isHash('d94f3f016ae679c3008de268209132f2', 'tiger128');
+validators.isHash('d94f3f01', 'crc32');
+validators.isHash('d94f3f01', 'crc32b');
+validators.isHash('3ca25ae354e192b26879f651a51d92aa8a34d8d3', 'sha1');
+validators.isHash('3ca25ae354e192b26879f651a51d92aa8a34d8d3', 'tiger160');
+validators.isHash('3ca25ae354e192b26879f651a51d92aa8a34d8d3', 'ripemd160');
+validators.isHash('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824', 'sha256');
+validators.isHash('6281a1f098c5e7290927ed09150d43ff3990a0fe1a48267c', 'tiger192');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {'md4'|'md5'|'sha1'|'sha256'|'sha384'|'sha512'|'ripemd128'|'ripemd160'|'tiger128'|'tiger160'|'tiger192'|'crc32'|'crc32b'} <code>algorithm</code> Hash algorithm.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isAfter()`
+Check if it is an after date.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isAfter('2023-09-04', '2023-09-03');
+validators.isAfter('2023-09-04', new Date(2023, 8, 3).toString());
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {string} <code>comparisonDate?</code> Date to compare to. Defaults to Date().toString() (now).
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isAlpha()`
+Check if it is alphabetical (a-zA-Z).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isAlpha('abc');
+validators.isAlpha('en-US', {ignore: '- /'});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {string|RegExp} <code>options.ignore?</code> String to ignore, or RegExp, e.g. if the option is "-" then spaces and hyphens in the input value will not cause an input error.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isAlphanumeric()`
+Check if alphanumeric (a-zA-Z0-9).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isAlphanumeric('abc123');
+validators.isAlphanumeric('Hello@123', {ignore: '@_- '});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {string|RegExp} <code>options.ignore?</code> String to ignore, or RegExp, e.g. if the option is "-" then spaces and hyphens in the input value will not cause an input error.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isBefore()`
+Check if it is an before date.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isBefore('2023-09-04', '2023-09-05');
+validators.isBefore('2023-09-04', new Date(2023, 8, 5).toString());
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {string} <code>comparisonDate?</code> Date to compare to. Defaults to Date().toString() (now).
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isBoolean()`
+Check if it is a boolean value.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isBoolean('true');
+validators.isBoolean('false');
+validators.isBoolean('0');
+validators.isBoolean('1');
+validators.isBoolean('True', {loose: true});
+validators.isBoolean('TRUE', {loose: true});
+validators.isBoolean('False', {loose: true});
+validators.isBoolean('FALSE', {loose: true});
+validators.isBoolean('yes', {loose: true});
+validators.isBoolean('Yes', {loose: true});
+validators.isBoolean('YES', {loose: true});
+validators.isBoolean('no', {loose: true});
+validators.isBoolean('No', {loose: true});
+validators.isBoolean('NO', {loose: true});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>loose</code>  
+    If false, the validator will strictly match ['true', 'false', '0', '1'].  
+    If true, the validator will also match 'yes', 'no', and will match a valid boolean string of any case. (e.g.: ['true', 'True', 'TRUE']).  
+    Default is false.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isDataURI()`
+Check if the data URI format.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isDataURI('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAABlBMVEUAAAD///+l2Z/dAAAAM0lEQVR4nGP4/5/h/1+G/58ZDrAz3D/McH8yw83NDDeNGe4Ug9C9zwz3gVLMDA/A6P9/AFGGFyjOXZtQAAAAAElFTkSuQmCC');
+validators.isDataURI(' data:text/plain;base64,SGVsbG8sIFdvcmxkIQ%3D%3D');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isDate()`
+Check if it is a date (e.g., 2023-09-04, 2023/9/4).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isDate();
+
+validators.isDate(new Date());
+validators.isDate(new Date([2014, 2, 15]));
+validators.isDate(new Date('2014-03-15'));
+validators.isDate('2020/02/29');
+validators.isDate('15-07-2002', {format: 'DD/MM/YYYY'});
+validators.isDate('2020/01/15', {strictMode: true});
+validators.isDate('2020 02 29', {delimiters: ['/', ' ']});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {string} <code>options.format?</code> Date Format. Defaults to YYYY/MM/DD.
+- {boolean} <code>options.strictMode?</code> If set to true, the validator will reject input that differs from the format. Default is false.
+- {string[]} <code>options.delimiters?</code> An array of available date separators. Default is ['/', '-'].
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isDecimal()`
+Check if it is a decimal number. For example, 0.1, 0.3, 1.1, 1.00003, 4.0.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isDecimal('123');
+validators.isDecimal('00123');
+validators.isDecimal('-00123');
+validators.isDecimal('+123');
+validators.isDecimal('0.01');
+validators.isDecimal('.1');
+validators.isDecimal('1.0');
+validators.isDecimal('-.25');
+validators.isDecimal('0.01', {forceDecimal: true});
+validators.isDecimal('123', {decimalDigits: '2,3'});
+validators.isDecimal('0.01', {decimalDigits: '2,3'});
+validators.isDecimal('1.043', {decimalDigits: '2,3'});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.forceDecimal?</code> If true, the decimal point is required. Default is false.
+- {string} <code>options.decimalDigits?</code> The number of digits after the decimal point. Can be a range, such as "1,3", a specific value, such as "3", or a minimum value, such as "1,". Default is "1,".
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isEmail()`
+Check if it is an email address.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isEmail('foo@bar.com', {});
+validators.isEmail('hans@m端ller.com', {allowUtf8LocalPart: false});
+validators.isEmail('Some Name <foo@bar.com>', {allowDisplayName: true});
+validators.isEmail('Some Name <foo@bar.com>', {requireDisplayName: true});
+validators.isEmail('email@foo.gmail.com', {hostBlacklist: validators.isEmail('gmail.com', 'foo.bar.com']});
+validators.isEmail('email@gmail.com', {hostWhitelist: ['gmail.com', 'foo.bar.com']});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.allowDisplayName?</code> If true, the validator will also match Display Name <email-address>. Default is false.
+- {boolean} <code>options.requireDisplayName?</code> If true, the validator will reject strings without the format Display Name <email-address>. Default is false.
+- {boolean} <code>options.allowUtf8LocalPart?</code> If false, the validator will not allow any non-English UTF8 character in email address' local part. Default is true.
+- {boolean} <code>options.requireTld?</code> If false, email addresses without a TLD in their domain will also be matched. Default is true.
+- {string[]} <code>options.hostBlacklist?</code> If the domain of the input is contained in an array, the validation fails. The default is none (empty array).
+- {string[]} <code>options.hostWhitelist?</code> If the domain of the input is not contained in the array, the validation fails. The default is none (empty array).
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isEmpty()`
+Checks if the length of the string is zero. undefined,null,[],NaN, and false are considered empty.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isEmpty('');
+validators.isEmpty(undefined);
+validators.isEmpty(null);
+validators.isEmpty([]);
+validators.isEmpty(NaN);
+validators.isEmpty(' ', {ignoreWhitespace: true});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.ignoreWhitespace?</code> If true, whitespace before or after the string is ignored. Default is false.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isFloat()`
+Check if float.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isFloat('123');
+validators.isFloat('123.');
+validators.isFloat('123.123');
+validators.isFloat('-123.123');
+validators.isFloat('+0.123');
+validators.isFloat('0.123');
+validators.isFloat('.0');
+validators.isFloat('-.123');
+validators.isFloat('+.123');
+validators.isFloat('01.123');
+validators.isFloat('-0.22250738585072011e-307');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {number} <code>options.min?</code> To check the integer min boundary. The default is none (undefined).
+- {number} <code>options.max?</code> To check the integer max boundary. The default is none (undefined).
+- {number} <code>options.lt?</code> Enforce integers being greater than the value provided. The default is none (undefined).
+- {number} <code>options.gt?</code> Enforce integers being less than the value provided. The default is none (undefined).
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isHexadecimal()`
+Check if it is a hexadecimal number.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isHexadecimal('ff0044');
+validators.isHexadecimal('0xff0044');
+validators.isHexadecimal('0x0123456789abcDEF');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isHexColor()`
+Check if it is a hexadecimal color code.
+
+```js
+const {validators} = require('nodejs-shared');
+validators.isHexColor('#ff0000ff');
+validators.isHexColor('#ff0034');
+validators.isHexColor('0f38');
+validators.isHexColor('fff');
+validators.isHexColor('#f00');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isHSL()`
+Check if the color is an HSL color based on the CSS Colors Level 4 specification.  
+Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: hsl(200grad+.1%62%/1)).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isHSL('hsL(0, 0%, 0%)');
+validators.isHSL('hSl(  360  , 100%  , 100%   )');
+validators.isHSL('hsl(270deg, 60%, 70%)');
+validators.isHSL('hsl(-540.5turn, 03%, 4%, 500)');
+validators.isHSL('hsl(4.71239rad, 60%, 70%)');
+validators.isHSL('hsl(200, +.1e-9%, 62e10%, 1)');
+validators.isHSL('hsl(270 60% 50% / .15)');
+validators.isHSL('hsl(270 60% 50% / 15%)');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isIn()`
+Check if the input value is in an array value, string, or object key.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isIn(['foo', 'foobar');
+validators.isIn(['foobar', 'foobar');
+validators.isIn(['foo', ['foo', 'bar']);
+validators.isIn(['1', ['1', '2', '3']);
+validators.isIn(['foo', {foo: 1, bar: 2, foobar: 3});
+validators.isIn(['1', {1: 3, 2: 0, 3: 1});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {any[]|string|object} <code>values</code> Allowed values.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isInt()`
+Check if it is an integer.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isInt('123', {});
+validators.isInt('0', {});
+validators.isInt('-0', {});
+validators.isInt('+1', {});
+validators.isInt('01', {allowLeadingZeroes: true});
+validators.isInt('-01', {allowLeadingZeroes: true});
+validators.isInt('000', {allowLeadingZeroes: true});
+validators.isInt('-000', {allowLeadingZeroes: true});
+validators.isInt('+000', {allowLeadingZeroes: true});
+validators.isInt('15', {min: 10});
+validators.isInt('11', {min: 10, max: 15});
+validators.isInt('14', {gt: 10, lt: 15});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {number} <code>options.min?</code> To check the integer min boundary. The default is none (undefined).
+- {number} <code>options.max?</code> To check the integer max boundary. The default is none (undefined).
+- {boolean} <code>options.allowLeadingZeroes?</code> If false, integers containing leading zeros are not permitted. Default is false.
+- {number} <code>options.lt?</code> Enforce integers being greater than the value provided. The default is none (undefined).
+- {number} <code>options.gt?</code> Enforce integers being less than the value provided. The default is none (undefined).
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isIP()`
+Check for IP (version 4 or 6).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isIP('1.2.3.4');
+validators.isIP('2001:db8:0000:1:1:1:1:1');
+validators.isIP('1.2.3.4', {ipVersion: 4});
+validators.isIP('2001:db8:0000:1:1:1:1:1', {ipVersion: 6});
+validators.isIP('1.2.3.4/1', {allowIPRange: true});
+validators.isIP('2001:800::/128', {allowIPRange: true});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {'4'|'6'|4|6} <code>options.ipVersion?</code> 4 or 6. The default is undefind (allows both versions 4 and 6).
+- {boolean} <code>options.allowIPRange?</code> If true, allow IP range input (127.0.0.1/24, 2001::/128, etc.). Default is false.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isJSON()`
+Check for valid JSON (using JSON.parse).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isJSON('{"key": "value"}');
+validators.isJSON('{}');
+validators.isJSON('{"key": "value"}', {allowPrimitives: true});
+validators.isJSON('{}', {allowPrimitives: true});
+validators.isJSON('null', {allowPrimitives: true});
+validators.isJSON('false', {allowPrimitives: true});
+validators.isJSON('true', {allowPrimitives: true});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.allowPrimitives?</code> If true, the primitives 'true', 'false' and 'null' are accepted as valid JSON values. Default is false.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isJWT()`
+Check if it is a valid JWT token.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI');
+validators.isJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb3JlbSI6Imlwc3VtIn0.ymiJSsMJXR6tMSr8G9usjQ15_8hKPDv_CArLhxw28MI');
+validators.isJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2xvciI6InNpdCIsImFtZXQiOlsibG9yZW0iLCJpcHN1bSJdfQ.rRpe04zbWbbJjwM43VnHzAboDzszJtGrNsUxaqQ-GQ8');
+validators.isJWT('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqb2huIjp7ImFnZSI6MjUsImhlaWdodCI6MTg1fSwiamFrZSI6eyJhZ2UiOjMwLCJoZWlnaHQiOjI3MH19.YRLPARDmhGMC3BBk_OhtwwK21PIkVCqQe8ncIRPKo-E');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isLength()`
+Check if the length of the string is within the range.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isLength('abc', {min: 2});
+validators.isLength('abc', {min: 2, max: 3});
+validators.isLength('干𩸽', {min: 2, max: 3});
+validators.isLength('', {max: 0});
+validators.isLength('👩🦰👩👩👦👦🏳️🌈', {max: 8});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {number} <code>options.min?</code> Minimum length. Default is 0.
+- {number} <code>options.max?</code> Maximum length. Default is none (undefined).
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isLowercase()`
+Check for lowercase letters.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isLowercase();
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isNumeric()`
+Check if it contains only numbers.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isNumeric('123');
+validators.isNumeric('00123');
+validators.isNumeric('-00123');
+validators.isNumeric('+123');
+validators.isNumeric('123.123');
+validators.isNumeric('123', {noSymbols: true});
+validators.isNumeric('00123', {noSymbols: true});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.noSymbols?</code> If true, rejects numeric strings containing symbols (`+`, `-`, `. `). Default is false.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isPort()`
+Check if it is a port number.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isPort('8080');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isRGBColor()`
+Check if it is an RGB or RGBA color code.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isRGBColor('rgb(255,255,255)');
+validators.isRGBColor('rgba(255,255,255,1)');
+validators.isRGBColor('rgba(255,255,255,.1)');
+validators.isRGBColor('rgba(255,255,255,0.1)');
+validators.isRGBColor('rgb(5%,5%,5%)');
+validators.isRGBColor('rgba(5%,5%,5%,.3)');
+validators.isRGBColor('rgb(5,5,5)', {includePercentValues: false});
+validators.isRGBColor('rgba(5,5,5,.3)', {includePercentValues: false});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.includePercentValues?</code> If true, allow percentages of rgb or rgba values, such as rgb(5%,5%,5%) or rgba(90%,90%,90%,.3). Default is true.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isUppercase()`
+Check for uppercase letters.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isUppercase('ABC123');
+validators.isUppercase('ALL CAPS IS FUN.');
+validators.isUppercase('   .');
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isURL()`
+Check if it is a URL.
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isURL('http://www.foobar.com/');
+validators.isURL('https://www.foobar.com/');
+validators.isURL('http://www.foobar.com:23/');
+validators.isURL('http://www.foobar.com/~foobar');
+validators.isURL('http://user:@www.foobar.com/');
+validators.isURL('http://:pass@www.foobar.com/');
+validators.isURL('http://user@www.foobar.com');
+validators.isURL('http://127.0.0.1/');
+validators.isURL('http://foobar.com/t$-_.+!*\()');
+validators.isURL('http://[FEDC:BA98:7654:3210:FEDC:BA98:7654:3210]:80/index.html');
+validators.isURL('http://[1080:0:0:0:8:800:200C:417A]/index.html');
+validators.isURL('http://[3ffe:2a00:100:7031::1]');
+validators.isURL('http://[::192.9.5.5]/ipng');
+validators.isURL('http://[2010:836B:4179::836B:4179]');
+validators.isURL('http://1337.com');
+validators.isURL('http://localhost/', {requireFQDNTld: false});
+validators.isURL('http://localhost/foo.txt', {requireFQDNTld: false});
+validators.isURL('https://www.example.com/path', {allowFQDNWildcard: true});
+validators.isURL('https://www.example.com/path/path', {allowFQDNWildcard: true});
+validators.isURL('https://example.com/*', {allowFQDNWildcard: true});
+validators.isURL('https://*.example.com/*', {allowFQDNWildcard: true});
+validators.isURL('https://www.example.com/*', {allowFQDNWildcard: true});
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {boolean} <code>options.requireFQDNTld?</code> If true, the TLD is required. Default is true.
+- {boolean} <code>options.allowFQDNWildcard?</code> If true, the validator will allow domain starting with `*.` (e.g. `*.example.com` or `*.shop.example.com`). Default is false.
+- {boolean} <code>options.allowFragments?</code> If true, allow fragment input. Default is false.
+- {boolean} <code>options.allowQueryComponents?</code> If true, allow input of query string. Default is false.
+
+#### Return value
+{boolean} True for pass, false for fail.
+
+### `validators.isUUID()`
+Check if it is a UUID (version 1, 2, 3, 4, or 5).
+
+```js
+const {validators} = require('nodejs-shared');
+
+validators.isUUID('A987FBC9-4BED-3078-CF07-9141BA07C9F3');
+validators.isUUID('E034B584-7D89-11E9-9669-1AECF481A97B', 1);
+validators.isUUID('A987FBC9-4BED-2078-CF07-9141BA07C9F3', 2);
+validators.isUUID('A987FBC9-4BED-3078-CF07-9141BA07C9F3', 3);
+validators.isUUID('713ae7e3-cb32-45f9-adcb-7c4fa86b90c1', 4);
+validators.isUUID('987FBC97-4BED-5078-AF07-9141BA07C9F3', 5);
+```
+
+#### Parameters
+- {string} <code>value</code> Value to be validated.
+- {'1'|'2'|'3'|'4'|'5'|'all'|1|2|3|4|5} <code>version?</code> UUID Version. Default is all.
+
+#### Return value
+{boolean} True for pass, false for fail.
 
 ## Testing
 With [npm](http://npmjs.org) do:
