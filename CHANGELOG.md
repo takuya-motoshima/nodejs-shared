@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 ## [1.0.25] - 2023/9/2
 ### Added
 - Added validator functions.  
+    API details are [here](README.md#api).
+
     |Function|Description|
     |--|--|
     |[validators.isAfter](README.md#validatorsisafter)|Check if it is an after date.|
