@@ -4,7 +4,6 @@
 export default class {
     /**
      * Find static methods from the class.
-     *
      * @static
      * @param {any} clazz Class.
      * @return {Set<string>} Static method name list.
@@ -12,7 +11,6 @@ export default class {
     static getStaticMethods(clazz: any): Set<string>;
     /**
      * Find a method from an instance.
-     *
      * @static
      * @param {any} instance Class instance.
      * @return {Set<string>} Instance method name list.

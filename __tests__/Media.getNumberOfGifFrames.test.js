@@ -3,12 +3,12 @@ const {Media, File} = require('../dist/build.common');
 const inputDir = `${__dirname}/input`;
 
 test('Get frame count from GIF', async () => {
-  const numberOfFrames = await Media.getNumberOfGifFrames(`${inputDir}/animated.gif`);
+  const numberOfFrames = await Media.getNumberOfGifFrames(`${inputDir}/sample.gif`);
   expect(numberOfFrames).toBe(19);
 });
 
 test('Get frame count from GIF without animation', async () => {
-  const numberOfFrames = await Media.getNumberOfGifFrames(`${inputDir}/non-animated.gif`);
+  const numberOfFrames = await Media.getNumberOfGifFrames(`${inputDir}/sample-non-animated.gif`);
   expect(numberOfFrames).toBe(1);
 });
 

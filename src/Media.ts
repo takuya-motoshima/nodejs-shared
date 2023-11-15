@@ -14,7 +14,6 @@ const validDataUrl = /^data:([a-z]+\/[a-z0-9\-\+\._]+)(?:;..*)?,(..*)/i;
 export default class Media {
   /**
    * ImageMagick instance.
-   *
    * @memberof Media
    */
   static #im: gm.SubClass = gm.subClass({imageMagick: true});
@@ -23,7 +22,6 @@ export default class Media {
    * Write data URL to a file.
    * If the file path does not have an extension, the extension determined from DataURL is automatically assigned to the file path.
    * This method returns the path to the written file.
-   *
    * @static
    * @param {string} outputPath Output file path.
    * @param {string} dataUrl Data URL.
@@ -49,7 +47,6 @@ export default class Media {
 
   /**
    * Convert data URL to blob data in base64 format.
-   *
    * @static
    * @param {string} dataUrl Data URL.
    * @return {string|null} Base 64 strings.
@@ -64,7 +61,6 @@ export default class Media {
 
   /**
    * Check if the string is in data URL format.
-   *
    * @static
    * @param {string} dataUrl Data URL.
    * @return {boolean} True if it is a data URL.
@@ -76,7 +72,6 @@ export default class Media {
 
   /**
    * Get the MIME type and base64 from the data URL string.
-   *
    * @static
    * @param {string} dataUrl Data URL.
    * @return {{blob: string, type: string}|null} Data URL Analysis Results.
@@ -100,7 +95,6 @@ export default class Media {
 
   /**
    * Get the dimensions (pixels) of the image.
-   *
    * @static
    * @param {string} filePath Image file path.
    * @return {{width: number, height: number }|null} Width and height (in pixels) of the image.
@@ -116,7 +110,6 @@ export default class Media {
 
   /**
    * Crop from image.
-   *
    * @static
    * @param {string} inputPath Original image file path.
    * @param {string} outputPath Image path after cropping.
@@ -138,28 +131,42 @@ export default class Media {
   }
 
   /**
-   * Resize the image.
+   * Resize image.
    * If the output option is omitted, the original image is overwritten.
-   *
    * @static
    * @param {string} inputPath The image file path from which to resize.
-   * @param {number} width Width after resizing.
-   * @param {number} height Height after resizing.
-   * @param {number} output Image file path after resizing. The default is none, which will overwrite the original image.
-   * @param {boolean} contain If true, resizes the image so that the entire original image is visible. If false, it is stretched to fit the height or width and cropped to fill the area. Default is false.
+   * @param {number} options.width Width after resizing.
+   * @param {number} options.height Height after resizing.
+   * @param {number} options.output Image file path after resizing. The default is none, which will overwrite the original image.
+   * @param {boolean} options.contain If true, resizes the image so that the entire original image is visible. If false, it is stretched to fit the height or width and cropped to fill the area. Default is false.
    * @return {Promise<void>}
    * @memberof Media
    */
   public static async resize(inputPath: string, {width, height, output, contain = false}: {width?: number, height?: number, output?: string, contain?: boolean}): Promise<void> {
-    const tmp = File.getTmpPath();
+    // Methods by which an image can be resized to fit the provided dimensions.
     const fit = contain ? 'contain' : 'cover';
-    await sharp(inputPath)
+
+    // Resize image.
+    const buffer = await sharp(inputPath)
       .resize({width, height, fit})
-      .toFile(tmp);
-    sharp.cache(false);
+      .toBuffer();
+
+    // If the output file is unspecified, the input file is overwritten.
     if (!output)
       output = inputPath;
-    File.rename(tmp, output);
+
+    // Write the resized image.
+    await sharp(buffer).toFile(output);
+    sharp.cache(false);
+    // const tmp = File.getTmpPath();
+    // const fit = contain ? 'contain' : 'cover';
+    // await sharp(inputPath)
+    //   .resize({width, height, fit})
+    //   .toFile(tmp);
+    // sharp.cache(false);
+    // if (!output)
+    //   output = inputPath;
+    // File.rename(tmp, output);
   }
 
   /**
@@ -170,7 +177,6 @@ export default class Media {
    * 1. x is the size of a file in bytes
    * 2. n is the length of the Base64 String
    * 3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.
-   *
    * @static
    * @param {string} dataUrl Data URL.
    * @return {number} Byte Size.
@@ -193,7 +199,6 @@ export default class Media {
    * 1. x is the size of a file in bytes
    * 2. n is the length of the Base64 String
    * 3. y will be 2 if Base64 ends with '==' and 1 if Base64 ends with '='.
-   *
    * @static
    * @param {string} b64 Base 64 strings.
    * @return {number} Byte Size.
@@ -211,7 +216,6 @@ export default class Media {
 
   /**
    * Get Mime type from data URL.
-   *
    * @static
    * @param {string} dataUrl Data URL.
    * @return {string|null} Mime Type.
@@ -226,7 +230,6 @@ export default class Media {
 
   /**
    * Get extension from data URL.
-   *
    * @static
    * @param {string} dataUrl Data URL.
    * @return {string|null} File extension.
@@ -248,7 +251,6 @@ export default class Media {
 
   /**
    * Merge images.
-   *
    * @static
    * @param {string[]} inputPaths Path list of image files to merge.
    * @param {string} outputPath File path of the merged image.
@@ -361,7 +363,6 @@ export default class Media {
 
   /**
    * Extract and save the first frame of the animated GIF.
-   *
    * @static
    * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
    * @param {string?} outputPath Output image path. If not specified, the first frame image is overwritten in the original file.
@@ -393,7 +394,6 @@ export default class Media {
 
   /**
    * Get the number of GIF frames.
-   *
    * @static
    * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
    * @return {Promise<number|null>} Number of frames in the image.
@@ -425,7 +425,6 @@ export default class Media {
 
   // /**
   //  * Extract the first frame of the GIF as DataURL.
-  //  *
   //  * @static
   //  * @return {Promise<string>} DataURL of the first frame of the GIF.
   //  * @param {string} inputPath Input image path.
@@ -445,7 +444,6 @@ export default class Media {
 
   /**
    * Convert Between Image Formats.
-   *
    * @static
    * @param {string} inputPathOrDataUrl Path or Data URL of the input image.
    * @param {string} outputPath? Allows you to specify the output path for converted images. The default is undefined.
@@ -466,12 +464,8 @@ export default class Media {
    *                                                        Info header size: 124
    *                                                        Info header name: BITMAPV5HEADER
    * @param {boolean} options.trueColor? Set to true if 24-bit color is used for output BMP. Default is true.
-   * @param {number} options.margin? The size of the top, bottom, left, and right margins to be added to the original image.
-                                      Unit is in pixels.
-                                      The default is none (undefined).
-   * @param {string} options.background? The background color of the margin.
-                                          This option is ignored if the margin option is absent.
-                                          Default is white.
+   * @param {number} options.margin? The size of the top, bottom, left, and right margins to be added to the original image. Unit is in pixels. The default is none (undefined).
+   * @param {string} options.background? The background color of the margin. This option is ignored if the margin option is absent. Default is white.
    * @return {Promise<string>} The data URL of the image whose format was converted.
    * @memberof Media
    */

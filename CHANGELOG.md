@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.26] - 2023/11/15
+### Changed
+- Image resizing process (Media.resize) no longer creates a temporary file.
+
 ## [1.0.25] - 2023/9/2
 ### Added
 - Added validator functions.  
@@ -149,18 +153,18 @@ All notable changes to this project will be documented in this file.
     ```js
     const {Media} = require('nodejs-shared');
 
-    // Write the first frame of animated.gif to first-frame.gif.
-    await Media.extractFirstFrameOfGif('animated.gif', 'first-frame.gif');
+    // Write the first frame of sample.gif to first-frame.gif.
+    await Media.extractFirstFrameOfGif('sample.gif', 'first-frame.gif');
 
-    // Overwrite animated.gif with the first frame.
-    await Media.extractFirstFrameOfGif('animated.gif');
+    // Overwrite sample.gif with the first frame.
+    await Media.extractFirstFrameOfGif('sample.gif');
     ```
 - Added a method to the Media class to get the number of GIF frames.
     ```js
     const {Media} = require('nodejs-shared');
 
     // Get the number of frames from a GIF image file.
-    const numberOfFrames = await Media.getNumberOfGifFrames('animated.gif');
+    const numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
     ```
 - Add a method to the File class to recursively copy directories.
     ```js
@@ -362,3 +366,4 @@ All notable changes to this project will be documented in this file.
 [1.0.23]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.22...v1.0.23
 [1.0.24]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.23...v1.0.24
 [1.0.25]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.24...v1.0.25
+[1.0.26]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.25...v1.0.26

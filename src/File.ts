@@ -10,7 +10,6 @@ const fse = require('fs-extra');
 export default class File {
   /**
    * Get the file name from the path.
-   *
    * @static
    * @param {string} filePath File Path.
    * @param {boolean} withExtension True if you want to include the extension, false if you don't. Default is false.
@@ -23,7 +22,6 @@ export default class File {
 
   /**
    * Change permissions.
-   *
    * @static
    * @param {string} path File or directory path.
    * @param {number} permission Permissions. Default is 0o755.
@@ -37,7 +35,6 @@ export default class File {
 
   /**
    * Create a temporary directory.
-   *
    * @static
    * @return {string} 
    * @memberof File
@@ -50,7 +47,6 @@ export default class File {
 
   /**
    * Make a directory.
-   *
    * @static
    * @param {string} dirPath Directory path.
    * @param {number} permission Directory permissions. Default is 0o755.
@@ -67,7 +63,6 @@ export default class File {
 
   /**
    * Check if the file or directory exists.
-   *
    * @static
    * @param {string} path File or directory path.
    * @return {boolean} True if the file or directory exists.
@@ -84,7 +79,6 @@ export default class File {
 
   /**
    * Delete the file.
-   *
    * @static
    * @param {string} filePath File Path.
    * @memberof File
@@ -97,7 +91,6 @@ export default class File {
 
   /**
    * Delete the directory.
-   *
    * @static
    * @param {string} dirPath Directory path.
    * @memberof File
@@ -108,7 +101,6 @@ export default class File {
 
   /**
    * Write a file
-   *
    * @static
    * @param {string} filePath File Path.
    * @param {string} content The contents of the file. Default is an empty string.
@@ -139,7 +131,6 @@ export default class File {
 
   /**
    * Get the contents of a file as a string.
-   *
    * @static
    * @param {string} filePath File Path.
    * @return {string} The contents of the file.
@@ -151,7 +142,6 @@ export default class File {
 
   /**
    * Get the contents of a JSON file as an object.
-   * 
    * @static
    * @param {string} filePath File Path.
    * @return {object} An object generated from JSON.
@@ -163,7 +153,6 @@ export default class File {
 
   /**
    * Get the contents of the media file as a data URL string.
-   *
    * @static
    * @param {string} filePath File Path.
    * @return {string} Data URL.
@@ -182,7 +171,6 @@ export default class File {
 
   /**
    * Get the contents of a media file as a base64 string.
-   *
    * @static
    * @param {string} filePath File Path.
    * @return {string} Base 64 strings.
@@ -194,7 +182,6 @@ export default class File {
 
   /**
    * Get file information.
-   *
    * @static
    * @param {string} filePath File Path.
    * @return {object} File information object.
@@ -206,7 +193,6 @@ export default class File {
 
   /**
    * Get file modification time in unix time.
-   *
    * @static
    * @param {string} filePath File Path.
    * @return {number} Last modified unix time of the file.
@@ -218,7 +204,6 @@ export default class File {
 
   /**
    * Get the file extension.
-   *
    * @static
    * @param {string} filePath File Path.
    * @return {string|undefined} File extension.
@@ -231,7 +216,6 @@ export default class File {
 
   /**
    * Find files that match the file name or path pattern.
-   *
    * @static
    * @param {string} pattern File pattern to find.
    * @param {glob.IOptions} options Options to find. Default is undefined
@@ -249,7 +233,6 @@ export default class File {
   /**
    * Returns the path to the new temporary directory.
    * The directory is not created.
-   *
    * @static
    * @return {string} Temporary directory path.
    * @memberof File
@@ -261,7 +244,6 @@ export default class File {
   /**
    * Returns the path to the new temporary file.
    * No file is created.
-   *
    * @static
    * @param {string} extension Extension to be given to temporary files. Default is none.
    * @return {string} Temporary file path.
@@ -276,7 +258,6 @@ export default class File {
 
   /**
    * Check if it is a file.
-   *
    * @static
    * @param {string} filePath File Path.
    * @return {boolean} True if the file is a file.
@@ -293,7 +274,6 @@ export default class File {
 
   /**
    * Rename a file or directory.
-   *
    * @static
    * @param {string} srcPath Original file path.
    * @param {string} dstPath The destination file path.
@@ -305,7 +285,6 @@ export default class File {
 
   /**
    * Check if it is a base64 string.
-   *
    * @static
    * @param {string} str String.
    * @return {boolean} True if base64.
@@ -317,7 +296,6 @@ export default class File {
 
   /**
    * Check if the path is a directory.
-   *
    * @static
    * @param {string} inputPath The path of a file or directory.
    * @return {boolean} True if the input path is a directory, false otherwise.
@@ -331,7 +309,6 @@ export default class File {
 
   /**
    * Copy a file or directory. The directory can have contents.
-   *
    * @static
    * @param {string} srcDir The directory from which the copy was made.
    * @param {string} dstDir The destination directory.
@@ -345,7 +322,6 @@ export default class File {
 
   /**
    * Check if it is valid as a file system path.
-   *
    * @static
    * @param {string} str String.
    * @return {boolean} True if valid as a file system path, false otherwise.

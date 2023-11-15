@@ -46,7 +46,7 @@ npm install --save nodejs-shared
 |[Media.statDataUrl](#mediastatdataurl)|Get the MIME type and base64 from the data URL string.|
 |[Media.getDimensions](#mediagetdimensions)|Get the dimensions (pixels) of the image.|
 |[Media.crop](#mediacrop)|Crop from image.|
-|[Media.resize](#mediaresize)|Resize the image.|
+|[Media.resize](#mediaresize)|Resize image.|
 |[Media.dataUrlByteSize](#mediadataurlbytesize)|Get the byte size of data URL.|
 |[Media.base64ByteSize](#mediabase64bytesize)|Get base64 byte size.|
 |[Media.getMimeTypeFromDataUrl](#mediagetmimetypefromdataurl)|Get Mime type from data URL.|
@@ -628,7 +628,7 @@ Media.crop('sample.jpg', 'result.jpg', {left: 0, top: 0, width: 100, height: 100
 Promise&lt;void&gt;
 
 ### `Media.resize()`
-Resize the image.  
+Resize image.  
 If the output option is omitted, the original image is overwritten.
 
 ```js
@@ -652,10 +652,10 @@ Media.resize('sample.jpg', {output: 'result.jpg', width: 100});
 
 #### Parameters
 - {string} <code>inputPath</code> The image file path from which to resize.
-- {number} <code>width</code> Width after resizing.
-- {number} <code>height</code> Height after resizing.
-- {number} <code>output</code> Image file path after resizing. The default is none, which will overwrite the original image.
-- {boolean} <code>contain</code> If true, resizes the image so that the entire original image is visible. If false, it is stretched to fit the height or width and cropped to fill the area. Default is false.
+- {number} <code>options.width</code> Width after resizing.
+- {number} <code>options.height</code> Height after resizing.
+- {number} <code>options.output</code> Image file path after resizing. The default is none, which will overwrite the original image.
+- {boolean} <code>options.contain</code> If true, resizes the image so that the entire original image is visible. If false, it is stretched to fit the height or width and cropped to fill the area. Default is false.
 
 #### Return value
 Promise&lt;void&gt;
@@ -820,11 +820,11 @@ Extract and save the first frame of the animated GIF.
 ```js
 const {Media} = require('nodejs-shared');
 
-// Write the first frame of animated.gif to first-frame.gif.
-await Media.extractFirstFrameOfGif('animated.gif', 'first-frame.gif');
+// Write the first frame of sample.gif to first-frame.gif.
+await Media.extractFirstFrameOfGif('sample.gif', 'first-frame.gif');
 
-// Overwrite animated.gif with the first frame.
-await Media.extractFirstFrameOfGif('animated.gif');
+// Overwrite sample.gif with the first frame.
+await Media.extractFirstFrameOfGif('sample.gif');
 
 // Extract the first frame from the GIF Data URL and save it to an image file.
 await Media.extractFirstFrameOfGif('data:image/gif;base64,...', 'first-frame.gif');
@@ -845,7 +845,7 @@ Get the number of GIF frames.
 const {Media} = require('nodejs-shared');
 
 // Get the number of frames from a GIF image file.
-let numberOfFrames = await Media.getNumberOfGifFrames('animated.gif');
+let numberOfFrames = await Media.getNumberOfGifFrames('sample.gif');
 
 // Get the number of frames from the GIF Data URL.
 numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,...');

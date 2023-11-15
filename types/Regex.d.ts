@@ -4,7 +4,6 @@
 export default class {
     /**
      * Escapes the `RegExp` special characters "^", "$", "\", ".", "*", "+", "?", "(", ")", "[", "]", "{", "}", "|" in `string`.
-     *
      * @static
      * @param {string} str String.
      * @param {{[key: string]: string}} replace? Custom replacement characters. The default is none (undefined).

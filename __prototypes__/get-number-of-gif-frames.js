@@ -5,7 +5,7 @@
  */
 const im = require('gm').subClass({imageMagick: true});
 
-const inputPath = `${__dirname}/input/animated.gif`;
+const inputPath = `${__dirname}/input/sample.gif`;
 
 im(inputPath).identify((err, data) => {
   console.log(JSON.stringify(data, null, 2));
