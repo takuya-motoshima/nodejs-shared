@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.27] - 2024/4/4
+### Changed
+- Updated dependent [sharp](https://sharp.pixelplumbing.com/) package from 0.31.2 to 0.33.3.
+
 ## [1.0.26] - 2023/11/15
 ### Changed
 - Image resizing process (Media.resize) no longer creates a temporary file.
@@ -367,3 +371,4 @@ All notable changes to this project will be documented in this file.
 [1.0.24]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.23...v1.0.24
 [1.0.25]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.24...v1.0.25
 [1.0.26]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.25...v1.0.26
+[1.0.27]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.26...v1.0.27

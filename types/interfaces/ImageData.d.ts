@@ -1,5 +1,4 @@
 /// <reference types="node" />
-/// <reference types="node" />
 export default interface ImageData {
     buffer: Buffer;
     height: number;

@@ -3,7 +3,7 @@ const {File} = require('../dist/build.common');
 
 const searchDir = path.join(__dirname, 'input/search-directory');
 
-test('Find files from the first layer', () => {
+test('Find the file in the first level directory', () => {
   const found = File.find(`${searchDir}/*.*`);
   const expected = [
     `${searchDir}/1.txt`,
@@ -15,7 +15,7 @@ test('Find files from the first layer', () => {
   expect(found.sort()).toEqual(expected.sort());
 });
 
-test('Find files from all layers', () => {
+test('Find files in directories of all hierarchies', () => {
   const found = File.find(`${searchDir}/**/*.*`);
   const expected = [
     `${searchDir}/1.txt`,
@@ -33,7 +33,7 @@ test('Find files from all layers', () => {
   expect(found.sort()).toEqual(expected.sort());
 });
 
-test('Find PNG files from all layers', () => {
+test('Find only PNG files from directories in all hierarchical levels', () => {
   const found = File.find(`${searchDir}/**/*.png`);
   const expected = [
     `${searchDir}/5.png`,
@@ -43,7 +43,7 @@ test('Find PNG files from all layers', () => {
   expect(found.sort()).toEqual(expected.sort());
 });
 
-test('Find PNG and JPG files from all layers', () => {
+test('Find only PNG or JPG files from the directory of the whole hierarchy', () => {
   const found = File.find(`${searchDir}/**/*.+(png|jpg)`);
   const expected = [
     `${searchDir}/3.jpg`,

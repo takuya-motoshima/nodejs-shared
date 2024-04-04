@@ -104,7 +104,7 @@ export default class File {
    * @static
    * @param {string} filePath File Path.
    * @param {string} content The contents of the file. Default is an empty string.
-   * @param {fs.BaseEncodingOptions|string|undefined} options Writing options. Default is undefined.
+   * @param {fs.WriteFileOptions|string|undefined} options Writing options. Default is undefined.
    * @param {number} permission File permissions. Default is 0o755.
    * @return {File}
    * @memberof File
@@ -112,7 +112,7 @@ export default class File {
   public static write(
     filePath: string,
     content: string = '',
-    options: fs.BaseEncodingOptions|string|undefined = undefined,
+    options: fs.WriteFileOptions|string|undefined = undefined,
     permission: number = 0o755
   ): File {
     // Delete files in the same path.
@@ -122,7 +122,10 @@ export default class File {
     this.makeDirectory(path.dirname(filePath));
 
     // Write file.
-    fs.writeFileSync(filePath, content, options);
+    if (options)
+      fs.writeFileSync(filePath, content, options as fs.WriteFileOptions);
+    else
+      fs.writeFileSync(filePath, content);
 
     // Change permissions.
     this.chmod(filePath, permission);

@@ -63,12 +63,12 @@ export default class File {
      * @static
      * @param {string} filePath File Path.
      * @param {string} content The contents of the file. Default is an empty string.
-     * @param {fs.BaseEncodingOptions|string|undefined} options Writing options. Default is undefined.
+     * @param {fs.WriteFileOptions|string|undefined} options Writing options. Default is undefined.
      * @param {number} permission File permissions. Default is 0o755.
      * @return {File}
      * @memberof File
      */
-    static write(filePath: string, content?: string, options?: fs.BaseEncodingOptions | string | undefined, permission?: number): File;
+    static write(filePath: string, content?: string, options?: fs.WriteFileOptions | string | undefined, permission?: number): File;
     /**
      * Get the contents of a file as a string.
      * @static

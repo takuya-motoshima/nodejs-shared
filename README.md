@@ -13,6 +13,12 @@ npm install --save nodejs-shared
     ```sh
     brew install imagemagick
     ```
+
+    Confirmation of installation results.
+    ```sh
+    convert -version
+    ```
+
 ## API
 |Function|Description|
 |--|--|

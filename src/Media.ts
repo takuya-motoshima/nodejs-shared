@@ -39,7 +39,9 @@ export default class Media {
     if (!b64)
       throw new Error('Writing to file aborted due to inability to convert from DataURL to base64');
     if (this.getMimeTypeFromDataUrl(dataUrl) === 'image/svg+xml')
-      File.write(outputPath, File.isBase64(b64) ? Buffer.from(b64, 'base64').toString() : decodeURIComponent(b64), undefined, permission);
+      File.write(outputPath, File.isBase64(b64)
+        ? Buffer.from(b64, 'base64').toString()
+        : decodeURIComponent(b64), undefined, permission);
     else
       File.write(outputPath, b64, 'base64', permission);
     return outputPath;
