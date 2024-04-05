@@ -6,7 +6,7 @@ const outputDir = `${__dirname}/output`;
 
 test('Extract the first frame of GIF (Output to another file)', async () => {
   const inputPath = `${inputDir}/sample.gif`;
-  const outputPath = `${outputDir}/gif-first-frame.gif`;
+  const outputPath = `${outputDir}/first-frame.gif`;
   await Media.extractFirstFrameOfGif(inputPath, outputPath);
   const numberOfFrames = await Media.getNumberOfGifFrames(outputPath);
   expect(numberOfFrames).toBe(1);
@@ -14,7 +14,7 @@ test('Extract the first frame of GIF (Output to another file)', async () => {
 
 test('Extract the first frame of GIF (Overwrite original file)', async () => {
   const inputPath = `${inputDir}/sample.gif`;
-  const outputPath = `${outputDir}/gif-first-frame-with-overwrite.gif`;
+  const outputPath = `${outputDir}/first-frame-with-overwrite.gif`;
 
   // Copy the input file to a temporary file.
   const tmp = File.getTmpPath('gif');
@@ -30,7 +30,7 @@ test('Extract the first frame of GIF (Overwrite original file)', async () => {
 
 test('Extract the first frame of a GIF with no animation (Output to another file)', async () => {
   const inputPath = `${inputDir}/sample-non-animated.gif`;
-  const outputPath = `${outputDir}/gif-without-animation-first-frame.gif`;
+  const outputPath = `${outputDir}/without-animation.gif`;
   await Media.extractFirstFrameOfGif(inputPath, outputPath);
   const numberOfFrames = await Media.getNumberOfGifFrames(outputPath);
   expect(numberOfFrames).toBe(1);
@@ -38,7 +38,7 @@ test('Extract the first frame of a GIF with no animation (Output to another file
 
 test('Extract the first frame of a GIF with no animation (Overwrite original file)', async () => {
   const inputPath = `${inputDir}/sample-non-animated.gif`;
-  const outputPath = `${outputDir}/gif-without-animation-first-frame-with-overwrite.gif`;
+  const outputPath = `${outputDir}/without-animation-overwrite.gif`;
 
   // Copy the input file to a temporary file.
   const tmp = File.getTmpPath('gif');

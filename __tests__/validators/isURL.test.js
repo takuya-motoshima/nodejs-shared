@@ -1,10 +1,10 @@
 const {validators: {isURL}} = require('../../dist/build.common');
 const readCSV  = require('../support/readCSV');
 
-const validURL = readCSV('valid-url.csv');
-const validURLNoTld = readCSV('valid-url-no-tld.csv');
-const validURLWildcard = readCSV('valid-url-wildcard.csv');
-const invalidURL = readCSV('invalid-url.csv');
+const validURL = readCSV('url.csv');
+const validURLNoTld = readCSV('url-no-tld.csv');
+const validURLWildcard = readCSV('url-wildcard.csv');
+const invalidURL = readCSV('url-invalid.csv');
 
 describe('Valid URL should be true', () => {
   const table = validURL.map(item => ([item, {}, true]));

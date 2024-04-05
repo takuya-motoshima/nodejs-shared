@@ -1,16 +1,16 @@
 const {validators: {isIP}} = require('../../dist/build.common');
 const readCSV  = require('../support/readCSV');
 
-const validIPv4 = readCSV('valid-ipv4.csv');
-const validIPv6 = readCSV('valid-ipv6.csv');
-const validIPv4Range = readCSV('valid-ipv4-range.csv');
-const validIPv6Range = readCSV('valid-ipv6-range.csv');
-const invalidIPv4Or6 = readCSV('invalid-ipv4-or-6.csv');
-const invalidIPv4 = readCSV('invalid-ipv4.csv');
-const invalidIPv6 = readCSV('invalid-ipv6.csv');
-const invalidIPv4Or6Range = readCSV('invalid-ipv4-or-6-range.csv');
-const invalidIPv4Range = readCSV('invalid-ipv4-range.csv');
-const invalidIPv6Range = readCSV('invalid-ipv6-range.csv');
+const validIPv4 = readCSV('ipv4.csv');
+const validIPv6 = readCSV('ipv6.csv');
+const validIPv4Range = readCSV('ipv4-range.csv');
+const validIPv6Range = readCSV('ipv6-range.csv');
+const invalidIPv4Or6 = readCSV('ip-invalid.csv');
+const invalidIPv4 = readCSV('ipv4-invalid.csv');
+const invalidIPv6 = readCSV('ipv6-invalid.csv');
+const invalidIPv4Or6Range = readCSV('ip-range-invalid.csv');
+const invalidIPv4Range = readCSV('ipv4-range-invalid.csv');
+const invalidIPv6Range = readCSV('ipv6-range-invalid.csv');
 
 describe('Valid IPv4, IPv6 should be true', () => {
   const table = [...validIPv4, ...validIPv6].map(item => ([item, {}, true]));

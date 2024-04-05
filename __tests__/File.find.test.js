@@ -1,7 +1,7 @@
 const path = require('path');
 const {File} = require('../dist/build.common');
 
-const searchDir = path.join(__dirname, 'input/search-directory');
+const searchDir = path.join(__dirname, 'input/find');
 
 test('Find the file in the first level directory', () => {
   const found = File.find(`${searchDir}/*.*`);

@@ -13,7 +13,7 @@ test('Get frame count from GIF without animation', async () => {
 });
 
 test('Get frame count from gif with data URL', async () => {
-  const dataUrl = File.readAsString(`${inputDir}/data-url-in-gif.txt`);
+  const dataUrl = File.readAsString(`${inputDir}/gif.txt`);
   const numberOfFrames = await Media.getNumberOfGifFrames(dataUrl);
   expect(numberOfFrames).toBe(19);
 });

@@ -1,10 +1,10 @@
 const {validators: {isFQDN}} = require('../../dist/build.common');
 const readCSV  = require('../support/readCSV');
 
-const validFQDN = readCSV('valid-fqdn.csv');
-const validFQDNNoTld = readCSV('valid-fqdn-no-tld.csv');
-const validFQDNWildcard = readCSV('valid-fqdn-wildcard.csv');
-const invalidFQDN = readCSV('invalid-fqdn.csv');
+const validFQDN = readCSV('fqdn.csv');
+const validFQDNNoTld = readCSV('fqdn-no-tld.csv');
+const validFQDNWildcard = readCSV('fqdn-wildcard.csv');
+const invalidFQDN = readCSV('fqdn-invalid.csv');
 
 describe('Valid FQDN should be true', () => {
   const table = validFQDN.map(item => ([item, {}, true]));

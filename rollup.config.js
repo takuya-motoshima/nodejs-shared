@@ -8,7 +8,6 @@ import pkg from './package.json';
 
 export default {
   external: builtins,
-  // external: Object.keys(pkg['dependencies'] || []),
   input: './src/index.ts',
   plugins: [
     typescript({

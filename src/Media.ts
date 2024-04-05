@@ -1,6 +1,4 @@
 import fs from 'fs';
-const imageSize = require('image-size');
-const sharp = require('sharp');
 import gm from 'gm';
 // const gm = require('gm').subClass({imageMagick: true});
 import File from '~/File';
@@ -103,7 +101,7 @@ export default class Media {
    * @memberof Media
    */
   public static getDimensions(filePath: string): {width: number, height: number }|null {
-    // const sizeOf = require('image-sizeaa');
+    const imageSize = require('image-size');
     const {width, height} = imageSize(filePath);
     if (width == null || height == null)
       return null;
@@ -127,7 +125,7 @@ export default class Media {
       left = 0;
     if (top < 0)
       top = 0;
-    await sharp(inputPath)
+    await require('sharp')(inputPath)
       .extract({left, top, width, height})
       .toFile(outputPath);
   }
@@ -149,7 +147,7 @@ export default class Media {
     const fit = contain ? 'contain' : 'cover';
 
     // Resize image.
-    const buffer = await sharp(inputPath)
+    const buffer = await require('sharp')(inputPath)
       .resize({width, height, fit})
       .toBuffer();
 
@@ -158,14 +156,14 @@ export default class Media {
       output = inputPath;
 
     // Write the resized image.
-    await sharp(buffer).toFile(output);
-    sharp.cache(false);
+    await require('sharp')(buffer).toFile(output);
+    require('sharp').cache(false);
     // const tmp = File.getTmpPath();
     // const fit = contain ? 'contain' : 'cover';
-    // await sharp(inputPath)
+    // await require('sharp')(inputPath)
     //   .resize({width, height, fit})
     //   .toFile(tmp);
-    // sharp.cache(false);
+    // require('sharp').cache(false);
     // if (!output)
     //   output = inputPath;
     // File.rename(tmp, output);
@@ -312,7 +310,7 @@ export default class Media {
     let totalX = 0;
     let totalY = 0;
     const imageDatum = (await Promise.all(inputPaths.map(async (inputPath: string): Promise<ImageData> => {
-      const meta = await sharp(inputPath).metadata();
+      const meta = await require('sharp')(inputPath).metadata();
       return {
         buffer: fs.readFileSync(inputPath),
         height: meta.height as number,
@@ -339,7 +337,7 @@ export default class Media {
     const totalHeight = isVertical
       ? imageDatum.reduce((totalHeight, {height, offsetY}, index) => totalHeight + height + offsetY + Number(index > 0) * options.offset!, 0)
       : Math.max(...imageDatum.map(({height, offsetY}) => height + offsetY));
-    const imageBase = sharp({
+    const imageBase = require('sharp')({
       create: {
         background: options.color,
         channels: 4,

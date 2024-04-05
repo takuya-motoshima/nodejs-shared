@@ -6,7 +6,7 @@ const outputDir = `${__dirname}/output`;
 test('Convert JPG to PNG', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample1.jpg`,
-    `${outputDir}/converted-jpg-to-png.png`
+    `${outputDir}/jpg2png.png`
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('png');
 });
@@ -14,7 +14,7 @@ test('Convert JPG to PNG', async () => {
 test('Convert JPG to GIF', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample1.jpg`,
-    `${outputDir}/converted-jpg-to-gif.gif`
+    `${outputDir}/jpg2gif.gif`
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('gif');
 });
@@ -22,7 +22,7 @@ test('Convert JPG to GIF', async () => {
 test('Convert PNG to JPG', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample4.png`,
-    `${outputDir}/converted-png-to-jpg.jpg`
+    `${outputDir}/png2jpg.jpg`
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('jpg');
 });
@@ -30,7 +30,7 @@ test('Convert PNG to JPG', async () => {
 test('Convert PNG to GIF', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample4.png`,
-    `${outputDir}/converted-png-to-gif.gif`
+    `${outputDir}/png2gif.gif`
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('gif');
 });
@@ -38,7 +38,7 @@ test('Convert PNG to GIF', async () => {
 test('Convert GIF to JPG (first frame only)', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample.gif`,
-    `${outputDir}/converted-gif-to-jpg.jpg`
+    `${outputDir}/gif2jpg.jpg`
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('jpg');
 });
@@ -46,7 +46,7 @@ test('Convert GIF to JPG (first frame only)', async () => {
 test('Convert GIF to PNG (first frame only)', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample.gif`,
-    `${outputDir}/converted-gif-to-png.png`
+    `${outputDir}/gif2png.png`
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('png');
 });
@@ -54,7 +54,7 @@ test('Convert GIF to PNG (first frame only)', async () => {
 test('Convert JPG to BMP', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample1.jpg`,
-    `${outputDir}/converted-jpg-to-bmp.bmp`
+    `${outputDir}/pg2bmp.bmp`
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('bmp');
 });
@@ -62,7 +62,7 @@ test('Convert JPG to BMP', async () => {
 test('Convert PNG to BMP', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample4.png`,
-    `${outputDir}/converted-png-to-bmp.bmp`
+    `${outputDir}/png2bmp.bmp`
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('bmp');
 });
@@ -70,7 +70,7 @@ test('Convert PNG to BMP', async () => {
 test('Convert JPG to BMP (24bit color)', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample1.jpg`,
-    `${outputDir}/converted-jpg-to-bmp-with-24bit-color.bmp`,
+    `${outputDir}/jpg2bmp-with-24bit-color.bmp`,
     {trueColor: true}
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('bmp');
@@ -79,7 +79,7 @@ test('Convert JPG to BMP (24bit color)', async () => {
 test('Convert JPG to PNG with background and margins', async () => {
   const dataUrl = await Media.convertImageFormat(
     `${inputDir}/sample1.jpg`,
-    `${outputDir}/converted-jpg-to-png-with-background-and-margins.png`,
+    `${outputDir}/jpg2png-with-background-and-margins.png`,
     {margin: 100, background: 'black'}
   );
   expect(Media.statDataUrl(dataUrl).extension).toBe('png');

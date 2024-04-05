@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.28] - 2024/4/5
+### Changed
+- Changed the reference timing of [image-size](https://www.npmjs.com/package/image-size) and [sharp](https://sharp.pixelplumbing.com/) packages from the time of importing this package to the time of executing related methods.
+
 ## [1.0.27] - 2024/4/4
 ### Changed
 - Updated dependent [sharp](https://sharp.pixelplumbing.com/) package from 0.31.2 to 0.33.3.
@@ -372,3 +376,4 @@ All notable changes to this project will be documented in this file.
 [1.0.25]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.24...v1.0.25
 [1.0.26]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.25...v1.0.26
 [1.0.27]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.26...v1.0.27
+[1.0.28]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.27...v1.0.28
