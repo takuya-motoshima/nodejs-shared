@@ -38,8 +38,8 @@ npm install --save nodejs-shared
 |[File.getFilemtime](#filegetfilemtime)|Get file modification time in unix time.|
 |[File.getExtension](#filegetextension)|Get the file extension.|
 |[File.find](#filefind)|Find files that match the file name or path pattern.|
-|[File.getTmpDirectory](#filegettmpdirectory)|Returns the path to the new temporary directory.|
-|[File.getTmpPath](#filegettmppath)|Returns the path to the new temporary file. No file is created.|
+|[File.getTmpDirectory](#filegettmpdirectory)|Get path to temporary directory.|
+|[File.getTmpPath](#filegettmppath)|Get temporary file path.|
 |[File.isFile](#fileisfile)|Check if it is a file.|
 |[File.rename](#filerename)|Rename a file or directory.|
 |[File.isBase64](#fileisbase64)|Check if it is a base64 string.|
@@ -129,7 +129,8 @@ File.chmod('sample.txt', 0o755);
 {File}
 
 ### `File.makeTmpDirectory()`
-Create a temporary directory.
+Create a temporary directory.  
+If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory.
 
 ```js
 const {File} = require('nodejs-shared');
@@ -394,8 +395,8 @@ console.log(found);
 {string[]} Absolute path list of files found.
 
 ### `File.getTmpDirectory()`
-Returns the path to the new temporary directory.  
-The directory is not created.
+Get path to temporary directory.  
+If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory. (The trailing slash is automatically removed).
 
 ```js
 const {File} = require('nodejs-shared');
@@ -407,8 +408,8 @@ File.getTmpDirectory();// =>/tmp
 {string} Temporary directory path.
 
 ### `File.getTmpPath()`
-Returns the path to the new temporary file.  
-No file is created.
+Get temporary file path.  
+If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory.
 
 ```js
 const {File} = require('nodejs-shared');

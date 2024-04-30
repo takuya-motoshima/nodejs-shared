@@ -158,15 +158,15 @@ export default class Media {
     // Write the resized image.
     await require('sharp')(buffer).toFile(output);
     require('sharp').cache(false);
-    // const tmp = File.getTmpPath();
+    // const tmpfile = File.getTmpPath();
     // const fit = contain ? 'contain' : 'cover';
     // await require('sharp')(inputPath)
     //   .resize({width, height, fit})
-    //   .toFile(tmp);
+    //   .toFile(tmpfile);
     // require('sharp').cache(false);
     // if (!output)
     //   output = inputPath;
-    // File.rename(tmp, output);
+    // File.rename(tmpfile, output);
   }
 
   /**

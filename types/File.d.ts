@@ -22,6 +22,7 @@ export default class File {
     static chmod(path: string, permission?: number): File;
     /**
      * Create a temporary directory.
+     * If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory.
      * @static
      * @return {string}
      * @memberof File
@@ -139,16 +140,16 @@ export default class File {
      */
     static find(pattern: string, options?: glob.IOptions): string[];
     /**
-     * Returns the path to the new temporary directory.
-     * The directory is not created.
+     * Get path to temporary directory.
+     * If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory. (The trailing slash is automatically removed).
      * @static
      * @return {string} Temporary directory path.
      * @memberof File
      */
     static getTmpDirectory(): string;
     /**
-     * Returns the path to the new temporary file.
-     * No file is created.
+     * Get temporary file path.
+     * If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory.
      * @static
      * @param {string} extension Extension to be given to temporary files. Default is none.
      * @return {string} Temporary file path.

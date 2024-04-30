@@ -35,14 +35,15 @@ export default class File {
 
   /**
    * Create a temporary directory.
+   * If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory.
    * @static
    * @return {string} 
    * @memberof File
    */
   public static makeTmpDirectory(): string {
-    const tmp = `${this.getTmpDirectory()}/${uniqid()}/`;
-    this.makeDirectory(tmp);
-    return tmp;
+    const tmpdir = `${this.getTmpDirectory()}/${uniqid()}/`;
+    this.makeDirectory(tmpdir);
+    return tmpdir;
   }
 
   /**
@@ -234,29 +235,30 @@ export default class File {
   }
 
   /**
-   * Returns the path to the new temporary directory.
-   * The directory is not created.
+   * Get path to temporary directory.
+   * If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory. (The trailing slash is automatically removed).
    * @static
    * @return {string} Temporary directory path.
    * @memberof File
    */
   public static getTmpDirectory(): string {
-    return os.tmpdir();
+    return process.env.TMPDIR ? process.env.TMPDIR.replace(/[/\\]$/, '') : os.tmpdir();
+    // return os.tmpdir();
   }
 
   /**
-   * Returns the path to the new temporary file.
-   * No file is created.
+   * Get temporary file path.
+   * If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory.
    * @static
    * @param {string} extension Extension to be given to temporary files. Default is none.
    * @return {string} Temporary file path.
    * @memberof File
    */
   public static getTmpPath(extension?: string): string {
-    let filePath = `${this.getTmpDirectory()}/${uniqid()}`;
+    let tmpfile = `${this.getTmpDirectory()}/${uniqid()}`;
     if (extension)
-      filePath += `.${extension}`;
-    return filePath;
+      tmpfile += `.${extension}`;
+    return tmpfile;
   }
 
   /**
