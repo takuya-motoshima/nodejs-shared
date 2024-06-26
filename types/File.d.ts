@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import fs from 'fs';
-import glob from 'glob';
+import { GlobOptions } from 'glob';
 export default class File {
     /**
      * Get the file name from the path.
@@ -130,7 +130,7 @@ export default class File {
      * Find files that match the file name or path pattern.
      * @static
      * @param {string} pattern File pattern to find.
-     * @param {glob.IOptions} options Options to find. Default is undefined
+     * @param {glob.GlobOptions} options Options to find. Default is undefined
      * @return {string[]} Absolute path list of files found.
      * @memberof File
      * @example
@@ -138,7 +138,7 @@ export default class File {
      * File.find('**\/glo?.js');
      * File.find('**\/*[0-9]*.js');
      */
-    static find(pattern: string, options?: glob.IOptions): string[];
+    static find(pattern: string, options?: GlobOptions): string[] | import("path-scurry").Path[];
     /**
      * Get path to temporary directory.
      * If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory. (The trailing slash is automatically removed).

@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.0.30] - 2024/6/27
+### Changed
+- Updated `glob` version from 7.1.6 to 10.4.2.
+
 ## [1.0.29] - 2024/4/30
 ### Changed
 - The tmp directory handled by the following tmp file/directory manipulation methods now treats the directory set in the `TMPDIR` environment variable as the tmp directory if the `TMPDIR` environment variable is present.
@@ -385,3 +389,4 @@ All notable changes to this project will be documented in this file.
 [1.0.27]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.26...v1.0.27
 [1.0.28]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.27...v1.0.28
 [1.0.29]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.28...v1.0.29
+[1.0.30]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.29...v1.0.30

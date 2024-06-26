@@ -3,7 +3,7 @@ import path from 'path';
 import os from 'os';
 import uniqid from 'uniqid';
 import moment from "moment";
-import glob from 'glob';
+import {globSync, GlobOptions} from 'glob';
 import mimeTypes from 'mime-types';
 const fse = require('fs-extra');
 
@@ -222,7 +222,7 @@ export default class File {
    * Find files that match the file name or path pattern.
    * @static
    * @param {string} pattern File pattern to find.
-   * @param {glob.IOptions} options Options to find. Default is undefined
+   * @param {glob.GlobOptions} options Options to find. Default is undefined
    * @return {string[]} Absolute path list of files found.
    * @memberof File
    * @example
@@ -230,8 +230,8 @@ export default class File {
    * File.find('**\/glo?.js');
    * File.find('**\/*[0-9]*.js');
    */
-  public static find(pattern: string, options: glob.IOptions = {}) {
-    return glob.sync(pattern, {nodir: false, ...options});
+  public static find(pattern: string, options: GlobOptions = {}) {
+    return globSync(pattern, {nodir: false, ...options});
   }
 
   /**
