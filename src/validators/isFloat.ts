@@ -1,29 +1,37 @@
 import validator from 'validator';
-import {merge} from 'deep-fusion';
-import IsFloatOptions from '~/interfaces/IsFloatOptions';
 
 /**
- * Check if float.
- * @param {string} value Value to be validated.
- * @param {IsFloatOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for float validation.
  */
-export default (value: string, options?: IsFloatOptions): boolean => {
-  // Initialize options.
-  options = merge({
-    min: undefined,
-    max: undefined,
-    lt: undefined,
-    gt: undefined,
-  }, options);
+interface IsFloatOptions {
+  /**
+   * Minimum value (inclusive).
+   */
+  min?: number;
+  /**
+   * Maximum value (inclusive).
+   */
+  max?: number;
+  /**
+   * Value must be less than this.
+   */
+  lt?: number;
+  /**
+   * Value must be greater than this.
+   */
+  gt?: number;
+}
 
-  // NOTE: The options in validator.isFloat are referenced even if the value is invalid, such as undefined, if the key exists, so recreate the options with only keys whose values are valid and pass them to validator.isFloat.
-  const newOptions = Object.keys(options as IsFloatOptions).reduce((newOptions: {[key: string]: number|undefined}, key) => {
-    if (options && options[key as 'min'|'max'|'lt'|'gt'] != null)
-      newOptions[key] = options[key as 'min'|'max'|'lt'|'gt'];
-    return newOptions;
-  }, {});
-
-  // Returns validation results.
-  return validator.isFloat(value, newOptions);
+/**
+ * Checks if a string is a float.
+ * @param {string} value The string to validate.
+ * @param {IsFloatOptions} options Validation options.
+ * @return {boolean} `true` if the string is a valid float, `false` otherwise.
+ */
+export default (value: string, options: IsFloatOptions = {}): boolean => {
+  // Filter out null or undefined options to prevent issues with validator.isFloat
+  const validatorOptions = Object.entries(options)
+    .filter(([, v]) => v != null) // Removing entries where the value is null or undefined
+    .reduce((acc, [k, v]) => ({...acc, [k]: v}), {});
+  return validator.isFloat(value, validatorOptions);
 }

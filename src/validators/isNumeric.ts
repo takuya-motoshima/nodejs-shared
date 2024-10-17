@@ -1,21 +1,21 @@
 import validator from 'validator';
-import {merge} from 'deep-fusion';
-import IsNumericOptions from '~/interfaces/IsNumericOptions';
 
 /**
- * Check if it contains only numbers.
- * @param {string} value Value to be validated.
- * @param {IsNumericOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for numeric string validation.
  */
-export default (value: string, options?: IsNumericOptions): boolean => {
-  // Initialize options.
-  options = merge({
-    noSymbols: false,
-  }, options);
+interface IsNumericOptions {
+  /**
+   * Rejects strings containing symbols (`+`, `-`, `.`) if `true`. Defaults to `false`.
+   */
+  noSymbols?: boolean;
+}
 
-  // Returns validation results.
-  return validator.isNumeric(value, {
-    no_symbols: options?.noSymbols,
-  });
+/**
+ * Checks if a string contains only numeric characters.
+ * @param {string} value The string to validate.
+ * @param {IsNumericOptions} options Options for numeric validation.
+ * @return {boolean} `true` if the string contains only numeric characters, `false` otherwise.
+ */
+export default (value: string, options: IsNumericOptions = {}): boolean => {
+  return validator.isNumeric(value, {no_symbols: options.noSymbols});
 }

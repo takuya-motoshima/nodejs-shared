@@ -26,7 +26,7 @@ npm install --save nodejs-shared
 |[File.chmod](#filechmod)|Change permissions.|
 |[File.makeTmpDirectory](#filemaketmpdirectory)|Create a temporary directory.|
 |[File.makeDirectory](#filemakedirectory)|Make a directory.|
-|[File.existsFile](#fileexistsfile)|Check if the file or directory exists.|
+|[File.exists](#fileexistsfile)|Check if the file or directory exists.|
 |[File.deleteFile](#filedeletefile)|Delete the file.|
 |[File.deleteDirectory](#filedeletedirectory)|Delete the directory.|
 |[File.write](#filewrite)|Write a file|
@@ -129,8 +129,7 @@ File.chmod('sample.txt', 0o755);
 {File}
 
 ### `File.makeTmpDirectory()`
-Create a temporary directory.  
-If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory.
+Create a temporary directory. If the `TMPDIR` environment variable is present, the directory set in the `TMPDIR` environment variable is used as the tmp directory.
 
 ```js
 const {File} = require('nodejs-shared');
@@ -151,19 +150,19 @@ File.makeDirectory('sample');
 ```
 
 #### Parameters
-- {string} <code>dirPath</code> Directory path.
+- {string} <code>directoryPath</code> Directory path.
 - {number} <code>permission</code> Directory permissions. Default is 0o755.
 
 #### Return value
 {File}
 
-### `File.existsFile()`
+### `File.exists()`
 Check if the file or directory exists.
 
 ```js
 const {File} = require('nodejs-shared');
 
-if (File.existsFile('sample.txt'))
+if (File.exists('sample.txt'))
     console.log('File found');
 ```
 
@@ -195,7 +194,7 @@ File.deleteDirectory('sample');
 ```
 
 #### Parameters
-- {string} <code>dirPath</code> Directory path.
+- {string} <code>directoryPath</code> Directory path.
 
 ### `File.write()`
 Write a file
@@ -266,7 +265,7 @@ Get the contents of a media file as a base64 string.
 ```js
 const {File} = require('nodejs-shared');
 
-const b64 = File.readAsBase64('sample.jpg');
+const base64 = File.readAsBase64('sample.jpg');
 ```
 
 #### Parameters
@@ -452,8 +451,8 @@ File.rename('old.txt', 'new.txt');
 ```
 
 #### Parameters
-- {string} <code>srcPath</code> Original file path.
-- {string} <code>dstPath</code> The destination file path.
+- {string} <code>sourcePath</code> Original file path.
+- {string} <code>destinationPath</code> The destination file path.
 
 ### `File.isBase64()`
 Check if it is a base64 string.
@@ -497,8 +496,8 @@ File.copyDirectory('/tmp/mydir', '/tmp/newdir');
 ```
 
 #### Parameters
-- {string} <code>srcDir</code> The directory from which the copy was made.
-- {string} <code>dstDir</code> The destination directory.
+- {string} <code>sourcePath</code> The directory from which the copy was made.
+- {string} <code>destinationPath</code> The destination directory.
 
 #### Return value
 Promise&lt;void&gt;
@@ -560,7 +559,7 @@ Convert data URL to blob data in base64 format.
 ```js
 const {Media} = require('nodejs-shared');
 
-const b64 = Media.dataUrlToBase64('data:image/jpeg;base64,...');
+const base64 = Media.dataUrlToBase64('data:image/jpeg;base64,...');
 ```
 
 #### Parameters
@@ -705,17 +704,12 @@ Where:
 
 ```js
 const {File, Media} = require('nodejs-shared');
-const b64 = File.readAsBase64('sample.jpg');
-Media.base64ByteSize(b64);
-// =>30141
-
-// Check the actual file size.
-// $ du -b sample.jpg
-// 30141   sample.jpg
+const base64 = File.readAsBase64('sample.jpg');
+Media.base64ByteSize(base64);
 ```
 
 #### Parameters
-- {string} <code>b64</code> Base 64 strings.
+- {string} <code>base64</code> Base 64 strings.
 
 #### Return value
 {number} Byte Size.
@@ -768,15 +762,6 @@ console.log(extension);// =>svg
 
 ### `Media.mergeImages()`
 Merge images.
-
-Merge vertically:  
-<img src="screencaps/merge-images-vertically.png" width="300">
-
-Merge horizontally:  
-<img src="screencaps/merge-images-horizontally.png" width="300">
-
-Set 30px margins between images to merge vertically:  
-<img src="screencaps/merge-images-vertically-with-margins.png" width="300">
 
 ```js
 const {Media} = require('nodejs-shared');
@@ -838,7 +823,7 @@ await Media.extractFirstFrameOfGif('data:image/gif;base64,...', 'first-frame.gif
 ```
 
 #### Parameters
-- {string} <code>inputPathOrDataUrl</code> Path or Data URL of the input image.
+- {string} <code>imageInput</code> Path or Data URL of the input image.
 - {string} <code>output</code> Output image path.  
     If not specified, the first frame image is overwritten in the original file.
 
@@ -859,7 +844,7 @@ numberOfFrames = await Media.getNumberOfGifFrames('data:image/gif;base64,...');
 ```
 
 #### Parameters
-- {string} <code>inputPathOrDataUrl</code> Path or Data URL of the input image.
+- {string} <code>imageInput</code> Path or Data URL of the input image.
 
 #### Return value
 {Promise&lt;number|null&gt;} Number of frames in the image.
@@ -878,7 +863,7 @@ const dataUrl2 = await Media.convertImageFormat('input.png', 'output.jpg');
 ```
 
 #### Parameters
-- {string} <code>inputPathOrDataUrl</code> Path or Data URL of the input image.
+- {string} <code>imageInput</code> Path or Data URL of the input image.
 - {string} <code>outputPath?</code> Allows you to specify the output path for converted images. The default is undefined.
 - {&#039;bmp2&#039;|&#039;bmp3&#039;|&#039;bmp4&#039;} <code>options.bmpVersion?</code> Version of BMP to output.  
     If the output is not BPM, this option is ignored.  

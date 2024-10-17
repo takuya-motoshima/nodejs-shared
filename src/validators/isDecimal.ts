@@ -1,24 +1,35 @@
-import validator from 'validator';
-import {merge} from 'deep-fusion';
-import IsDecimalOptions from '~/interfaces/IsDecimalOptions';
+import validator, {DecimalLocale} from 'validator';
 
 /**
- * Check if it is a decimal number. For example, 0.1, 0.3, 1.1, 1.00003, 4.0.
- * @param {string} value Value to be validated.
- * @param {IsDecimalOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for decimal validation.
  */
-export default (value: string, options?: IsDecimalOptions): boolean => {
-  // Initialize options.
-  options = merge({
-    forceDecimal: false,
-    decimalDigits: '1,',
-  }, options);
+interface IsDecimalOptions {
+  /**
+   * Requires a decimal point if `true`. Defaults to `false`.
+   */
+  forceDecimal?: boolean;
+  /**
+   * Specifies the number of digits after the decimal point.  Can be a range (e.g., `"1,3"`),
+   * a specific value (e.g., `"3"`), or a minimum value (e.g., `"1,"`). Defaults to `"1,"`.
+   */
+  decimalDigits?: string;
+}
 
-  // Returns validation results.
-  return validator.isDecimal(value, {
-    force_decimal: options?.forceDecimal,
-    decimal_digits: options?.decimalDigits,
-    locale: 'en-US',
-  });
+/**
+ * Checks if a string is a decimal number.
+ * @param {string} value The string to validate.
+ * @param {IsDecimalOptions} options Options for decimal validation.
+ * @return {boolean} `true` if the string is a valid decimal, `false` otherwise.  Examples of valid decimals: `"0.1"`, `"0.3"`, `"1.1"`, `"1.00003"`, `"4.0"`.
+ */
+export default (value: string, options: IsDecimalOptions = {
+  forceDecimal: false,
+  decimalDigits: '1,',
+}): boolean => {
+  // Adapting options for validator.isDecimal
+  const validatorOptions = {
+    force_decimal: options.forceDecimal,
+    decimal_digits: options.decimalDigits,
+    locale: 'en-US' as DecimalLocale,
+  };
+  return validator.isDecimal(value, validatorOptions);
 }

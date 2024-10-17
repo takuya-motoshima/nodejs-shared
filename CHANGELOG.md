@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2024/10/16
+### Changed
+- Added `"type": "module"` to `package.json`
+- Updated Rollup and TypeScript.
+
 ## [1.0.30] - 2024/6/27
 ### Changed
 - Updated `glob` version from 7.1.6 to 10.4.2.
@@ -195,3 +200,4 @@ All notable changes to this project will be documented in this file.
 [1.0.28]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.27...v1.0.28
 [1.0.29]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.28...v1.0.29
 [1.0.30]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.29...v1.0.30
+[2.0.0]: https://github.com/takuya-motoshima/nodejs-shared/compare/v1.0.30...v2.0.0

@@ -1,14 +1,46 @@
 import isFQDN from '~/validators/isFQDN';
 import isIP from '~/validators/isIP';
-import IsFQDNorIPOptions from '~/interfaces/IsFQDNorIPOptions';
 
 /**
- * Check for a fully qualified domain name (e.g. domain.com) or IP (version 4 or 6).
- * @param {string} value Value to be validated.
- * @param {IsFQDNorIPOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for FQDN or IP address validation.
  */
-export default (value: string, options?: IsFQDNorIPOptions): boolean => {
-  // Returns validation results.
-  return isFQDN(value, options) || isIP(value, {ipVersion: options?.ipVersion, allowIPRange: options?.allowIPRange});
+interface IsFQDNorIPOptions {
+  /**
+   * Requires a Top-Level Domain (TLD) if `true` (FQDN only). Defaults to `true`.
+   */
+  requireTld?: boolean;
+  /**
+   * Allows wildcard domains (e.g., `*.example.com`) if `true` (FQDN only). Defaults to `false`.
+   */
+  allowWildcard?: boolean;
+  /**
+   * IP version to check.  `4`, `6`, `"4"`, or `"6"`.  Defaults to `undefined` (allows both versions).
+   */
+  version?: '4'|'6'|4|6;
+  /**
+   * Allows IP range input (e.g., `127.0.0.1/24`, `2001::/128`) if `true` (IP only). Defaults to `false`.
+   */
+  allowRange?: boolean;
+}
+
+/**
+ * Checks if a string is a valid Fully Qualified Domain Name (FQDN) or IP address (v4 or v6).
+ * @param {string} value The string to validate.
+ * @param {IsFQDNorIPOptions} options Options for validation.
+ * @return {boolean} `true` if the string is a valid FQDN or IP address, `false` otherwise.
+ */
+export default  (value: string, options: IsFQDNorIPOptions = {
+  requireTld: true,
+  allowWildcard: false,
+  allowRange: false
+}): boolean => {
+  const fqdnOptions = {
+    requireTld: options.requireTld,
+    allowWildcard: options.allowWildcard,
+  };
+  const ipOptions = {
+    version: options.version,
+    allowRange: options.allowRange,
+  };
+  return isFQDN(value, fqdnOptions) || isIP(value, ipOptions);
 }

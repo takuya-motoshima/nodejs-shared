@@ -1,33 +1,28 @@
 import validator from 'validator';
-import {merge} from 'deep-fusion';
-import IsEmptyOptions from '~/interfaces/IsEmptyOptions';
 
 /**
- * Checks if the length of the string is zero. undefined,null,[],NaN, and false are considered empty.
- * @param {any} value Value to be validated.
- * @param {IsEmptyOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for emptiness validation.
  */
-export default (value: any, options?: IsEmptyOptions): boolean => {
-  // Initialize options.
-  options = merge({
-    ignoreWhitespace: false,
-  }, options);
+interface IsEmptyOptions {
+  /**
+   * Ignores leading/trailing whitespace if `true`. Defaults to `false`.
+   */
+  ignoreWhitespace?: boolean;
+}
 
-  // undefined,null,[],NaN are considered empty.
-  if (value === null
-    || value === undefined
-    || (typeof value === 'number' && isNaN(value))
-    || (Array.isArray(value) && value.length === 0)
-    || value === false)
+/**
+ * Checks if a value is empty.  Considers `null`, `undefined`, `NaN`, empty arrays (`[]`), and `false` as empty.  Optionally ignores leading/trailing whitespace for strings.
+ * @param {string} value The value to check.
+ * @param {IsEmptyOptions} options Options for emptiness validation.
+ * @return {boolean} `true` if the value is empty, `false` otherwise.
+ */
+export default (value: any, options: IsEmptyOptions = {ignoreWhitespace: false}): boolean => {
+  // Handle special cases: null, undefined, NaN, empty arrays, and false.
+  if (value === null || value === undefined || (typeof value === 'number' && isNaN(value)) || (Array.isArray(value) && value.length === 0) || value === false)
     return true;
 
-  // Remove whitespace before and after a string. 
-  if (options?.ignoreWhitespace && typeof value === 'string')
-    value = value.replace(/^[\s　]+|[\s　]+$/g, '');
-
-  // Returns validation results.
-  return validator.isEmpty(typeof value === 'string' ? value : String(value), {
-    ignore_whitespace: options?.ignoreWhitespace,
-  });
+  // Remove whitespace if ignoreWhitespace is true.
+  const stringValue = typeof value === 'string' ? value : String(value);
+  const trimmedValue = options.ignoreWhitespace ? stringValue.trim() : stringValue;
+  return validator.isEmpty(trimmedValue, {ignore_whitespace: options.ignoreWhitespace});
 }

@@ -1,26 +1,35 @@
 import validator from 'validator';
-import {merge} from 'deep-fusion';
-import IsFQDNOptions from '~/interfaces/IsFQDNOptions';
 
 /**
- * Check if the domain name is fully qualified (e.g. domain.com).
- * @param {string} value Value to be validated.
- * @param {IsFQDNOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for Fully Qualified Domain Name (FQDN) validation.
  */
-export default (value: string, options?: IsFQDNOptions): boolean => {
-  // Initialize options.
-  options = merge({
-    requireFQDNTld: true,
-    allowFQDNWildcard: false,
-  }, options);
+interface IsFQDNOptions {
+  /**
+   * Requires a Top-Level Domain (TLD) if `true`. Defaults to `true`.
+   */
+  requireTld?: boolean;
+  /**
+   * Allows wildcard domains (e.g., `*.example.com`) if `true`. Defaults to `false`.
+   */
+  allowWildcard?: boolean;
+}
 
-  // Returns validation results.
-  return validator.isFQDN(value, {
-    require_tld: options?.requireFQDNTld,// If true, the TLD is required. Default is true.
-    allow_underscores: false,// If true, allows the use of underscore characters in the domain. Default is false.
-    allow_trailing_dot: false,// If true, remove the trailing dot from the domain before checking for validity. Default is false.
-    allow_numeric_tld: false,// If true, allow numeric-only TLDs. Default is false.
-    allow_wildcard: options?.allowFQDNWildcard,// If true, the validator will allow domain starting with `*.` (e.g. `*.example.com` or `*.shop.example.com`). Default is false.
-  });
+/**
+ * Checks if a string is a Fully Qualified Domain Name (FQDN).
+ * @param {string} value The string to validate.
+ * @param {IsFQDNOptions} options Options for FQDN validation.
+ * @return {boolean} `true` if the string is a valid FQDN, `false` otherwise.  Examples of valid FQDNs: `"domain.com"`, `"subdomain.domain.com"`.
+ */
+export default (value: string, options: IsFQDNOptions = {
+  requireTld: true,
+  allowWildcard: false,
+}): boolean => {
+  const validatorOptions = {
+    require_tld: options.requireTld,
+    allow_underscores: false, // Fixed to false as per original code
+    allow_trailing_dot: false, // Fixed to false as per original code
+    allow_numeric_tld: false, // Fixed to false as per original code
+    allow_wildcard: options.allowWildcard,
+  }
+  return validator.isFQDN(value, validatorOptions);
 }

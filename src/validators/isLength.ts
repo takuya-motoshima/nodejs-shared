@@ -1,20 +1,25 @@
 import validator from 'validator';
-import {merge} from 'deep-fusion';
-import IsLengthOptions from '~/interfaces/IsLengthOptions';
 
 /**
- * Check if the length of the string is within the range.
- * @param {string} value Value to be validated.
- * @param {IsLengthOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for string length validation.
  */
-export default (value: string, options?: IsLengthOptions): boolean => {
-  // Initialize options.
-  options = merge({
-    min: 0,
-    max: undefined,
-  }, options);
+interface IsLengthOptions {
+  /**
+   * Minimum length. Defaults to 0.
+   */
+  min?: number;
+  /**
+   * Maximum length.
+   */
+  max?: number;
+}
 
-  // Returns validation results.
+/**
+ * Checks if the length of a string falls within a specified range.
+ * @param {string} value The string to validate.
+ * @param {IsLengthOptions} options Options for length validation.
+ * @return {boolean} `true` if the string's length is within the range, `false` otherwise.
+ */
+export default  (value: string, options: IsLengthOptions = {min: 0}): boolean => {
   return validator.isLength(value, options);
 }

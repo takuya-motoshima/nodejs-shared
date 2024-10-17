@@ -1,17 +1,18 @@
+interface BrowserInfoResult {
+    platform: string;
+    osName: string;
+    osVersion: number | null;
+    browserName: string;
+}
 /**
  * Interface for obtaining browser-related information.
  */
 export default class {
     /**
-     * Analyze browser information from UA.
-     * @static
+     * Parses user agent string to extract browser, OS, and platform information.
      * @param {string} ua User agent string.
-     * @return {{platform: string, osName: string, osVersion: number|null, browserName: string}} Analysis Results.
+     * @return {BrowserInfoResult} An object containing parsed browser information. Returns `null` if parsing fails.
      */
-    static parse(ua: string): {
-        platform: string;
-        osName: string;
-        osVersion: number | null;
-        browserName: string;
-    };
+    static parse(ua: string): BrowserInfoResult | null;
 }
+export {};

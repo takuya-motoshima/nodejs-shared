@@ -1,9 +1,7 @@
-import IsJSONOptions from '~/interfaces/IsJSONOptions';
 /**
- * Check for valid JSON (using JSON.parse).
- * @param {string} value Value to be validated.
- * @param {IsJSONOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Checks if a string is valid JSON.
+ * @param {string} value The string to validate.
+ * @return {boolean} `true` if the string is valid JSON, `false` otherwise.
  */
-declare const _default: (value: string, options?: IsJSONOptions) => boolean;
+declare const _default: (value: string) => boolean;
 export default _default;

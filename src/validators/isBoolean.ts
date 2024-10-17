@@ -1,19 +1,22 @@
 import validator from 'validator';
-import {merge} from 'deep-fusion';
-import IsBooleanOptions from '~/interfaces/IsBooleanOptions';
 
 /**
- * Check if it is a boolean value.
- * @param {string} value Value to be validated.
- * @param {IsBooleanOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for boolean validation.
  */
-export default (value: string, options?: IsBooleanOptions): boolean => {
-  // Initialize options.
-  options = merge({
-    loose: false,
-  }, options);
-
-  // Returns validation results.
-  return validator.isBoolean(value, options);
+interface IsBooleanOptions {
+  /**
+   * If `false` (default), the validator strictly matches `['true', 'false', '0', '1']`.
+   * If `true`, the validator also matches `'yes'`, `'no'`, and case-insensitive versions of `'true'` and `'false'` (e.g., `'True'`, `'TRUE'`).
+   */
+  loose?: boolean;
 }
+
+/**
+ * Checks if a string represents a boolean value.
+ * @param {string} value The string to validate.
+ * @param {IsBooleanOptions} options Validation options.
+ * @return {boolean} `true` if the string is a valid boolean representation, `false` otherwise.
+ */
+export default (value: string, options: IsBooleanOptions = {loose: false}): boolean => {
+  return validator.isBoolean(value, options);
+};

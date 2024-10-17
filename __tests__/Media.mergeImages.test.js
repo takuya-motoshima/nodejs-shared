@@ -11,7 +11,7 @@ test('Merge images vertically', async () => {
   ];
   const outputPath = `${outputDir}/merged-vertically.jpg`;
   await Media.mergeImages(imgs, outputPath, {direction: 'vertical'});
-  expect(File.existsFile(outputPath)).toBe(true);
+  expect(File.exists(outputPath)).toBe(true);
 });
 
 test('Merge images horizontally', async () => {
@@ -22,7 +22,7 @@ test('Merge images horizontally', async () => {
   ];
   const outputPath = `${outputDir}/merged-horizontally.jpg`;
   await Media.mergeImages(imgs, outputPath, {direction: 'horizontal'});
-  expect(File.existsFile(outputPath)).toBe(true);
+  expect(File.exists(outputPath)).toBe(true);
 });
 
 test('Merge images vertically (with margins)', async () => {
@@ -33,7 +33,7 @@ test('Merge images vertically (with margins)', async () => {
   ];
   const outputPath = `${outputDir}/merged-vertically-with-margins.jpg`;
   await Media.mergeImages(imgs, outputPath, {direction: 'vertical', offset: 30});
-  expect(File.existsFile(outputPath)).toBe(true);
+  expect(File.exists(outputPath)).toBe(true);
 });
 
 test('Merge images horizontally (with margins)', async () => {
@@ -44,5 +44,5 @@ test('Merge images horizontally (with margins)', async () => {
   ];
   const outputPath = `${outputDir}/merged-horizontally-with-margins.jpg`;
   await Media.mergeImages(imgs, outputPath, {direction: 'horizontal', offset: 30});
-  expect(File.existsFile(outputPath)).toBe(true);
+  expect(File.exists(outputPath)).toBe(true);
 });

@@ -1,37 +1,52 @@
 import validator from 'validator';
-import {merge} from 'deep-fusion';
-import IsURLOptions from '~/interfaces/IsURLOptions'
 
 /**
- * Check if it is a URL.
- * @param {string} value Value to be validated.
- * @param {IsURLOptions} options? Validation options.
- * @return {boolean} True for pass, false for fail.
+ * Options for URL validation.
  */
-export default (value: string, options?: IsURLOptions): boolean => {
-  // Initialize options.
-  options = merge({
-    requireFQDNTld: true,
-    allowFQDNWildcard: false,
-    requirePort: false,
-    allowFragments: false,
-    allowQueryComponents: false,
-  }, options);
+interface IsURLOptions {
+  /**
+   * Requires a Top-Level Domain (TLD) if `true`. Defaults to `true`.
+   */
+  requireTld?: boolean;
+  /**
+   * Allows wildcard domains (e.g., `*.example.com`) if `true`. Defaults to `false`.
+   */
+  allowWildcard?: boolean;
+  /**
+   * Allows URL fragments (e.g., `#fragment`) if `true`. Defaults to `false`.
+   */
+  allowFragments?: boolean;
+  /**
+   * Allows query components (e.g., `?query=value`) if `true`. Defaults to `false`.
+   */
+  allowQueryComponents?: boolean;
+}
 
-  // Returns validation results.
-  return validator.isURL(value, {
-    protocols: ['https', 'http'],// Valid protocols can be modified with this option.
-    require_protocol: true,// If true, returns false if no protocols correspond to the protocols option.
-    require_valid_protocol: true,// Checks if the protocol is present in the protocols option.
-    require_host: true,// If false, do not check if the host exists in the URL.
-    allow_underscores: false,// If true, allows the use of underscore characters in the domain. Default is false.
-    allow_trailing_dot: false,// If true, remove the trailing dot from the domain before checking for validity. Default is false.
-    allow_protocol_relative_urls: false, // If true, protocol relative URLs are allowed.
-    require_port: false,// If true, port number is required. Default is false.
-    require_tld: options?.requireFQDNTld,// If true, the TLD is required. Default is true.
-    // @ts-ignore
-    allow_wildcard: options.allowFQDNWildcard,// If true, the validator will allow domain starting with `*.` (e.g. `*.example.com` or `*.shop.example.com`). Default is false.
-    allow_fragments: options?.allowFragments,// If true, allow fragment input. Default is false.
-    allow_query_components: options?.allowQueryComponents,// If true, allow input of query string. Default is false.
-  });
+/**
+ * Checks if a string is a valid URL.
+ * @param {string} value The string to validate.
+ * @param {IsURLOptions} options Options for URL validation.
+ * @return {boolean} `true` if the string is a valid URL, `false` otherwise.
+ */
+export default  (value: string, options: IsURLOptions = {
+  requireTld: true,
+  allowWildcard: false,
+  allowFragments: false,
+  allowQueryComponents: false,
+}): boolean => {
+  const validatorOptions = {
+    protocols: ['https', 'http'],
+    require_protocol: true,
+    require_valid_protocol: true,
+    require_host: true,
+    allow_underscores: false,
+    allow_trailing_dot: false,
+    allow_protocol_relative_urls: false,
+    require_port: false,
+    require_tld: options.requireTld,
+    allow_wildcard: options.allowWildcard,
+    allow_fragments: options.allowFragments,
+    allow_query_components: options.allowQueryComponents,
+  };
+  return validator.isURL(value, validatorOptions);
 }
