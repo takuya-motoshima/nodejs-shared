@@ -1,7 +1,7 @@
 /**
- * Check if it is a hexadecimal color code.
- * @param {string} value Value to be validated.
- * @return {boolean} True for pass, false for fail.
+ * Checks if the given string is a valid hexadecimal color code.
+ * @param {string} value The string to validate.
+ * @return {boolean} True if the string is a valid hexadecimal color code, false otherwise.
  */
 declare const _default: (value: string) => boolean;
 export default _default;

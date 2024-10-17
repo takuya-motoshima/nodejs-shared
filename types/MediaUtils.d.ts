@@ -1,7 +1,8 @@
 /**
  * Represents the parsed components of a data URL.
+ * @interface
  */
-interface DataUrlParts {
+export interface DataUrlParts {
     /**
      * The MIME type of the data URL. e.g., "image/png".
      */
@@ -21,8 +22,9 @@ interface DataUrlParts {
 }
 /**
  * Options for writing a data URL to a file.
+ * @interface
  */
-interface WriteDataUrlOptions {
+export interface WriteDataUrlOptions {
     /**
      * The file mode (permissions). Default is `0o755`.
      */
@@ -62,10 +64,9 @@ export default class {
     * Writes a data URL to a file. If the output path doesn't have an extension, the extension from the data URL will be used.
     * @param {string} outputPath The path to the output file.
     * @param {string} dataUrl The data URL to write.
-    * @param {number} [permissions=0o755] File permissions. Default is 0o755.
+    * @param {WriteDataUrlOptions} options File write options.
     * @throws {TypeError} If the content is not a data URL.
     * @throws {Error} If base64 data cannot be extracted from the data URL or file writing fails.
     */
     static writeDataUrl(outputPath: string, dataUrl: string, options?: WriteDataUrlOptions): void;
 }
-export {};

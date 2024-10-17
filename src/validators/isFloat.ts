@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for float validation.
+ * @interface
  */
-interface IsFloatOptions {
+export interface IsFloatOptions {
   /**
    * Minimum value (inclusive).
    */

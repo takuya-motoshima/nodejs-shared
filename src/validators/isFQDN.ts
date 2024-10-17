@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for Fully Qualified Domain Name (FQDN) validation.
+ * @interface
  */
-interface IsFQDNOptions {
+export interface IsFQDNOptions {
   /**
    * Requires a Top-Level Domain (TLD) if `true`. Defaults to `true`.
    */

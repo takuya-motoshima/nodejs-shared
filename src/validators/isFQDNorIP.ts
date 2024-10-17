@@ -3,8 +3,9 @@ import isIP from '~/validators/isIP';
 
 /**
  * Options for FQDN or IP address validation.
+ * @interface
  */
-interface IsFQDNorIPOptions {
+export interface IsFQDNorIPOptions {
   /**
    * Requires a Top-Level Domain (TLD) if `true` (FQDN only). Defaults to `true`.
    */

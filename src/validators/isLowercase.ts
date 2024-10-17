@@ -1,11 +1,10 @@
 import validator from 'validator';
 
 /**
- * Check for lowercase letters.
- * @param {string} value Value to be validated.
- * @return {boolean} True for pass, false for fail.
+ * Checks if the given string contains only lowercase characters.
+ * @param {string} value The string to validate.
+ * @return {boolean} True if the string contains only lowercase characters, false otherwise.
  */
 export default (value: string): boolean => {
-  // Returns validation results.
   return validator.isLowercase(value);
 }

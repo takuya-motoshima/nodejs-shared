@@ -1,7 +1,8 @@
 /**
  * Options for decimal validation.
+ * @interface
  */
-interface IsDecimalOptions {
+export interface IsDecimalOptions {
     /**
      * Requires a decimal point if `true`. Defaults to `false`.
      */

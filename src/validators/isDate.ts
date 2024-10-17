@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for date validation.
+ * @interface
  */
-interface IsDateOptions {
+export interface IsDateOptions {
   /**
    * Expected date format. Defaults to `YYYY/MM/DD`.
    */

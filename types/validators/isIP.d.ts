@@ -1,7 +1,8 @@
 /**
  * Options for IP address validation.
+ * @interface
  */
-interface IsIPOptions {
+export interface IsIPOptions {
     /**
      * IP version to check (`4`, `6`, `"4"`, or `"6"`). Defaults to `undefined` (allows both versions).
      */

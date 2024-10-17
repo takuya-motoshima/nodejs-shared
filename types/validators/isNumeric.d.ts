@@ -1,7 +1,8 @@
 /**
  * Options for numeric string validation.
+ * @interface
  */
-interface IsNumericOptions {
+export interface IsNumericOptions {
     /**
      * Rejects strings containing symbols (`+`, `-`, `.`) if `true`. Defaults to `false`.
      */

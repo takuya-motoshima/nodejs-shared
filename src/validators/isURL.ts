@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for URL validation.
+ * @interface
  */
-interface IsURLOptions {
+export interface IsURLOptions {
   /**
    * Requires a Top-Level Domain (TLD) if `true`. Defaults to `true`.
    */

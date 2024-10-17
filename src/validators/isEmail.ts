@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for email validation.
+ * @interface
  */
-interface IsEmailOptions {
+export interface IsEmailOptions {
   /**
    * Allows "Display Name <email-address>" format if `true`. Defaults to `false`.
    */

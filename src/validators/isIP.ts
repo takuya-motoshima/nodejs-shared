@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for IP address validation.
+ * @interface
  */
-interface IsIPOptions {
+export interface IsIPOptions {
   /**
    * IP version to check (`4`, `6`, `"4"`, or `"6"`). Defaults to `undefined` (allows both versions).
    */
@@ -20,7 +21,7 @@ interface IsIPOptions {
  * @param {IsIPOptions} options Options for IP address validation.
  * @return {boolean} `true` if the string is a valid IP address (or IP range if allowed), `false` otherwise.
  */
-export default  (value: string, options: IsIPOptions = {allowRange: false}): boolean => {
+export default (value: string, options: IsIPOptions = {allowRange: false}): boolean => {
   const {version, allowRange} = options;
   if (!allowRange)
     return validator.isIP(value, version);

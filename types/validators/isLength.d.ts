@@ -1,7 +1,8 @@
 /**
  * Options for string length validation.
+ * @interface
  */
-interface IsLengthOptions {
+export interface IsLengthOptions {
     /**
      * Minimum length. Defaults to 0.
      */

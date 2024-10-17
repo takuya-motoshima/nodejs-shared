@@ -1,7 +1,8 @@
 /**
  * Options for boolean validation.
+ * @interface
  */
-interface IsBooleanOptions {
+export interface IsBooleanOptions {
     /**
      * If `false` (default), the validator strictly matches `['true', 'false', '0', '1']`.
      * If `true`, the validator also matches `'yes'`, `'no'`, and case-insensitive versions of `'true'` and `'false'` (e.g., `'True'`, `'TRUE'`).

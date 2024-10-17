@@ -11,8 +11,9 @@ export default (value: string): boolean => {
 
 // /**
 //  * Options for JSON validation.
+//  * @interface
 //  */
-// interface IsJSONOptions {
+// export interface IsJSONOptions {
 //   /**
 //    * Accepts primitive JSON values (`true`, `false`, `null`) if `true`. Defaults to `false`.
 //    */

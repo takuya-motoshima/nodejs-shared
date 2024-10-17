@@ -1,12 +1,11 @@
 import validator from 'validator';
 
 /**
- * Check if the color is an HSL color based on the CSS Colors Level 4 specification.
- * Comma-separated format supported. Space-separated format supported with the exception of a few edge cases (ex: hsl(200grad+.1%62%/1)).
- * @param {string} value Value to be validated.
- * @return {boolean} True for pass, false for fail.
+ * Checks if the given string is a valid HSL color according to the CSS Colors Level 4 specification.
+ * Supports comma-separated and space-separated formats, with the exception of some edge cases (e.g., "hsl(200grad+.1%62%/1)").
+ * @param {string} value The string to validate.
+ * @return {boolean} True if the string is a valid HSL color, false otherwise.
  */
 export default (value: string): boolean => {
-  // Returns validation results.
   return validator.isHSL(value);
 }

@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for RGB color validation.
+ * @interface
  */
-interface IsRGBColorOptions {
+export interface IsRGBColorOptions {
   /**
    * Allows percentage values (e.g., `rgb(5%, 5%, 5%)`) if `true`. Defaults to `true`.
    */

@@ -7,8 +7,9 @@ import MediaUtils from '~/MediaUtils';
 
 /**
  * Options for cropping an image.
+ * @interface
  */
-interface CropOptions {
+export interface CropOptions {
   /**
    * Left offset for cropping.
    */
@@ -29,8 +30,9 @@ interface CropOptions {
 
 /**
  * Options for merging multiple images.
+ * @interface
  */
-interface MergeImagesOptions {
+export interface MergeImagesOptions {
   /**
    * Direction of the merged image ('vertical' or 'horizontal').
    */
@@ -65,8 +67,9 @@ interface MergeImagesOptions {
 
 /**
  * Options for resizing an image.
+ * @interface
  */
-interface ResizeOptions {
+export interface ResizeOptions {
   /**
    * Desired width.
    */
@@ -87,8 +90,9 @@ interface ResizeOptions {
 
 /**
  * Represents image data including pixel buffer, dimensions, and offset/position.
+ * @interface
  */
-interface ImageData {
+export interface ImageData {
   /**
    * The pixel data buffer.
    */
@@ -127,8 +131,9 @@ interface ImageData {
 
 /**
  * Represents dimensions with top, right, bottom, and left values.  Useful for padding, margins, etc.
+ * @interface
  */
-interface Dimensions {
+export interface Dimensions {
   /**
    * The top dimension.
    */
@@ -149,8 +154,9 @@ interface Dimensions {
 
 /**
  * Options for converting image formats.
+ * @interface
  */
-interface ConvertImageFormatOptions {
+export interface ConvertImageFormatOptions {
   /**
    * The version of the BMP format to use. One of "bmp2", "bmp3", or "bmp4".
    */
@@ -171,8 +177,9 @@ interface ConvertImageFormatOptions {
 
 /**
  * Extends the GraphicsMagick ImageInfo interface with optional scene information.
+ * @interface
  */
-interface ImageMagickInfo extends gm.ImageInfo {
+export interface ImageMagickInfo extends gm.ImageInfo {
   /**
    * An optional array of strings representing scene information.
    */
@@ -194,10 +201,6 @@ export default class {
    * @param {string} inputPath Path to the input image file.
    * @param {string} outputPath Path to save the cropped image.
    * @param {CropOptions} options Cropping options.
-   * @param {number} options.left x-coordinate of the top-left corner of the crop area.
-   * @param {number} options.top y-coordinate of the top-left corner of the crop area.
-   * @param {number} options.width Width of the crop area.
-   * @param {number} options.height Height of the crop area.
    * @return {Promise<void>}
    */
   public static async cropImage(inputPath: string, outputPath: string, options: CropOptions): Promise<void> {
@@ -213,12 +216,7 @@ export default class {
    * Merges multiple images into a single image using Sharp.
    * @param {string[]} inputPaths An array of paths to the input image files.
    * @param {string} outputPath The path to save the merged image.
-   * @param {Partial<MergeImagesOptions>} [options] Optional settings for merging images.
-   * @param {'vertical'|'horizontal'} [options.direction='vertical'] The direction to merge the images.
-   * @param {MergeImagesOptions['color']} [options.color={alpha: 1, b: 0, g: 0, r: 0}] The background color.
-   * @param {'start'|'center'|'end'} [options.align='start'] The alignment of the images.
-   * @param {number} [options.offset=0] The offset in pixels between each image.
-   * @param {number|string|Dimensions} [options.margin=0] The margin around the merged image.
+   * @param {Partial<MergeImagesOptions>} options Optional settings for merging images.
    * @return {Promise<void>}
    * @throws {TypeError} If inputPaths is not an array or if it's empty.
    */
@@ -327,10 +325,6 @@ export default class {
    * Resizes an image using Sharp.
    * @param {string} inputPath Path to the input image file.
    * @param {ResizeOptions} options Resizing options.
-   * @param {number} [options.width] Width after resizing.
-   * @param {number} [options.height] Height after resizing.
-   * @param {string} [options.output] Output path for the resized image. If not provided, the original file will be overwritten.
-   * @param {boolean} [options.contain=false] If true, resizes the image to fit within the dimensions while maintaining aspect ratio. If false, resizes to cover the dimensions, potentially cropping parts of the image.
    * @return {Promise<void>}
    */
   public static async resizeImage(inputPath: string, options: ResizeOptions = {}): Promise<void> {
@@ -374,7 +368,7 @@ export default class {
   /**
    * Extracts and saves the first frame of an animated GIF using ImageMagick.
    * @param {string} imageInput Path or data URL of the animated GIF.
-   * @param {string} [outputPath] Output path for the first frame. If not provided, the original file will be overwritten if it is a path; if it's a data URL, outputPath is required.
+   * @param {string} outputPath Output path for the first frame. If not provided, the original file will be overwritten if it is a path; if it's a data URL, outputPath is required.
    * @return {Promise<void>}
    * @throws {Error} If the input file is not found, input is a data URL and no output path is specified, or an error occurs during processing.
    */
@@ -417,12 +411,8 @@ export default class {
   /**
    * Converts between image formats using ImageMagick.
    * @param {string} imageInput Path or data URL of the input image.
-   * @param {string} [outputPath] Optional output path for the converted image. If not provided, a temporary file is used.
-   * @param {ConvertImageFormatOptions} [options] Conversion options.
-   * @param {'bmp2'|'bmp3'|'bmp4'} [options.bmpVersion='bmp3'] BMP version for output (ignored if output is not BMP).
-   * @param {boolean} [options.trueColor=true] Use 24-bit color for BMP output.
-   * @param {number} [options.margin] Margin size in pixels (top, bottom, left, and right).
-   * @param {string} [options.background='white'] Margin background color.
+   * @param {string} outputPath Optional output path for the converted image. If not provided, a temporary file is used.
+   * @param {ConvertImageFormatOptions} options Conversion options.
    * @return {Promise<string>} Data URL of the converted image.
    * @throws {Error} If the input file is not found or an error occurs during conversion.
    */

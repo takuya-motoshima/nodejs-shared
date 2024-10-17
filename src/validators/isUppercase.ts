@@ -1,11 +1,10 @@
 import validator from 'validator';
 
 /**
- * Check for uppercase letters.
- * @param {string} value Value to be validated.
- * @return {boolean} True for pass, false for fail.
+ * Checks if the given string contains only uppercase characters.
+ * @param {string} value The string to validate.
+ * @return {boolean} True if the string contains only uppercase characters, false otherwise.
  */
 export default (value: string): boolean => {
-  // Returns validation results.
   return validator.isUppercase(value);
 }

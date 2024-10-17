@@ -1,7 +1,8 @@
 /**
  * Options for integer validation.
+ * @interface
  */
-interface IsIntOptions {
+export interface IsIntOptions {
     /**
      * Allows leading zeros if `true`. Defaults to `false`.
      */

@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for emptiness validation.
+ * @interface
  */
-interface IsEmptyOptions {
+export interface IsEmptyOptions {
   /**
    * Ignores leading/trailing whitespace if `true`. Defaults to `false`.
    */

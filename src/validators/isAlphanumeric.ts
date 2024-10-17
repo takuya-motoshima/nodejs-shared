@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for alphanumeric validation.
+ * @interface
  */
-interface IsAlphanumericOptions {
+export interface IsAlphanumericOptions {
   /**
    * Characters or patterns to ignore during validation. If a string is provided, those specific characters will be ignored.
    * If a RegExp is provided, matching patterns will be ignored. For example, if `ignore` is `"-"` then spaces and hyphens

@@ -10,8 +10,9 @@ import ProcessUtils from './ProcessUtils';
 
 /**
  * Options for creating a directory.
+ * @interface
  */
-interface MakeDirectoryOptions {
+export interface MakeDirectoryOptions {
   /**
    * The file mode for the directory.
    */
@@ -33,8 +34,9 @@ interface MakeDirectoryOptions {
 
 /**
  * Options for writing a file.  Extends Node.js's `fs.WriteFileOptions`.
+ * @interface
  */
-interface WriteOptions extends Extract<fs.WriteFileOptions, object> {
+export interface WriteOptions extends Extract<fs.WriteFileOptions, object> {
   /**
    * The file mode (permissions). Default is `0o755`.
    */
@@ -53,14 +55,6 @@ interface WriteOptions extends Extract<fs.WriteFileOptions, object> {
     groupName?: string;
   };
 }
-
-// interface WriteOptions {
-//   mode?: number;
-//   owner?: {
-//     username?: string;
-//     groupName?: string;
-//   };
-// }
 
 /**
  * A utility class for file system operations.
@@ -295,10 +289,6 @@ export default class {
    * Makes a directory recursively.
    * @param {string} directoryPath The path of the directory to create.
    * @param {MakeDirectoryOptions} options Options for directory creation.
-   * @param {number|undefined} options.mode The directory permissions (default: 0o755).
-   * @param {object|undefined} options.owner The owner information for the directory.
-   * @param {string|undefined} options.owner.username The username of the owner.
-   * @param {string|undefined} options.owner.groupName The group name of the owner.
    * @throws {Error} If an error occurs during directory creation or changing ownership.
    */
   public static makeDirectory(directoryPath: string, options: MakeDirectoryOptions = {}): void {
@@ -316,10 +306,6 @@ export default class {
    * Creates a temporary directory. Uses the `TMPDIR` environment variable if present, 
    * otherwise uses the system's temporary directory.
    * @param {MakeDirectoryOptions} options Options for directory creation.
-   * @param {number|undefined} options.mode The directory permissions (default: 0o755).
-   * @param {object|undefined} options.owner The owner information for the directory.
-   * @param {string|undefined} options.owner.username The username of the owner.
-   * @param {string|undefined} options.owner.groupName The group name of the owner.
    * @return {string} The path of the created temporary directory.
    * @throws {Error} If an error occurs during directory creation.
    */
@@ -421,10 +407,6 @@ export default class {
    * @param {string} filePath The path of the file to write to.
    * @param {string|Buffer} content The content to write to the file. Defaults to an empty string.
    * @param {WriteOptions} options Optional settings for file writing, including standard `fs.WriteFileOptions`.
-   * @param {number|undefined} options.mode File permissions. Defaults to 0o755.  Overridden by `options.mode` if provided.
-   * @param {object|undefined} options.owner Owner information.
-   * @param {string|undefined} options.owner.username The owner of the file.
-   * @param {string|undefined} options.owner.groupName The group of the file.
    * @throws {Error} If an error occurs during file writing, directory creation, or permission/owner changes.
    */
   public static write(filePath: string, content: string|Buffer = '', options: WriteOptions = {}): void {

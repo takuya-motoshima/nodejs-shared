@@ -1,11 +1,10 @@
 import validator from 'validator';
 
 /**
- * Check if it is a port number.
- * @param {string} value Value to be validated.
- * @return {boolean} True for pass, false for fail.
+ * Checks if the given string is a valid port number.
+ * @param {string} value The string to validate.
+ * @return {boolean} True if the string is a valid port number, false otherwise.
  */
 export default (value: string): boolean => {
-  // Returns validation results.
   return validator.isPort(value);
 }

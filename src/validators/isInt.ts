@@ -2,8 +2,9 @@ import validator from 'validator';
 
 /**
  * Options for integer validation.
+ * @interface
  */
-interface IsIntOptions {
+export interface IsIntOptions {
   /**
    * Allows leading zeros if `true`. Defaults to `false`.
    */
@@ -32,7 +33,7 @@ interface IsIntOptions {
  * @param {IsIntOptions} options Options for integer validation.
  * @return {boolean} `true` if the string is a valid integer, `false` otherwise.
  */
-export default  (value: string, options: IsIntOptions = {}): boolean => {
+export default (value: string, options: IsIntOptions = {}): boolean => {
   const validatorOptions = Object.entries(options)
     .filter(([, v]) => v != null)
     .reduce((acc, [k, v]) => {
