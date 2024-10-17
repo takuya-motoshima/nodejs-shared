@@ -5,6 +5,37 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Added `"type": "module"` to `package.json`
 - Updated Rollup and TypeScript.
+- Renamed `File` class to `FileUtils`.  
+    Renamed `Media` class to `MediaUtils`.  
+    Added new utility classes: `ProcessUtils` and `ImageUtils`.
+    Existing methods have also been modified. Please review the following changes:
+
+    | Class | Change Description | Before | After |
+    |---|---|---|---|
+    | `FileUtils` | Method renamed. | `chmod(path: string, permission: number = 0o755): File` | `changePermission(filePath: string, mode: number = 0o755): void` |
+    | `FileUtils` | New method added. |  | `changeOwner(filePath: string, username: string, groupName?: string): void` |
+    | `FileUtils` | Method renamed. Now supports copying both files and directories. | `copyDirectory(srcDir: string, dstDir: string): void` | `copy(sourcePath: string, destinationPath: string): void` |
+    | `FileUtils` | Method renamed. | `existsFile(path: string): boolean` | `exists(filePath: string): boolean` |
+    | `FileUtils` | Method renamed. | `find(pattern: string, options: GlobOptions = {})` | `glob(pattern: string, options: GlobOptions = {}): string[]` |
+    | `FileUtils` | Parameter changed. Added options for file owner and group for directories. | `makeDirectory(dirPath: string, permission: number = 0o755): File` | `makeDirectory(directoryPath: string, options: MakeDirectoryOptions = {}): void` |
+    | `FileUtils` | Parameter changed. Added options for file owner and group for directories. | `makeTmpDirectory(): string` | `makeTmpDirectory(options: MakeDirectoryOptions = {}): string` |
+    | `FileUtils` | Parameter changed. Added options for file owner and group for files. | `write(filePath: string, content: string = '', options: fs.WriteFileOptions|string|undefined = undefined, permission: number = 0o755): File` | `write(filePath: string, content: string|Buffer = '', options: WriteOptions = {}): void` |
+    | `MediaUtils` | Removed. Use `parseDataUrl` instead. | `base64ByteSize(base64: string): number` | - |
+    | `MediaUtils` | Moved to `ImageUtils.ts`. | `convertImageFormat(imageInput: string, outputPath?: string, options?: {bmpVersion: 'bmp2'|'bmp3'|'bmp4', trueColor: boolean, margin: number, background: string}): Promise<string>` | `convertImageFormat(imageInput: string, outputPath?: string, options: ConvertImageFormatOptions = {}): Promise<string>` |
+    | `MediaUtils` | Moved to `ImageUtils.ts` and renamed. | `crop(inputPath: string, outputPath: string, {left, top, width, height}: {left: number, top: number, width: number, height: number}): Promise<void>` | `cropImage(inputPath: string, outputPath: string, options: CropOptions): Promise<void>` |
+    | `MediaUtils` | Removed. Use `parseDataUrl` instead. | `dataUrlByteSize(dataUrl: string): number` | - |
+    | `MediaUtils` | Removed. Use `parseDataUrl` instead. | `dataUrlToBase64(dataUrl: string): string|null` | - |
+    | `MediaUtils` | Moved to `ImageUtils.ts` and renamed. | `extractFirstFrameOfGif(imageInput: string, outputPath?: string): Promise<void>` | `extractFirstGifFrame(imageInput: string, outputPath?: string): Promise<void>` |
+    | `MediaUtils` | Method renamed. | `getDimensions(filePath: string): {width: number, height: number }|null` | `getImageDimensions(filePath: string): {width: number; height: number}|null` |
+    | `MediaUtils` | Removed. Use `parseDataUrl` instead. | `getExtensionFromDataUrl(dataUrl: string): string|null` | - |
+    | `MediaUtils` | Removed. Use `parseDataUrl` instead. | `getMimeTypeFromDataUrl(dataUrl: string): string|null` | - |
+    | `MediaUtils` | Moved to `ImageUtils.ts` and renamed. | `getNumberOfGifFrames(imageInput: string): Promise<number|null>` | `getGifFrameCount(imageInput: string): Promise<number|null>` |
+    | `MediaUtils` | Method renamed. The return value now includes byte size. | `statDataUrl(dataUrl: string): {blob: string, type: string, extension: string|null}|null` | `parseDataUrl(dataUrl: string): DataUrlParts|null` |
+    | `MediaUtils` | Moved to `ImageUtils.ts`. | `mergeImages(inputPaths: string[], outputPath: string, options: Partial<MergeImagesOptions> = {}): Promise<void>` | `mergeImages(inputPaths: string[], outputPath: string, options: Partial<MergeImagesOptions> = {}): Promise<void>` |
+    | `MediaUtils` | Moved to `ImageUtils.ts` and renamed. | `resize(inputPath: string, {width, height, output, contain = false}: {width?: number, height?: number, output?: string, contain?: boolean}): Promise<void>` | `resizeImage(inputPath: string, options: ResizeOptions = {}): Promise<void>` |
+    | `MediaUtils` | Parameter changed. Added options for file owner and group for files. | `writeDataUrlToFile(outputPath: string, dataUrl: string, permission: number = 0o755): string` | `writeDataUrl(outputPath: string, dataUrl: string, options: WriteDataUrlOptions = {mode: 0o755})` |
+    | `ProcessUtils` | New method added. | - | `getUid(username: string): number` |
+    | `ProcessUtils` | New method added. | - | `getGid(groupName: string): number` |
 
 ## [1.0.30] - 2024/6/27
 ### Changed
