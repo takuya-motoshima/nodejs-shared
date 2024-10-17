@@ -174,6 +174,10 @@ export default class {
     private static imageMagick;
     /**
      * Crops an image using Sharp.
+     * @example
+     * import {ImageUtils} from 'nodejs-shared';
+     *
+     * ImageUtils.cropImage('path/to/image.jpg', 'path/to/image2.jpg', {left: 100, top: 100, width: 200, height: 200});
      * @param {string} inputPath Path to the input image file.
      * @param {string} outputPath Path to save the cropped image.
      * @param {CropOptions} options Cropping options.
@@ -182,6 +186,14 @@ export default class {
     static cropImage(inputPath: string, outputPath: string, options: CropOptions): Promise<void>;
     /**
      * Merges multiple images into a single image using Sharp.
+     * @example
+     * import {ImageUtils} from 'nodejs-shared';
+     *
+     * await ImageUtils.mergeImages(
+     *   ['path/to/image1.jpg', 'path/to/image1.jpg'],
+     *   'path/to/image3.jpg',
+     *   {direction: 'vertical', offset: 30}
+     * );
      * @param {string[]} inputPaths An array of paths to the input image files.
      * @param {string} outputPath The path to save the merged image.
      * @param {Partial<MergeImagesOptions>} options Optional settings for merging images.
@@ -191,6 +203,17 @@ export default class {
     static mergeImages(inputPaths: string[], outputPath: string, options?: Partial<MergeImagesOptions>): Promise<void>;
     /**
      * Resizes an image using Sharp.
+     * @example
+     * import {ImageUtils} from 'nodejs-shared';
+     *
+     * // Overwrites the original file with the resized image.
+     * ImageUtils.resizeImage('path/to/image.jpg', {width: 200});
+     *
+     * // Write the resized image in another file.
+     * ImageUtils.resizeImage('path/to/image.jpg', {
+     *   output: 'path/to/image2.jpg',
+     *   width: 200,
+     * });
      * @param {string} inputPath Path to the input image file.
      * @param {ResizeOptions} options Resizing options.
      * @return {Promise<void>}
@@ -198,6 +221,10 @@ export default class {
     static resizeImage(inputPath: string, options?: ResizeOptions): Promise<void>;
     /**
      * Gets the number of frames in a GIF image using ImageMagick.
+     * @example
+     * import {ImageUtils} from 'nodejs-shared';
+     *
+     * await ImageUtils.getGifFrameCount('path/to/image.gif');
      * @param {string} imageInput Path or data URL of the GIF image.
      * @return {Promise<number|null>}  Number of frames, or null if not a GIF or an error occurred.
      * @throws {Error} If input is a file path and the file is not found.
@@ -205,6 +232,14 @@ export default class {
     static getGifFrameCount(imageInput: string): Promise<number | null>;
     /**
      * Extracts and saves the first frame of an animated GIF using ImageMagick.
+     * @example
+     * import {ImageUtils} from 'nodejs-shared';
+     *
+     * // Overwrite the first frame with the original file.
+     * await ImageUtils.extractFirstGifFrame('path/to/image.gif');
+     *
+     * // Write the first frame in a separate file.
+     * await ImageUtils.extractFirstGifFrame('path/to/image.gif', 'path/to/image2.gif');
      * @param {string} imageInput Path or data URL of the animated GIF.
      * @param {string} outputPath Output path for the first frame. If not provided, the original file will be overwritten if it is a path; if it's a data URL, outputPath is required.
      * @return {Promise<void>}
@@ -213,6 +248,10 @@ export default class {
     static extractFirstGifFrame(imageInput: string, outputPath?: string): Promise<void>;
     /**
      * Gets image dimensions using the `image-size` npm package.
+     * @example
+     * import {ImageUtils} from 'nodejs-shared';
+     *
+     * ImageUtils.getImageDimensions('path/to/image.jpg');// {width: 960, height: 640}
      * @param {string} filePath Path to the image file.
      * @return {{width: number, height: number}|null} Image dimensions, or `null` if an error occurs or the image is invalid.
      */
@@ -222,6 +261,11 @@ export default class {
     } | null;
     /**
      * Converts between image formats using ImageMagick.
+     * @example
+     * import {ImageUtils} from 'nodejs-shared';
+     *
+     * // Convert jpg to png and write in file.
+     * await ImageUtils.convertImageFormat('path/to/image.jpg', 'path/to/image.png');
      * @param {string} imageInput Path or data URL of the input image.
      * @param {string} outputPath Optional output path for the converted image. If not provided, a temporary file is used.
      * @param {ConvertImageFormatOptions} options Conversion options.

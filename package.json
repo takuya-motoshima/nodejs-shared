@@ -2,7 +2,7 @@
   "name": "nodejs-shared",
   "version": "1.0.30",
   "type": "module",
-  "description": "This is a shared module of node.js.",
+  "description": "Essential Node.js utilities, shared and ready to use.",
   "main": "dist/build.common.js",
   "module": "dist/build.esm.js",
   "types": "types/index.d.ts",

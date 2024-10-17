@@ -53,6 +53,11 @@ export interface WriteOptions extends Extract<fs.WriteFileOptions, object> {
 export default class {
     /**
      * Gets the file name from a path.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.basename('path/to/file.txt');// file
+     * FileUtils.basename('path/to/file.txt', true);// file.txt
      * @param {string} filePath The file path.
      * @param {boolean} withExtension Whether to include the file extension (default: false).
      * @return {string} The file name.
@@ -60,6 +65,10 @@ export default class {
     static basename(filePath: string, withExtension?: boolean): string;
     /**
      * Changes file or directory permissions.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.changePermission('path/to/file.txt', 0o755);
      * @param {string} filePath The path of the file or directory.
      * @param {number} mode The new permissions (default: 0o755).
      * @throws {Error} If an error occurs during permission change.
@@ -82,24 +91,68 @@ export default class {
     static copy(sourcePath: string, destinationPath: string): void;
     /**
      * Deletes a directory recursively.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.deleteDirectory('path/to/my/dir');
      * @param {string} directoryPath The path of the directory to delete.
      * @throws {Error} If an error occurs during directory deletion.
      */
     static deleteDirectory(directoryPath: string): void;
     /**
      * Deletes a file.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.deleteFile('path/to/file.txt');
      * @param {string} filePath The path of the file to delete.
      * @throws {Error} If an error occurs during file deletion.
      */
     static deleteFile(filePath: string): void;
     /**
      * Checks if a file or directory exists.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * if (FileUtils.exists('path/to/file.txt'))
+     *   ;
      * @param {string} filePath The path of the file or directory.
      * @return {boolean} `true` if the file or directory exists, `false` otherwise.
      */
     static exists(filePath: string): boolean;
     /**
      * Finds files matching a pattern using the `glob` npm package internally.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * // Find all files in the specified directory.
+     * FileUtils.glob('path/to/*.*');
+     * // [
+     * //   'path/to/file.txt',
+     * //   'path/to/another-file.txt',
+     * // ]
+     *
+     * // Find all files, including those in subdirectories.
+     * FileUtils.glob('path/to/**\/*.*');
+     * // [
+     * //   'path/to/my/dir/file.txt',
+     * //   'path/to/file.txt',
+     * // ]
+     *
+     * // Find only files with the .jpg extension.
+     * FileUtils.glob('path/to\/**\/*.jpg');
+     * // [
+     * //   'path/to/my/dir/image.jpg',
+     * //   'path/to/image.jpg',
+     * // ]
+     *
+     * // Find only files with the .png or .jpg extension.
+     * FileUtils.glob('path/to/**\/*.+(png|jpg)'); // Note the corrected path
+     * // [
+     * //   'path/to/my/dir/image.jpg',
+     * //   'path/to/my/dir/image.png',
+     * //   'path/to/image.jpg',
+     * // ]
      * @param {string} pattern The glob pattern to match.
      * @param {GlobOptions} options Optional glob options (see `glob.GlobOptions`).
      * @return {string[]} An array of absolute paths of the matched files.
@@ -107,12 +160,20 @@ export default class {
     static glob(pattern: string, options?: GlobOptions): string[];
     /**
      * Gets the file extension.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.getExtension('path/to/file.txt');// txt
      * @param {string} filePath The path of the file.
      * @return {string|undefined} The file extension, or `undefined` if there is no extension.
      */
     static getExtension(filePath: string): string | undefined;
     /**
      * Gets the file modification time in Unix time.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.getFilemtime('path/to/file.txt');
      * @param {string} filePath The path of the file.
      * @return {number} The last modified Unix time of the file.
      * @throws {Error} If an error occurs during stat retrieval.
@@ -120,6 +181,30 @@ export default class {
     static getFilemtime(filePath: string): number;
     /**
      * Gets file information.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.getStat('path/to/file.txt');
+     * // {
+     * //   dev: 66305,
+     * //   mode: 33261,
+     * //   nlink: 1,
+     * //   uid: 1000,
+     * //   gid: 1000,
+     * //   rdev: 0,
+     * //   blksize: 4096,
+     * //   ino: 71552737,
+     * //   size: 19,
+     * //   blocks: 8,
+     * //   atimeMs: 1659435841498.44,
+     * //   mtimeMs: 1659435841502.4402,
+     * //   ctimeMs: 1659435841502.4402,
+     * //   birthtimeMs: 1659435841498.44,
+     * //   atime: 2022-08-02T10:24:01.498Z,
+     * //   mtime: 2022-08-02T10:24:01.502Z,
+     * //   ctime: 2022-08-02T10:24:01.502Z,
+     * //   birthtime: 2022-08-02T10:24:01.498Z
+     * // }
      * @param {string} filePath The path of the file.
      * @return {fs.Stats} A `fs.Stats` object containing file information.
      * @throws {Error} If an error occurs during stat retrieval.
@@ -128,23 +213,45 @@ export default class {
     /**
      * Gets the path to the temporary directory.
      * Uses the `TMPDIR` environment variable if present, otherwise uses the system's temporary directory.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.getTmpDirectory();// /tmp
      * @return {string} The path to the temporary directory.
      */
     static getTmpDirectory(): string;
     /**
      * Gets a temporary file path.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * // Get a temporary file path with a random name.
+     * FileUtils.getTmpPath();// /tmp/a1b2c3d4e5f6
+     *
+     * // Get a temporary file path with a specified extension.
+     * FileUtils.getTmpPath('txt');// /tmp/f7g8h9i0j1k2.txt
      * @param {string} extension The file extension (optional).
      * @return {string} The temporary file path.
      */
     static getTmpPath(extension?: string): string;
     /**
      * Checks if a string is a base64 encoded string.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * if (FileUtils.isBase64('iVBORw0KGgoAAAANSUhE'))
+     *   ;
      * @param {string} str The string to check.
      * @return {boolean} `true` if the string is base64 encoded, `false` otherwise.
      */
     static isBase64(str: string): boolean;
     /**
      * Checks if a path is a directory.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * if (FileUtils.isDirectory('path/to/my/dir'))
+     *   ;
      * @param {string} directoryPath The path to check.
      * @return {boolean} `true` if the path is a directory, `false` otherwise.
      * @throws {Error} If the path does not exist.
@@ -152,6 +259,11 @@ export default class {
     static isDirectory(directoryPath: string): boolean;
     /**
      * Checks if a path is a file.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * if (FileUtils.isFile('path/to/file.txt'))
+     *   ;
      * @param {string} filePath The path to check.
      * @return {boolean} `true` if the path is a file, `false` otherwise.
      */
@@ -160,12 +272,28 @@ export default class {
      * Checks if a string is a valid file system path.
      * This method checks for invalid characters and empty strings after trimming whitespace.
      * It does not check if the path actually exists.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * if (FileUtils.isPath('path/to/file.txt'))
+     *   ;
      * @param {string} str The string to check.
      * @return {boolean} `true` if the string is a valid file system path, `false` otherwise.
      */
     static isPath(str: string): boolean;
     /**
      * Makes a directory recursively.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * // Creates a directory.
+     * FileUtils.makeDirectory('path/to/my/dir');
+     *
+     * // Specify permissions, owner, and group.
+     * FileUtils.makeDirectory('path/to/my/dir', {
+     *   mode: 0o644,
+     *   owner: {username: 'nginx', groupName: 'nginx'},
+     * });
      * @param {string} directoryPath The path of the directory to create.
      * @param {MakeDirectoryOptions} options Options for directory creation.
      * @throws {Error} If an error occurs during directory creation or changing ownership.
@@ -174,6 +302,10 @@ export default class {
     /**
      * Creates a temporary directory. Uses the `TMPDIR` environment variable if present,
      * otherwise uses the system's temporary directory.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.makeTmpDirectory();// =>/tmp/3msbsb19l6c0a8pi/
      * @param {MakeDirectoryOptions} options Options for directory creation.
      * @return {string} The path of the created temporary directory.
      * @throws {Error} If an error occurs during directory creation.
@@ -181,6 +313,10 @@ export default class {
     static makeTmpDirectory(options?: MakeDirectoryOptions): string;
     /**
      * Reads the content of a file as a base64 string.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * const base64 = FileUtils.readAsBase64('path/to/image.jpg');
      * @param {string} filePath The path of the file to read.
      * @return {string} The content of the file as a base64 string.
      * @throws {Error} If an error occurs during file reading.
@@ -188,6 +324,10 @@ export default class {
     static readAsBase64(filePath: string): string;
     /**
      * Reads the content of a media file and returns it as a data URL string.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * const dataUrl = FileUtils.readAsDataUrl('path/to/image.jpg');
      * @param {string} filePath The path of the media file to read.
      * @return {string} The data URL string.
      * @throws {Error} If an error occurs during file reading or data URL generation.
@@ -195,6 +335,10 @@ export default class {
     static readAsDataUrl(filePath: string): string;
     /**
      * Reads the content of a JSON file and parses it as an object.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * const object = FileUtils.readAsJson('path/to/data.json');
      * @param {string} filePath The path of the JSON file to read.
      * @return {T} The parsed JSON object.
      * @throws {Error} If an error occurs during file reading or JSON parsing.
@@ -203,6 +347,10 @@ export default class {
     static readAsJson<T>(filePath: string): T;
     /**
      * Reads the content of a file as a string.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * const str = FileUtils.readAsString('path/to/file.text');
      * @param {string} filePath The path of the file to read.
      * @return {string} The content of the file as a string.
      * @throws {Error} If an error occurs during file reading.
@@ -210,6 +358,11 @@ export default class {
     static readAsString(filePath: string): string;
     /**
      * Renames a file or directory.
+     * @example
+     * import {FileUtils} from 'nodejs-shared';
+     *
+     * FileUtils.rename('path/to/file.txt', 'path/to/file2.txt');
+     * FileUtils.rename('path/to/my/dir, 'path/to/my/dir2');
      * @param {string} sourcePath The original path of the file or directory.
      * @param {string} destinationPath The new path of the file or directory.
      * @throws {Error} If an error occurs during renaming.
@@ -224,6 +377,12 @@ export default class {
      * // Example usage with a Buffer:
      * const buffer = Buffer.from('Hello, world!');
      * FileUtils.write('path/to/file.txt', buffer);
+     *
+     * // Specify permissions, owner, and group.
+     * FileUtils.write('path/to/file.txt', buffer, {
+     *   mode: 0o644,
+     *   owner: {username: 'nginx', groupName: 'nginx'},
+     * });
      * @param {string} filePath The path of the file to write to.
      * @param {string|Buffer} content The content to write to the file. Defaults to an empty string.
      * @param {WriteOptions} options Optional settings for file writing, including standard `fs.WriteFileOptions`.

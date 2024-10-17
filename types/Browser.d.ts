@@ -30,6 +30,24 @@ export interface BrowserInfoResult {
 export default class {
     /**
      * Parses user agent string to extract browser, OS, and platform information.
+     * @example
+     * import {Browser} from 'nodejs-shared';
+     *
+     * Browser.parse('Mozilla/5.0 (Linux; Android 9; Lenovo TB-8505F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.101 Mobile Safari/537.36');
+     * // {
+     * //   platform: 'mobile',
+     * //   osName: 'Android',
+     * //   osVersion: 9,
+     * //   browserName: 'Chrome'
+     * // }
+     *
+     * Browser.parse('Mozilla/5.0 (iPad; CPU OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148');
+     * // {
+     * //   platform: 'tablet',
+     * //   osName: 'iOS',
+     * //   osVersion: 12.2,
+     * //   browserName: 'Safari'
+     * // }
      * @param {string} ua User agent string.
      * @return {BrowserInfoResult} An object containing parsed browser information. Returns `null` if parsing fails.
      */

@@ -57,6 +57,11 @@ export interface WriteDataUrlOptions {
 export default class {
   /**
    * Checks if a string is a data URL.
+   * @example
+   * import {MediaUtils} from 'nodejs-shared';
+   * 
+   * if (MediaUtils.isDataUrl('data:image/jpeg;base64,AA==...'))
+   *   ;
    * @param {string} dataUrl The string to check.
    * @return {boolean} True if the string is a data URL, false otherwise.
    */
@@ -67,6 +72,16 @@ export default class {
   /**
    * Parses a data URL and extracts its components (MIME type, base64 data, file extension, and byte size).
    * Normalizes "jpeg" extension to "jpg".
+   * @example
+   * import {MediaUtils} from 'nodejs-shared';
+   * 
+   * MediaUtils.parseDataUrl('data:image/jpeg;base64,AA==...'); 
+   * // {
+   * //   mimeType: 'image/jpeg',
+   * //   base64: '/9j/4AAQSk...',
+   * //   extension: 'jpg',
+   * //   bytesize: 45056
+   * // }
    * @param {string} dataUrl The data URL to parse.
    * @return {DataUrlParts|null} An object containing the parsed `type`, `base64` data, `extension`, and `bytesize`, or `null` if the input is not a valid data URL.
    */
@@ -91,13 +106,24 @@ export default class {
   }
 
   /**
-  * Writes a data URL to a file. If the output path doesn't have an extension, the extension from the data URL will be used.
-  * @param {string} outputPath The path to the output file.
-  * @param {string} dataUrl The data URL to write.
-  * @param {WriteDataUrlOptions} options File write options.
-  * @throws {TypeError} If the content is not a data URL.
-  * @throws {Error} If base64 data cannot be extracted from the data URL or file writing fails.
-  */
+   * Writes a data URL to a file. If the output path doesn't have an extension, the extension from the data URL will be used.
+   * @example
+   * import {MediaUtils} from 'nodejs-shared';
+   * 
+   * // Write jpg image.
+   * MediaUtils.writeDataUrl('path/to/image.jpg', 'data:image/jpeg;base64,AA==...');
+   * 
+   * // Specify permissions, owner, and group.
+   * MediaUtils.writeDataUrl('path/to/image.jpg', 'data:image/jpeg;base64,AA==...', {
+   *   mode: 0o644,
+   *   owner: {username: 'nginx', groupName: 'nginx'},
+   * });
+   * @param {string} outputPath The path to the output file.
+   * @param {string} dataUrl The data URL to write.
+   * @param {WriteDataUrlOptions} options File write options.
+   * @throws {TypeError} If the content is not a data URL.
+   * @throws {Error} If base64 data cannot be extracted from the data URL or file writing fails.
+   */
   public static writeDataUrl(outputPath: string, dataUrl: string, options: WriteDataUrlOptions = {mode: 0o755}) {
     if (!this.isDataUrl(dataUrl))
       throw new TypeError('Content is not in data URL format');

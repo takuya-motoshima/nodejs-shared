@@ -1,8 +1,13 @@
 {
   "$schema": "https://typedoc.org/schema.json",
   "entryPoints": ["./src/index.ts"],
-  "out": "./docs",
   "entryPointStrategy": "expand",
   "excludeExternals": true,
+  "hideGenerator": true,
+  "lightHighlightTheme": "github-light",
+  "darkHighlightTheme": "github-dark",
+  "name": "nodejs-shared",
+  "out": "./docs",
+  "readme": "./README.md",
   "tsconfig": "tsconfig.json"
 }
