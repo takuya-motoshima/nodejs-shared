@@ -45,6 +45,7 @@ export interface WriteDataUrlOptions {
 }
 /**
  * Utility class for media manipulation, including image processing and data URL handling.
+ * @hideconstructor
  */
 export default class {
     /**
@@ -64,7 +65,9 @@ export default class {
      * @example
      * import {MediaUtils} from 'nodejs-shared';
      *
-     * MediaUtils.parseDataUrl('data:image/jpeg;base64,AA==...');
+     * // Parse a data URL to extract its MIME type, base64 encoded data, file extension, and size.
+     * const dataUrlParts = MediaUtils.parseDataUrl('data:image/jpeg;base64,AA==...');
+     * console.log(dataUrlParts);
      * // {
      * //   mimeType: 'image/jpeg',
      * //   base64: '/9j/4AAQSk...',
@@ -80,10 +83,12 @@ export default class {
      * @example
      * import {MediaUtils} from 'nodejs-shared';
      *
-     * // Write jpg image.
+     * // Write a JPEG image to a file using a data URL.
      * MediaUtils.writeDataUrl('path/to/image.jpg', 'data:image/jpeg;base64,AA==...');
      *
-     * // Specify permissions, owner, and group.
+     * // Write a JPEG image to a file, specifying file mode, owner, and group.
+     * // mode: 0o644 (read/write for owner, read-only for group and others)
+     * // owner: Sets the file owner to the 'nginx' user and group.
      * MediaUtils.writeDataUrl('path/to/image.jpg', 'data:image/jpeg;base64,AA==...', {
      *   mode: 0o644,
      *   owner: {username: 'nginx', groupName: 'nginx'},

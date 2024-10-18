@@ -58,6 +58,7 @@ export interface WriteOptions extends Extract<fs.WriteFileOptions, object> {
 
 /**
  * A utility class for file system operations.
+ * @hideconstructor
  */
 export default class {
   /**
@@ -551,14 +552,16 @@ export default class {
   /**
    * Writes content to a file. Creates the directory if it doesn't exist.
    * @example
-   * // Example usage with a string:
+   * // Write a string to a file.
    * FileUtils.write('path/to/another-file.txt', 'Hello, world!');
    * 
-   * // Example usage with a Buffer:
+   * // Write a Buffer to a file.
    * const buffer = Buffer.from('Hello, world!');
    * FileUtils.write('path/to/file.txt', buffer);
    * 
-   * // Specify permissions, owner, and group.
+   * // Write to a file, specifying file mode, owner, and group.
+   * // mode: 0o644 (read/write for owner, read-only for group and others)
+   * // owner: Sets the file owner to the 'nginx' user and group.
    * FileUtils.write('path/to/file.txt', buffer, {
    *   mode: 0o644,
    *   owner: {username: 'nginx', groupName: 'nginx'},

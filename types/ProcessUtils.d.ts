@@ -1,5 +1,6 @@
 /**
  * A utility class for retrieving user and group information.
+ * @hideconstructor
  */
 export default class {
     /**
@@ -7,7 +8,8 @@ export default class {
      * @example
      * import {ProcessUtils} from 'nodejs-shared';
      *
-     * ProcessUtils.getUid('ec2-user');// 1000
+     * // Get the UID for the user 'ec2-user'.  Example: Returns 1000.
+     * ProcessUtils.getUid('ec2-user');
      * @param {string} username The username to look up.
      * @return {number|undefined} The UID.
      * @throws {Error} If the username is not found or another error occurs.
@@ -18,7 +20,8 @@ export default class {
      * @example
      * import {ProcessUtils} from 'nodejs-shared';
      *
-     * ProcessUtils.getGid('ec2-user');// 1000
+     * // Get the GID for the user 'ec2-user'.  Example: Returns 1000.
+     * ProcessUtils.getGid('ec2-user');
      * @param {string} groupName The group name to look up.
      * @return {number} The GID.
      * @throws {Error} If the group name is not found or another error occurs.

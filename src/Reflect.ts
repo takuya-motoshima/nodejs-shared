@@ -1,5 +1,6 @@
 /**
  * Interface for retrieving reflective information about classes and objects.
+ * @hideconstructor
  */
 export default class {
   /**

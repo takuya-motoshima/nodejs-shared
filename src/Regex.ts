@@ -1,5 +1,6 @@
 /**
  * Utility class for handling regular expressions.
+ * @hideconstructor
  */
 export default class {
   /**

@@ -26,6 +26,7 @@ export interface BrowserInfoResult {
 }
 /**
  * Interface for obtaining browser-related information.
+ * @hideconstructor
  */
 export default class {
     /**

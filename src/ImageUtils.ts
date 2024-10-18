@@ -188,6 +188,7 @@ export interface ImageMagickInfo extends gm.ImageInfo {
 
 /**
  * Provides utility functions for image manipulation.
+ * @hideconstructor
  */
 export default class {
   /**
