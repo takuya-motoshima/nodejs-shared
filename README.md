@@ -24,6 +24,9 @@ A comprehensive list of changes in each version may be found in the [CHANGELOG](
 - [License](#license)
 
 ## Quickstart
+
+See the [nodejs-shared Documentation](https://takuya-motoshima.github.io/nodejs-shared/) for details on all features.
+
 ### Installing the library
 ```bash
 npm install --save nodejs-shared
