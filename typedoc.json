@@ -9,5 +9,6 @@
   "name": "nodejs-shared",
   "out": "./docs",
   "readme": "./README.md",
+  "customJs": "./typedoc-custom.js",
   "tsconfig": "tsconfig.json"
 }
