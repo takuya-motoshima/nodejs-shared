@@ -5,7 +5,7 @@ A comprehensive list of changes in each version may be found in the [CHANGELOG](
 
 * [nodejs-shared Documentation](https://takuya-motoshima.github.io/nodejs-shared/)
 
-    <img src="https://raw.githubusercontent.com/takuya-motoshima/nodejs-shared/refs/heads/main/typedoc.jpeg" width="500">
+    <img src="https://raw.githubusercontent.com/takuya-motoshima/nodejs-shared/refs/heads/main/typedoc.jpeg" width="800">
 * [github.com/takuya-motoshima/nodejs-shared](https://github.com/takuya-motoshima/nodejs-shared)
 
  **Requirements**:
