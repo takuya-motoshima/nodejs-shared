@@ -2,6 +2,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import url from 'node:url';
 import {MediaUtils} from '../dist/build.mjs';
+import octalToPermissions from './support/octalToPermissions.mjs';
 
 // Extract the directory portion of the URL.  This is the equivalent of __dirname in CommonJS.
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
@@ -13,19 +14,19 @@ const testUid = 992;
 const testGid = 992;
 
 describe('isDataUrl', () => {
-    test('should return true for valid data URLs', () => {
-      expect(MediaUtils.isDataUrl('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAWcAAAAFElDQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=')).toBe(true);
-      expect(MediaUtils.isDataUrl('data:text/plain;base64,SGVsbG8gV29ybGQh')).toBe(true);
-      expect(MediaUtils.isDataUrl('data:application/pdf;base64,JVBERi0xLjMKJSAiVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==')).toBe(true);
-    });
+  test('should return true for valid data URLs', () => {
+    expect(MediaUtils.isDataUrl('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAWcAAAAFElDQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=')).toBe(true);
+    expect(MediaUtils.isDataUrl('data:text/plain;base64,SGVsbG8gV29ybGQh')).toBe(true);
+    expect(MediaUtils.isDataUrl('data:application/pdf;base64,JVBERi0xLjMKJSAiVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==')).toBe(true);
+  });
 
-    test('should return false for invalid data URLs', () => {
-      expect(MediaUtils.isDataUrl('http://example.com')).toBe(false);
-      expect(MediaUtils.isDataUrl('data:image/png;base64')).toBe(false);
-      expect(MediaUtils.isDataUrl('data:image/png,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAWcAAAAFElDQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=')).toBe(false);//missing ;base64
-      expect(MediaUtils.isDataUrl('data:base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAWcAAAAFElDQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=')).toBe(false);//missing mimeType
-      expect(MediaUtils.isDataUrl('')).toBe(false); // Empty string
-    });
+  test('should return false for invalid data URLs', () => {
+    expect(MediaUtils.isDataUrl('http://example.com')).toBe(false);
+    expect(MediaUtils.isDataUrl('data:image/png;base64')).toBe(false);
+    expect(MediaUtils.isDataUrl('data:image/png,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAWcAAAAFElDQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=')).toBe(false);//missing ;base64
+    expect(MediaUtils.isDataUrl('data:base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAWcAAAAFElDQVR42mP8/x8AAwMCAO+ip1sAAAAASUVORK5CYII=')).toBe(false);//missing mimeType
+    expect(MediaUtils.isDataUrl('')).toBe(false); // Empty string
+  });
 });
 
 describe('parseDataUrl', () => {
@@ -91,7 +92,7 @@ describe('writeImage', () => {
 
     const stats = fs.statSync(outputPath);
     expect(stats.size).toBeGreaterThan(0); // Check if the file size is greater than 0
-    expect(stats.mode.toString(8).slice(-3)).toBe(options.mode.toString(8).slice(-3)); // Check file mode (permissions)
+    expect(octalToPermissions(stats.mode)).toBe(octalToPermissions(options.mode)); // Check file mode (permissions)
     expect(stats.uid).toBe(testUid);
     expect(stats.gid).toBe(testGid);
   });
