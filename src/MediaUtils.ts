@@ -31,7 +31,7 @@ export interface DataUrlParts {
  * Options for writing a data URL to a file.
  * @interface
  */
-export interface WriteDataUrlOptions {
+export interface WriteImageOptions {
   /**
    * The file mode (permissions). Default is `0o755`.
    */
@@ -109,38 +109,43 @@ export default class {
   }
 
   /**
-   * Writes a data URL to a file. If the output path doesn't have an extension, the extension from the data URL will be used.
+   * Writes image data to a file.
    * @example
    * import {MediaUtils} from 'nodejs-shared';
    * 
-   * // Write a JPEG image to a file using a data URL.
-   * MediaUtils.writeDataUrl('path/to/image.jpg', 'data:image/jpeg;base64,AA==...');
+   * // Write a JPEG image using a data URL.
+   * MediaUtils.writeImage('path/to/image.jpg', 'data:image/jpeg;base64,AA==...');
    * 
-   * // Write a JPEG image to a file, specifying file mode, owner, and group.
-   * // mode: 0o644 (read/write for owner, read-only for group and others)
-   * // owner: Sets the file owner to the 'nginx' user and group.
-   * MediaUtils.writeDataUrl('path/to/image.jpg', 'data:image/jpeg;base64,AA==...', {
-   *   mode: 0o644,
-   *   owner: {username: 'nginx', groupName: 'nginx'},
-   * });
-   * @param {string} outputPath The path to the output file.
-   * @param {string} dataUrl The data URL to write.
-   * @param {WriteDataUrlOptions} options File write options.
-   * @throws {TypeError} If the content is not a data URL.
-   * @throws {Error} If base64 data cannot be extracted from the data URL or file writing fails.
+   * // Write a PNG image using a Buffer.
+   * MediaUtils.writeImage('path/to/image.png', Buffer.from([...]));
+   * 
+   * // Write an SVG image using a string.
+   * writeImage('path/to/image.svg', '<svg>...</svg>');
+   * 
+   * // Write with file system options.
+   * MediaUtils.writeImage('path/to/image.png', Buffer.from([...]), {mode: 0o644, owner: {username: 'nginx', groupName: 'nginx'}});
+   * @param {string} outputPath The path to the output file. The file extension must be provided.
+   * @param {string|Buffer} data The image data as a data URL, Buffer, or SVG string.
+   * @param {WriteImageOptions} options File write options.
+   * @throws {TypeError} If data is not a string or Buffer, or if the data URL is invalid.
+   * @throws {Error} If the file writing operation fails.
    */
-  public static writeDataUrl(outputPath: string, dataUrl: string, options: WriteDataUrlOptions = {mode: 0o755}) {
-    if (!this.isDataUrl(dataUrl))
-      throw new TypeError('Content is not in data URL format');
-    const dataUrlParts = this.parseDataUrl(dataUrl);
-    if (!dataUrlParts)
-      throw new Error('Could not parse data URL');
-    if (dataUrlParts.mimeType === 'image/svg+xml') {
-      const content = FileUtils.isBase64(dataUrlParts.base64) ? Buffer.from(dataUrlParts.base64, 'base64').toString() : decodeURIComponent(dataUrlParts.base64);
-      FileUtils.write(outputPath, content, options);
-    } else {
-      const buffer = Buffer.from(dataUrlParts.base64, 'base64');
-      FileUtils.write(outputPath, buffer, options);
-    }
+  public static writeImage(outputPath: string, data: string|Buffer, options: WriteImageOptions = {mode: 0o755}) {
+    let dataToWrite: string|Buffer;
+    if (typeof data === 'string') {
+      const dataUrlParts = this.parseDataUrl(data);
+      if (dataUrlParts) { // It's a data URL
+        dataToWrite = dataUrlParts.mimeType === 'image/svg+xml' 
+          ? (FileUtils.isBase64(dataUrlParts.base64) ? Buffer.from(dataUrlParts.base64, 'base64') : decodeURIComponent(dataUrlParts.base64))
+          : Buffer.from(dataUrlParts.base64, 'base64');
+      } else if (outputPath.endsWith('.svg')) // Handle svg string directly
+        dataToWrite = data; // Assume it is a raw SVG string if not a dataURL and has .svg extension
+      else
+        throw new TypeError('Data is not a valid data URL, Buffer, or SVG string.');
+    } else if (data instanceof Buffer)
+      dataToWrite = data;
+    else
+      throw new TypeError('Data must be a string (data URL or SVG string) or a Buffer.');
+    FileUtils.write(outputPath, dataToWrite, options);
   }
 }

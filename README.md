@@ -52,13 +52,8 @@ FileUtils.write('path/to/another-file.txt', 'Hello, world!');
 const buffer = Buffer.from('Hello, world!');
 FileUtils.write('path/to/file.txt', buffer);
 
-// Write to a file, specifying file mode, owner, and group.
-// mode: 0o644 (read/write for owner, read-only for group and others)
-// owner: Sets the file owner to the 'nginx' user and group.
-FileUtils.write('path/to/file.txt', buffer, {
-  mode: 0o644,
-  owner: {username: 'nginx', groupName: 'nginx'},
-});
+// Write with file system options.
+FileUtils.write('path/to/file.txt', buffer, {mode: 0o644, owner: {username: 'nginx', groupName: 'nginx'}});
 
 // Parse a data URL to extract its MIME type, base64 encoded data, file extension, and size.
 const dataUrlParts = MediaUtils.parseDataUrl('data:image/jpeg;base64,AA==...'); 
@@ -70,16 +65,17 @@ console.log(dataUrlParts);
 //   bytesize: 45056
 // }
 
-// Write a JPEG image to a file using a data URL.
-MediaUtils.writeDataUrl('path/to/image.jpg', 'data:image/jpeg;base64,AA==...');
+// Write a JPEG image using a data URL.
+MediaUtils.writeImage('path/to/image.jpg', 'data:image/jpeg;base64,AA==...');
 
-// Write a JPEG image to a file, specifying file mode, owner, and group.
-// mode: 0o644 (read/write for owner, read-only for group and others)
-// owner: Sets the file owner to the 'nginx' user and group.
-MediaUtils.writeDataUrl('path/to/image.jpg', 'data:image/jpeg;base64,AA==...', {
-  mode: 0o644,
-  owner: {username: 'nginx', groupName: 'nginx'},
-});
+// Write a PNG image using a Buffer.
+MediaUtils.writeImage('path/to/image.png', Buffer.from([...]));
+
+// Write an SVG image using a string.
+writeImage('path/to/image.svg', '<svg>...</svg>');
+
+// Write with file system options.
+MediaUtils.writeImage('path/to/image.png', Buffer.from([...]), {mode: 0o644, owner: {username: 'nginx', groupName: 'nginx'}});
 ```
 
 ## Testing

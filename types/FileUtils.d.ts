@@ -290,11 +290,8 @@ export default class {
      * // Creates a directory.
      * FileUtils.makeDirectory('path/to/my/dir');
      *
-     * // Specify permissions, owner, and group.
-     * FileUtils.makeDirectory('path/to/my/dir', {
-     *   mode: 0o644,
-     *   owner: {username: 'nginx', groupName: 'nginx'},
-     * });
+     * // Creates a directory with file system options.
+     * FileUtils.makeDirectory('path/to/my/dir', {mode: 0o644, owner: {username: 'nginx', groupName: 'nginx'}});
      * @param {string} directoryPath The path of the directory to create.
      * @param {MakeDirectoryOptions} options Options for directory creation.
      * @throws {Error} If an error occurs during directory creation or changing ownership.
@@ -379,13 +376,8 @@ export default class {
      * const buffer = Buffer.from('Hello, world!');
      * FileUtils.write('path/to/file.txt', buffer);
      *
-     * // Write to a file, specifying file mode, owner, and group.
-     * // mode: 0o644 (read/write for owner, read-only for group and others)
-     * // owner: Sets the file owner to the 'nginx' user and group.
-     * FileUtils.write('path/to/file.txt', buffer, {
-     *   mode: 0o644,
-     *   owner: {username: 'nginx', groupName: 'nginx'},
-     * });
+     * // Write with file system options.
+     * FileUtils.write('path/to/file.txt', buffer, {mode: 0o644, owner: {username: 'nginx', groupName: 'nginx'}});
      * @param {string} filePath The path of the file to write to.
      * @param {string|Buffer} content The content to write to the file. Defaults to an empty string.
      * @param {WriteOptions} options Optional settings for file writing, including standard `fs.WriteFileOptions`.

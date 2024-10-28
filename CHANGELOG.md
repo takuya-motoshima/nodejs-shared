@@ -33,9 +33,13 @@ All notable changes to this project will be documented in this file.
     | `MediaUtils` | Method renamed. The return value now includes byte size. | `statDataUrl(dataUrl: string): {blob: string, type: string, extension: string|null}|null` | `parseDataUrl(dataUrl: string): DataUrlParts|null` |
     | `MediaUtils` | Moved to `ImageUtils.ts`. | `mergeImages(inputPaths: string[], outputPath: string, options: Partial<MergeImagesOptions> = {}): Promise<void>` | `mergeImages(inputPaths: string[], outputPath: string, options: Partial<MergeImagesOptions> = {}): Promise<void>` |
     | `MediaUtils` | Moved to `ImageUtils.ts` and renamed. | `resize(inputPath: string, {width, height, output, contain = false}: {width?: number, height?: number, output?: string, contain?: boolean}): Promise<void>` | `resizeImage(inputPath: string, options: ResizeOptions = {}): Promise<void>` |
-    | `MediaUtils` | Parameter changed. Added options for file owner and group for files. | `writeDataUrlToFile(outputPath: string, dataUrl: string, permission: number = 0o755): string` | `writeDataUrl(outputPath: string, dataUrl: string, options: WriteDataUrlOptions = {mode: 0o755})` |
+    | `MediaUtils` | Renamed and changed parameters. Added options for file owner and group for files. | `writeDataUrlToFile(outputPath: string, dataUrl: string, permission: number = 0o755): string` | `writeImage(outputPath: string, dataUrl: string, options: WriteImageOptions = {mode: 0o755})` |
     | `ProcessUtils` | New method added. | - | `getUid(username: string): number` |
     | `ProcessUtils` | New method added. | - | `getGid(groupName: string): number` |
+
+Renamed and changed parameters. Added file owner and group options.
+
+
 
 ## [1.0.30] - 2024/6/27
 ### Changed

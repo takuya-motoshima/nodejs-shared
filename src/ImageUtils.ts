@@ -379,7 +379,7 @@ export default class {
       if (!isInputPath) {
         const dataUrlParts = MediaUtils.parseDataUrl(imageInput);
         inputFilePath = FileUtils.getTmpPath(dataUrlParts?.extension || 'tmp');
-        MediaUtils.writeDataUrl(inputFilePath, imageInput);
+        MediaUtils.writeImage(inputFilePath, imageInput);
       }
       this.imageMagick(inputFilePath).identify((err: Error|null, data: ImageMagickInfo) => {
         if (err)
@@ -420,7 +420,7 @@ export default class {
       if (!isInputPath) {
         const dataUrlParts = MediaUtils.parseDataUrl(imageInput);
         inputFilePath = FileUtils.getTmpPath(dataUrlParts?.extension || 'tmp');
-        MediaUtils.writeDataUrl(inputFilePath, imageInput);
+        MediaUtils.writeImage(inputFilePath, imageInput);
       }
       this.imageMagick(`${inputFilePath}[0]`).write(finalOutputPath, (err: Error|null) => {
         if (err)
@@ -471,7 +471,7 @@ export default class {
       if (!isInputPath) {
         const dataUrlParts = MediaUtils.parseDataUrl(imageInput);
         inputFilePath = FileUtils.getTmpPath(dataUrlParts?.extension || 'tmp');
-        MediaUtils.writeDataUrl(inputFilePath, imageInput);
+        MediaUtils.writeImage(inputFilePath, imageInput);
       }
       const inputExt = (FileUtils.getExtension(inputFilePath) || '').toLowerCase();
       const firstFramePath = inputExt === 'gif' ? `${inputFilePath}[0]` : inputFilePath;
