@@ -1,10 +1,16 @@
 {
   "name": "nodejs-shared",
   "version": "1.0.30",
-  "type": "module",
   "description": "Essential Node.js utilities, shared and ready to use.",
-  "main": "dist/build.common.js",
-  "module": "dist/build.esm.js",
+  "type": "module",
+  "main": "dist/build.cjs",
+  "module": "dist/build.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/build.mjs",
+      "require": "./dist/build.cjs"
+    }
+  },
   "types": "types/index.d.ts",
   "files": [
     "dist/",
@@ -19,14 +25,9 @@
     "prewatch": "rimraf dist types",
     "build": "rollup -c rollup.config.js",
     "prebuild": "rimraf dist types",
-    "test": "jest",
-    "test:clear-cache": "jest --clearCache",
-    "//watch": "rollup -c --watch --bundleConfigAsCjs",
-    "//build": "rollup -c --bundleConfigAsCjs",
+    "test": "sudo $(which node) --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "//test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --silent",
     "doc": "typedoc"
-  },
-  "_moduleAliases": {
-    "~": "."
   },
   "repository": {
     "type": "git",

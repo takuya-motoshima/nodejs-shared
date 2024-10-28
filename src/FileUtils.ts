@@ -568,6 +568,12 @@ export default class {
       const fileOptions: fs.WriteFileOptions = {mode: 0o755, ...options};
       this.makeDirectory(path.dirname(filePath)); // Assuming makeDirectory is defined elsewhere
       fs.writeFileSync(filePath, content, fileOptions);
+
+      // Some file systems and platforms, notably NFS mounts, might ignore the mode option in fs.writeFileSync.
+      // To ensure consistent file permissions across different environments, we explicitly set the file mode using fs.chmodSync after writing the file.
+      if (options.mode)
+        fs.chmodSync(filePath, options.mode);
+
       if (options.owner?.username)
         this.changeOwner(filePath, options.owner.username, options.owner.groupName);
     } catch (error) {

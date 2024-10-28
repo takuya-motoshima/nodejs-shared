@@ -7,7 +7,10 @@ import builtins from 'builtin-modules'
 import pkg from './package.json' assert {type: "json"};
 
 export default {
-  external: builtins,
+  external: [
+    ...builtins,
+    'sharp',
+  ],
   input: './src/index.ts',
   plugins: [
     typescript({
