@@ -21,6 +21,10 @@ export interface IsLengthOptions {
  * @param {IsLengthOptions} options Options for length validation.
  * @return {boolean} `true` if the string's length is within the range, `false` otherwise.
  */
-export default (value: string, options: IsLengthOptions = {min: 0}): boolean => {
-  return validator.isLength(value, options);
+export default (value: string, options: IsLengthOptions = {}): boolean => {
+  const mergedOptions = {
+    min: 0,
+    ...options,
+  };
+  return validator.isLength(value, mergedOptions);
 }

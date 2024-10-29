@@ -18,7 +18,7 @@ export {default as isHSL} from '~/validators/isHSL';
 export {default as isIn} from '~/validators/isIn';
 export {default as isInt, IsIntOptions} from '~/validators/isInt';
 export {default as isIP, IsIPOptions} from '~/validators/isIP';
-export {default as isJSON} from '~/validators/isJSON';
+export {default as isJSON, IsJSONOptions} from '~/validators/isJSON';
 export {default as isJWT} from '~/validators/isJWT';
 export {default as isLength, IsLengthOptions} from '~/validators/isLength';
 export {default as isLowercase} from '~/validators/isLowercase';

@@ -25,10 +25,12 @@ export interface IsDateOptions {
  * @param {IsDateOptions} options Options for date validation.
  * @return {boolean} `true` if the string is a valid date, `false` otherwise.
  */
-export default (value: string, options: IsDateOptions = {
-  format: 'YYYY/MM/DD',
-  strictMode: false,
-  delimiters: ['/', '-'],
-}): boolean => {
-  return validator.isDate(value, options);
+export default (value: string, options: IsDateOptions = {}): boolean => {
+  const mergedOptions = {
+    format: 'YYYY/MM/DD',
+    strictMode: false,
+    delimiters: ['/', '-'],
+    ...options,
+  };
+  return validator.isDate(value, mergedOptions);
 }

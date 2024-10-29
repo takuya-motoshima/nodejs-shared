@@ -21,5 +21,9 @@ export interface IsAlphaOptions {
  * @return {boolean} `true` if the string is alphabetic (or contains only ignored characters), `false` otherwise.
  */
 export default (value: string, options: IsAlphaOptions = {}): boolean => {
-  return validator.isAlpha(value, 'en-US', options);
+  const mergedOptions = {
+    ignore: undefined,
+    ...options,
+  };
+  return validator.isAlpha(value, 'en-US', mergedOptions);
 };

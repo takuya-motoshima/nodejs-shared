@@ -21,8 +21,12 @@ export interface IsIPOptions {
  * @param {IsIPOptions} options Options for IP address validation.
  * @return {boolean} `true` if the string is a valid IP address (or IP range if allowed), `false` otherwise.
  */
-export default (value: string, options: IsIPOptions = {allowRange: false}): boolean => {
-  const {version, allowRange} = options;
+export default (value: string, options: IsIPOptions = {}): boolean => {
+  const mergedOptions = {
+    allowRange: false,
+    ...options,
+  };
+  const {version, allowRange} = mergedOptions;
   if (!allowRange)
     return validator.isIP(value, version);
   return validator.isIP(value, version) || validator.isIPRange(value, version);

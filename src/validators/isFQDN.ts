@@ -21,16 +21,19 @@ export interface IsFQDNOptions {
  * @param {IsFQDNOptions} options Options for FQDN validation.
  * @return {boolean} `true` if the string is a valid FQDN, `false` otherwise.  Examples of valid FQDNs: `"domain.com"`, `"subdomain.domain.com"`.
  */
-export default (value: string, options: IsFQDNOptions = {
-  requireTld: true,
-  allowWildcard: false,
-}): boolean => {
+export default (value: string, options: IsFQDNOptions = {}): boolean => {
+  const mergedOptions = {
+    requireTld: true,
+    allowWildcard: false,
+    ...options,
+  };
+
   const validatorOptions = {
-    require_tld: options.requireTld,
+    require_tld: mergedOptions.requireTld,
     allow_underscores: false, // Fixed to false as per original code
     allow_trailing_dot: false, // Fixed to false as per original code
     allow_numeric_tld: false, // Fixed to false as per original code
-    allow_wildcard: options.allowWildcard,
+    allow_wildcard: mergedOptions.allowWildcard,
   }
   return validator.isFQDN(value, validatorOptions);
 }

@@ -34,7 +34,11 @@ export interface IsIntOptions {
  * @return {boolean} `true` if the string is a valid integer, `false` otherwise.
  */
 export default (value: string, options: IsIntOptions = {}): boolean => {
-  const validatorOptions = Object.entries(options)
+  const mergedOptions = {
+    allowLeadingZeroes: false,
+    ...options,
+  };
+  const validatorOptions = Object.entries(mergedOptions)
     .filter(([, v]) => v != null)
     .reduce((acc, [k, v]) => {
       // Convert allowLeadingZeroes to allow_leading_zeroes for validator compatibility.

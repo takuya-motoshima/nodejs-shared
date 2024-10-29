@@ -22,14 +22,17 @@ export interface IsDecimalOptions {
  * @param {IsDecimalOptions} options Options for decimal validation.
  * @return {boolean} `true` if the string is a valid decimal, `false` otherwise.  Examples of valid decimals: `"0.1"`, `"0.3"`, `"1.1"`, `"1.00003"`, `"4.0"`.
  */
-export default (value: string, options: IsDecimalOptions = {
-  forceDecimal: false,
-  decimalDigits: '1,',
-}): boolean => {
+export default (value: string, options: IsDecimalOptions = {}): boolean => {
+  const mergedOptions = {
+    forceDecimal: false,
+    decimalDigits: '1,',
+    ...options,
+  };
+
   // Adapting options for validator.isDecimal
   const validatorOptions = {
-    force_decimal: options.forceDecimal,
-    decimal_digits: options.decimalDigits,
+    force_decimal: mergedOptions.forceDecimal,
+    decimal_digits: mergedOptions.decimalDigits,
     locale: 'en-US' as DecimalLocale,
   };
   return validator.isDecimal(value, validatorOptions);

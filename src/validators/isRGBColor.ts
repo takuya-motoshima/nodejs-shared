@@ -18,5 +18,9 @@ export interface IsRGBColorOptions {
  * @return {boolean} `true` if the string is a valid RGB/RGBA color, `false` otherwise.  Examples: `"rgb(0, 0, 0)"`, `"rgba(0, 0, 0, 0.5)"`, `"rgb(5%, 5%, 5%)"` (if `includePercentValues` is `true`).
  */
 export default (value: string, options: IsRGBColorOptions = {includePercentValues: true}): boolean => {
-  return validator.isRgbColor(value, options.includePercentValues);
+  const mergedOptions = {
+    includePercentValues: true,
+    ...options,
+  };
+  return validator.isRgbColor(value, mergedOptions.includePercentValues);
 }

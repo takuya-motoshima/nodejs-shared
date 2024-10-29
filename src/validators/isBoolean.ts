@@ -19,5 +19,9 @@ export interface IsBooleanOptions {
  * @return {boolean} `true` if the string is a valid boolean representation, `false` otherwise.
  */
 export default (value: string, options: IsBooleanOptions = {loose: false}): boolean => {
-  return validator.isBoolean(value, options);
+  const mergedOptions = {
+    loose: false,
+    ...options,
+  };
+  return validator.isBoolean(value, mergedOptions);
 };

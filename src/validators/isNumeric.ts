@@ -18,5 +18,9 @@ export interface IsNumericOptions {
  * @return {boolean} `true` if the string contains only numeric characters, `false` otherwise.
  */
 export default (value: string, options: IsNumericOptions = {}): boolean => {
-  return validator.isNumeric(value, {no_symbols: options.noSymbols});
+  const mergedOptions = {
+    noSymbols: false,
+    ...options,
+  };
+  return validator.isNumeric(value, {no_symbols: mergedOptions.noSymbols});
 }

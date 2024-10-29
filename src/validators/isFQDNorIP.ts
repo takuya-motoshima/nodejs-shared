@@ -30,18 +30,21 @@ export interface IsFQDNorIPOptions {
  * @param {IsFQDNorIPOptions} options Options for validation.
  * @return {boolean} `true` if the string is a valid FQDN or IP address, `false` otherwise.
  */
-export default  (value: string, options: IsFQDNorIPOptions = {
-  requireTld: true,
-  allowWildcard: false,
-  allowRange: false
-}): boolean => {
+export default  (value: string, options: IsFQDNorIPOptions = {}): boolean => {
+  const mergedOptions = {
+    requireTld: true,
+    allowWildcard: false,
+    allowRange: false,
+    ...options,
+  };
+
   const fqdnOptions = {
-    requireTld: options.requireTld,
-    allowWildcard: options.allowWildcard,
+    requireTld: mergedOptions.requireTld,
+    allowWildcard: mergedOptions.allowWildcard,
   };
   const ipOptions = {
-    version: options.version,
-    allowRange: options.allowRange,
+    version: mergedOptions.version,
+    allowRange: mergedOptions.allowRange,
   };
   return isFQDN(value, fqdnOptions) || isIP(value, ipOptions);
 }

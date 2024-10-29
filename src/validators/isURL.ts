@@ -29,12 +29,14 @@ export interface IsURLOptions {
  * @param {IsURLOptions} options Options for URL validation.
  * @return {boolean} `true` if the string is a valid URL, `false` otherwise.
  */
-export default  (value: string, options: IsURLOptions = {
-  requireTld: true,
-  allowWildcard: false,
-  allowFragments: false,
-  allowQueryComponents: false,
-}): boolean => {
+export default  (value: string, options: IsURLOptions = {}): boolean => {
+  const mergedOptions = {
+    requireTld: true,
+    allowWildcard: false,
+    allowFragments: false,
+    allowQueryComponents: false,
+    ...options,
+  };
   const validatorOptions = {
     protocols: ['https', 'http'],
     require_protocol: true,
@@ -44,10 +46,10 @@ export default  (value: string, options: IsURLOptions = {
     allow_trailing_dot: false,
     allow_protocol_relative_urls: false,
     require_port: false,
-    require_tld: options.requireTld,
-    allow_wildcard: options.allowWildcard,
-    allow_fragments: options.allowFragments,
-    allow_query_components: options.allowQueryComponents,
+    require_tld: mergedOptions.requireTld,
+    allow_wildcard: mergedOptions.allowWildcard,
+    allow_fragments: mergedOptions.allowFragments,
+    allow_query_components: mergedOptions.allowQueryComponents,
   };
   return validator.isURL(value, validatorOptions);
 }

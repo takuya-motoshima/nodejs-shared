@@ -21,5 +21,9 @@ export interface IsAlphanumericOptions {
  * @return {boolean} `true` if the string is alphanumeric (or contains only ignored characters), `false` otherwise.
  */
 export default (value: string, options: IsAlphanumericOptions = {}): boolean => {
-  return validator.isAlphanumeric(value, 'en-US', options);
+  const mergedOptions = {
+    ignore: undefined,
+    ...options,
+  };
+  return validator.isAlphanumeric(value, 'en-US', mergedOptions);
 }
