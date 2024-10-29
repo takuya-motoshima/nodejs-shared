@@ -26,6 +26,7 @@ All notable changes to this project will be documented in this file.
     | `FileUtils` | Method renamed. Now supports copying both files and directories. | `copyDirectory(srcDir: string, dstDir: string): void` | `copy(sourcePath: string, destinationPath: string): void` |
     | `FileUtils` | Method renamed. | `existsFile(path: string): boolean` | `exists(filePath: string): boolean` |
     | `FileUtils` | Method renamed. | `find(pattern: string, options: GlobOptions = {})` | `glob(pattern: string, options: GlobOptions = {}): string[]` |
+    | `FileUtils` | Removed. Use `fs.statSync` instead. | `getStat(filePath: string): fs.Stats` | - |
     | `FileUtils` | Parameter changed. Added options for file owner and group for directories. | `makeDirectory(dirPath: string, permission: number = 0o755): File` | `makeDirectory(directoryPath: string, options: MakeDirectoryOptions = {}): void` |
     | `FileUtils` | Parameter changed. Added options for file owner and group for directories. | `makeTmpDirectory(): string` | `makeTmpDirectory(options: MakeDirectoryOptions = {}): string` |
     | `FileUtils` | Parameter changed. Added options for file owner and group for files. | `write(filePath: string, content: string = '', options: fs.WriteFileOptions|string|undefined = undefined, permission: number = 0o755): File` | `write(filePath: string, content: string|Buffer = '', options: WriteOptions = {}): void` |

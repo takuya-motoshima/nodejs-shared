@@ -250,47 +250,10 @@ export default class {
    */
   public static getFilemtime(filePath: string): number {
     try {
-      return moment(this.getStat(filePath).mtime).unix();
+      const stats = fs.statSync(filePath);
+      return moment(stats.mtime).unix();
     } catch (error) {
       throw new Error(`Failed to retrieve file modification time : ${filePath}, ${error}`);
-    }
-  }
-
-  /**
-   * Gets file information.
-   * @example
-   * import {FileUtils} from 'nodejs-shared';
-   * 
-   * FileUtils.getStat('path/to/file.txt');
-   * // {
-   * //   dev: 66305,
-   * //   mode: 33261,
-   * //   nlink: 1,
-   * //   uid: 1000,
-   * //   gid: 1000,
-   * //   rdev: 0,
-   * //   blksize: 4096,
-   * //   ino: 71552737,
-   * //   size: 19,
-   * //   blocks: 8,
-   * //   atimeMs: 1659435841498.44,
-   * //   mtimeMs: 1659435841502.4402,
-   * //   ctimeMs: 1659435841502.4402,
-   * //   birthtimeMs: 1659435841498.44,
-   * //   atime: 2022-08-02T10:24:01.498Z,
-   * //   mtime: 2022-08-02T10:24:01.502Z,
-   * //   ctime: 2022-08-02T10:24:01.502Z,
-   * //   birthtime: 2022-08-02T10:24:01.498Z
-   * // }
-   * @param {string} filePath The path of the file.
-   * @return {fs.Stats} A `fs.Stats` object containing file information.
-   * @throws {Error} If an error occurs during stat retrieval.
-   */
-  public static getStat(filePath: string): fs.Stats {
-    try {
-      return fs.statSync(filePath);
-    } catch (error) {
-      throw new Error(`Failed to retrieve file information : ${filePath}, ${error}`);
     }
   }
 
@@ -359,7 +322,8 @@ export default class {
   public static isDirectory(directoryPath: string): boolean {
     if (!this.exists(directoryPath))
       throw new Error(`Input path ${directoryPath} not found`);
-    return this.getStat(directoryPath).isDirectory();
+    const stats = fs.statSync(directoryPath);
+    return stats.isDirectory();
   }
 
   /**
@@ -374,7 +338,7 @@ export default class {
    */
   public static isFile(filePath: string): boolean {
     try {
-      const stats = this.getStat(filePath);
+      const stats = fs.statSync(filePath);
       return stats.isFile();
     } catch {
       return false;
