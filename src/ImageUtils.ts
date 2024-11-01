@@ -462,7 +462,12 @@ export default class {
    * @throws {Error} If the input file is not found or an error occurs during conversion.
    */
   public static async convertImageFormat(imageInput: string, outputPath?: string, options: ConvertImageFormatOptions = {}): Promise<string> {
-    const {bmpVersion = 'bmp3', trueColor = true, margin, background = 'white'} = options;
+    const {
+      bmpVersion = 'bmp3',
+      trueColor = true,
+      margin,
+      background = 'white',
+    } = options;
     const isInputPath = FileUtils.isPath(imageInput);
     if (isInputPath && !FileUtils.exists(imageInput))
       throw new Error(`Input file ${imageInput} not found`);
