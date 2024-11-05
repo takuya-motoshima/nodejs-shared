@@ -1,6 +1,6 @@
 {
   "name": "nodejs-shared",
-  "version": "1.0.30",
+  "version": "2.0.0",
   "description": "Essential Node.js utilities, shared and ready to use.",
   "type": "module",
   "main": "dist/build.cjs",
