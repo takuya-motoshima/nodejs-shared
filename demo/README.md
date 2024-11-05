@@ -1,0 +1,1 @@
+This project is for testing the `nodejs-shared` package during development. After linking `nodejs-shared` with `npm link`, run `npm link nodejs-shared` and then `npm test` in both the `esm-demo` and `cjs-demo` directories to verify functionality.

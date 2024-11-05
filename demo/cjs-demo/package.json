@@ -1,0 +1,12 @@
+{
+  "name": "cjs-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "node main"
+  },
+  "keywords": [],
+  "author": "Takuya Motoshima <developer.takuyamotoshima@gmail.com> (https://twitter.com/TakuyaMotoshima)",
+  "license": "MIT",
+  "description": ""
+}
