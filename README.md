@@ -16,7 +16,7 @@ A comprehensive list of changes in each version may be found in the [CHANGELOG](
 **Table of contents:**
 
 - [Quickstart](#quickstart)
-  - [Installing the library](#installing-the-library)
+  - [Installation](#installation)
   - [Using the library](#using-the-library)
 - [Testing](#testing)
 - [Release Notes](#release-notes)
@@ -27,7 +27,7 @@ A comprehensive list of changes in each version may be found in the [CHANGELOG](
 
 See the [nodejs-shared Documentation](https://takuya-motoshima.github.io/nodejs-shared/) for details on all features.
 
-### Installing the library
+### Installation
 ```bash
 npm install --save nodejs-shared
 ```
